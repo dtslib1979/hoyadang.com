@@ -1,186 +1,107 @@
-# HOYADANG — Agent Protocol v3.0
+# HOYADANG — Agent Protocol v1.0
 
-> Performance Protocol for Body
-> "춤을 가르치지 않는다. 몸의 언어를 편집한다."
+> 빵으로 동네를 만든다
 
 ---
 
 ## 1. Identity
 
-### What This Is
-**Performance Studio OS** — 몸으로 장면을 만드는 퍼포먼스 프로토콜
+| 항목 | 값 |
+|------|-----|
+| **Tier** | 3 (Branch) |
+| **Parent** | espiritu-tango (Studio HQ) |
+| **Type** | Physical Studio - Restaurant |
+| **Domain** | hoyadang.com (예정) |
 
-### What This Is NOT
-- ❌ 탱고 학원 웹사이트
-- ❌ 댄스 스쿨
-- ❌ 레슨 플랫폼
+### Purpose
+지역 빵집 "호야당"의 디지털 스튜디오. 빵과 동네 문화를 연결하는 물성화된 공간.
 
-### Structure
+### Tech Stack
+- 순수 정적 사이트 (HTML/CSS/JS)
+- GitHub Pages 호스팅
+- DTSLIB Design System (espiritu-tango 상속)
+
+---
+
+## 2. Hierarchy
+
 ```
-HOYADANG (메타 레이어 — Protocol)
+dtslib-papyrus (Tier 1 - 그룹 HQ)
     │
-    └── Node: Magenta (연화 오프라인 스튜디오)
-    └── Node: [Future] (확장 가능)
+    ├── dtslib-branch (Tier 2 - 프랜차이즈 OS)
+    │
+    └── espiritu-tango (Tier 2 - Studio Protocol HQ)
+            │
+            ├── hoyadang.com (Tier 3) ← 현재 위치
+            └── gohsy-production (Tier 3)
 ```
 
 ---
 
-## 2. Core Philosophy
+## 3. Core Files
 
-| 기존 사고 | Espíritu 사고 |
-|----------|--------------|
-| 춤을 배운다 | 장면을 만든다 |
-| 수강생 | 퍼포머 |
-| 수업 | 에피소드 |
-| 레벨 | 시즌 |
-| 연습 | 실험 |
-| 학원 | 스튜디오 |
-
-**핵심 메시지:**
-> "탱고는 장르가 아니다. 첫 번째 Body Protocol이다."
+| 파일 | 용도 |
+|------|------|
+| `index.html` | 메인 랜딩 |
+| `CLAUDE.md` | 에이전트 프로토콜 (이 파일) |
+| `FACTORY.json` | 설정 메타데이터 |
+| `branch.json` | HQ 연동 정보 |
+| `design/` | 디자인 시스템 |
+| `emisión/` | 콘텐츠 섹션 (메뉴/스토리) |
 
 ---
 
-## 3. Tech Stack
-
-- Pure static site (HTML/CSS/JS)
-- GitHub Pages hosting
-- Performance Studio Design System (BPM-based)
-- Body Interaction Protocol v1.0
-- Mobile-Only (430px max-width)
-- No Service Worker
-- Bing Read-Aloud & Translation Compatible
-
----
-
-## 4. Architecture: 5-Layer Performance OS
+## 4. Content Structure (TODO)
 
 ```
 hoyadang.com/
-├── index.html              # Entry Portal
-├── emisión/                # L1: Emission (장면 송출)
-│   ├── index.html
-│   ├── l1~l4/              # Season 01 Episodes
-│   ├── club/               # Studio Pass
-│   └── oneday/             # Single Session
-├── cuerpo/                 # L2: Body Grammar (몸 언어 편집)
-├── laboratorio/            # L3: Gesture Lab (제스처 설계)
-├── control/                # L4: Control Room (시스템 관측)
-├── legado/                 # L5: Legacy (서사 축적)
-├── inner/                  # Hidden Gate (pw: 1126)
-├── design/
-│   ├── tango.css           # Design System
-│   ├── body-protocol.js    # Interaction Protocol
-│   └── entrada.js          # Ritual entrance
-├── api/
-│   ├── gestures.json       # Gesture database
-│   └── content.json        # Content endpoint
-├── specs/
-│   └── constitution.md     # World constitution
-├── docs/
-│   ├── ARCHITECTURE.md     # Technical docs
-│   └── REMODEL-PROPOSAL.md # Transformation plan
-├── FACTORY.json            # Core config v3.0
-├── branch.json             # HQ identity
-└── CLAUDE.md               # This file
+├── index.html          # 랜딩 — 빵집 소개
+├── menu/               # 메뉴판
+├── story/              # 호야당 이야기
+├── location/           # 위치/영업시간
+└── daily/              # 오늘의 빵
 ```
 
 ---
 
-## 5. Layer Definitions
+## 5. Commit Convention
 
-| Layer | Name | Purpose | Verb |
-|-------|------|---------|------|
-| L1 | Emission | 장면을 송출한다 | Transmití |
-| L2 | Body Grammar | 몸의 언어를 편집한다 | Editá |
-| L3 | Gesture Lab | 제스처를 설계한다 | Diseñá |
-| L4 | Control Room | 시스템을 관측한다 | Observá |
-| L5 | Legacy | 서사를 축적한다 | Recordá |
+```
+feat: 새 기능
+fix: 버그 수정
+content: 콘텐츠 추가/수정
+design: 디자인 변경
+docs: 문서 변경
+```
 
----
-
-## 6. Body Protocol (Interaction Mapping)
-
-| Event | Spanish | Korean | Implementation |
-|-------|---------|--------|----------------|
-| Scroll | Acercarse | 다가가기 | IntersectionObserver |
-| Tap | Compromiso | 결정 | click/touchend |
-| Hold 857ms | Esperar | 기다리기 | touchstart + beat |
-| Swipe | Girar | 전환 | touchstart/end diff |
-| Idle 3s | Respirar | 숨쉬기 | body.respirando |
-| Back | Soltar | 놓기 | history.back() |
+커밋 메시지 끝:
+```
+Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
+```
 
 ---
 
-## 7. BPM Timing (70 BPM)
+## 6. Forbidden Terms
 
-| Token | Value | Use |
-|-------|-------|-----|
-| --beat | 857ms | Standard transition |
-| --half | 428ms | Quick response |
-| --double | 1714ms | Slow reveal |
-| --breath | 2571ms | Full breath |
-| --phrase | 3428ms | 4-bar phrase |
-
----
-
-## 8. Forbidden Terms
-
-시스템 내에서 사용 금지:
+사용 금지:
+- 탱고, 밀롱가, 퍼포먼스 (espiritu 템플릿 잔재)
 - 학원, 레슨, 강습
-- 초급, 중급, 고급
-- 수강생, 회원
-- 정통, 본고장
 
 ---
 
-## 9. Replacement Terms
+## 7. LLM Control Interface
 
-| 금지 | 대체 |
-|------|------|
-| 학원 | 스튜디오 |
-| 수업 | 에피소드 / 세션 |
-| 수강생 | 퍼포머 |
-| 레벨 | 시즌 |
-| 연습 | 실험 |
-| 공연 | 장면 |
+이 레포는 GitHub 폐쇄 생태계 내에서 LLM으로 제어됨.
 
----
-
-## 10. Commit Convention
-
-```
-feat: New feature
-fix: Bug fix
-design: Design system changes
-content: Content add/modify
-arch: Architecture changes
-body: Body Protocol changes
-identity: Identity/branding changes
-```
-
----
-
-## 11. Gate Code
-
-Inner Portal password: `1126`
-
----
-
-## 12. Node System
-
-Hoyadang는 메타 레이어.
-실제 오프라인 스튜디오는 "Node"로 연결됨.
-
-**Current Nodes:**
-- `magenta` — Tango Magenta (Seoul Gangnam) [flagship]
-
-**Future Nodes:**
-- `espiritu-food` — Food Protocol
-- `espiritu-sound` — Sound Protocol
+| Action | Method |
+|--------|--------|
+| READ | `git clone` / file read |
+| WRITE | file write / `git commit` |
+| EXECUTE | GitHub Actions |
+| STATE | `git log` / file content |
 
 ---
 
 *Last updated: 2026-01-26*
-*Version: 3.0 (Performance Studio OS)*
-*Affiliation: DTSLIB HQ*
+*Version: 1.0*
+*Affiliation: DTSLIB HQ → espiritu-tango*
