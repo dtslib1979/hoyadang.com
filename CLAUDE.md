@@ -1,4 +1,4 @@
-# ESPÍRITU TANGO — Agent Protocol v3.0
+# HOYADANG — Agent Protocol v3.0
 
 > Performance Protocol for Body
 > "춤을 가르치지 않는다. 몸의 언어를 편집한다."
@@ -17,7 +17,7 @@
 
 ### Structure
 ```
-ESPÍRITU TANGO (메타 레이어 — Protocol)
+HOYADANG (메타 레이어 — Protocol)
     │
     └── Node: Magenta (연화 오프라인 스튜디오)
     └── Node: [Future] (확장 가능)
@@ -56,7 +56,7 @@ ESPÍRITU TANGO (메타 레이어 — Protocol)
 ## 4. Architecture: 5-Layer Performance OS
 
 ```
-espiritu-tango/
+hoyadang.com/
 ├── index.html              # Entry Portal
 ├── emisión/                # L1: Emission (장면 송출)
 │   ├── index.html
@@ -169,7 +169,7 @@ Inner Portal password: `1126`
 
 ## 12. Node System
 
-Espíritu Tango는 메타 레이어.
+Hoyadang는 메타 레이어.
 실제 오프라인 스튜디오는 "Node"로 연결됨.
 
 **Current Nodes:**

@@ -1,14 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "id": "espiritu-tango",
+  "id": "hoyadang.com",
   "version": "3.0.0",
 
   "identity": {
-    "name": "ESPÍRITU TANGO",
+    "name": "HOYADANG",
     "tagline": "Performance Protocol for Body",
     "subtitle": "몸으로 장면을 만드는 퍼포먼스 프로토콜",
     "type": "performance-studio-os",
-    "domain": "dtslib1979.github.io/espiritu-tango",
+    "domain": "dtslib1979.github.io/hoyadang.com",
     "language": "es-AR",
     "NOT": ["website", "academy", "dance-school", "학원", "레슨"]
   },
