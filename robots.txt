@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /inner/
+
+Sitemap: https://dtslib1979.github.io/tango-magenta/sitemap.xml

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0008">
+  <title>Control Room — ESPÍRITU TANGO</title>
+  <meta name="description" content="L4 Control Room. 시스템을 관측한다. 프로토콜의 심장박동.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../design/tango.css">
+</head>
+<body>
+
+  <!-- ═══ Cabecera ═══ -->
+  <section class="espacio-centro" aria-label="Control Room">
+    <p class="susurro latido">L4</p>
+    <h1 class="monumento mt-md">Control Room</h1>
+    <p class="voz mt-lg">
+      El <span class="magenta">pulso</span> del protocolo.<br>
+      Métricas, automatización, <span class="magenta">observación</span>.
+    </p>
+    <span lang="ko" class="ko mt-sm">프로토콜의 심장박동. 관측하고 조율한다.</span>
+  </section>
+
+  <!-- ═══ System Status ═══ -->
+  <section class="espacio--compact" aria-label="System Status">
+    <p class="susurro revelar">SYSTEM STATUS</p>
+
+    <div class="tarjeta revelar mt-lg">
+      <div class="info-linea">
+        <span class="info-clave">SIGNAL</span>
+        <span class="info-valor info-valor--vivo">● LIVE</span>
+      </div>
+      <div class="info-linea">
+        <span class="info-clave">BPM</span>
+        <span class="info-valor info-valor--gold">70</span>
+      </div>
+      <div class="info-linea">
+        <span class="info-clave">LAYERS</span>
+        <span class="info-valor">5 / 5</span>
+      </div>
+      <div class="info-linea">
+        <span class="info-clave">PROTOCOL</span>
+        <span class="info-valor">BODY v1.0</span>
+      </div>
+      <div class="info-linea">
+        <span class="info-clave">LANGUAGE</span>
+        <span class="info-valor">es-AR + ko</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Node Status ═══ -->
+  <section class="espacio--compact" aria-label="Node Status">
+    <p class="susurro revelar">NODE NETWORK</p>
+
+    <div class="tarjeta revelar mt-lg">
+      <div class="info-linea">
+        <span class="info-clave">ACTIVE NODES</span>
+        <span class="info-valor info-valor--vivo">1</span>
+      </div>
+      <div class="info-linea">
+        <span class="info-clave">FLAGSHIP</span>
+        <span class="info-valor">Magenta (Seoul)</span>
+      </div>
+      <div class="info-linea">
+        <span class="info-clave">PERSON POOL</span>
+        <span class="info-valor">0 pending</span>
+      </div>
+      <div class="info-linea">
+        <span class="info-clave">EVENTS</span>
+        <span class="info-valor">0 listed</span>
+      </div>
+      <div class="info-linea">
+        <span class="info-clave">RANDOM JOIN</span>
+        <span class="info-valor" style="color: var(--gold);">DESIGN</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Metrics ═══ -->
+  <section class="espacio--compact" aria-label="Metrics">
+    <p class="susurro revelar">METRICS</p>
+
+    <article class="tarjeta revelar mt-lg">
+      <h2 class="tarjeta-titulo" style="color: var(--magenta);">Gestures</h2>
+      <p class="monumento mt-sm" style="font-size: 3rem;" id="metric-gestos">—</p>
+      <p class="tarjeta-texto">제스처 엔진에 등록됨</p>
+    </article>
+
+    <article class="tarjeta revelar">
+      <h2 class="tarjeta-titulo" style="color: var(--gold);">Node Types</h2>
+      <p class="monumento mt-sm" style="font-size: 3rem;">4</p>
+      <p class="tarjeta-texto">studio · person · event · network</p>
+    </article>
+
+    <article class="tarjeta revelar">
+      <h2 class="tarjeta-titulo" style="color: var(--flesh);">Expansion Slots</h2>
+      <p class="monumento mt-sm" style="font-size: 3rem;">5</p>
+      <p class="tarjeta-texto">reserved for future protocols</p>
+    </article>
+  </section>
+
+  <!-- ═══ Architecture ═══ -->
+  <section class="espacio--compact" aria-label="Architecture">
+    <p class="susurro revelar">LAYER ARCHITECTURE</p>
+    <div class="codigo revelar mt-xl">
+      <span style="color: var(--magenta);">L1</span> EMISSION &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ node.content<br>
+      <span style="color: var(--magenta);">L2</span> BODY GRAMMAR &nbsp;→ protocol.interaction<br>
+      <span style="color: var(--magenta);">L3</span> GESTURE LAB &nbsp;&nbsp;→ protocol.gestures<br>
+      <span style="color: var(--magenta);">L4</span> CONTROL ROOM &nbsp;→ <span style="color: var(--gold);">current.layer</span><br>
+      <span style="color: var(--magenta);">L5</span> LEGACY &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ protocol.archive
+    </div>
+  </section>
+
+  <!-- ═══ HQ Connection ═══ -->
+  <section class="espacio--compact" aria-label="HQ">
+    <p class="susurro revelar">HQ CONNECTION</p>
+    <div class="tarjeta revelar mt-lg">
+      <div class="info-linea">
+        <span class="info-clave">BRIDGE</span>
+        <span class="info-valor info-valor--vivo">● CONNECTED</span>
+      </div>
+      <div class="info-linea">
+        <span class="info-clave">BRANCH</span>
+        <span class="info-valor">espiritu-tango</span>
+      </div>
+      <div class="info-linea">
+        <span class="info-clave">SDK</span>
+        <span class="info-valor">v3.0</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Console Access ═══ -->
+  <section class="espacio--compact" aria-label="Console">
+    <p class="susurro revelar">MANAGEMENT</p>
+    <article class="tarjeta tarjeta--expandida revelar mt-lg">
+      <p class="susurro">CONSOLE</p>
+      <h2 class="tarjeta-titulo">Control Console</h2>
+      <p class="tarjeta-texto">
+        노드 관리, 퍼포머 승인, 이벤트 등록, 분석.<br>
+        <span class="magenta">Protocol Architect</span> 전용.
+      </p>
+      <a href="console/" class="puerta puerta--principal mt-lg">Console 진입 →</a>
+    </article>
+  </section>
+
+  <!-- ═══ Navegación ═══ -->
+  <section class="espacio-centro revelar" aria-label="Navegación">
+    <a href="../" class="puerta">← Protocol</a>
+  </section>
+
+  <footer class="pie" role="contentinfo">
+    <p class="pie-marca">ESPÍRITU TANGO</p>
+    <p class="pie-copy">L4 Control Room · 시스템 관측</p>
+  </footer>
+
+  <script src="../design/body-protocol.js"></script>
+  <script>
+    async function loadMetrics() {
+      try {
+        const gestures = await fetch('../api/gestures.json').then(r => r.json()).catch(() => ({ gestures: [] }));
+        document.getElementById('metric-gestos').textContent = gestures.gestures ? gestures.gestures.length : '0';
+      } catch (e) { /* silent */ }
+    }
+    document.addEventListener('DOMContentLoaded', loadMetrics);
+  </script>
+  <script src="https://dtslib1979.github.io/dtslib-branch/hq/sdk/dtslib-bridge.js"></script>
+</body>
+</html>

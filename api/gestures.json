@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "engine": "gesture-engine",
+  "bpm": 70,
+  "gestures": [
+    {
+      "id": "ocho",
+      "name": "Ocho",
+      "type": "figure",
+      "beats": 4,
+      "direction": ["forward", "back"],
+      "pivot": true,
+      "description": "El movimiento base. Una figura infinita dibujada con los pies."
+    },
+    {
+      "id": "caminata",
+      "name": "Caminata",
+      "type": "locomotion",
+      "beats": 2,
+      "weight": "full",
+      "connection": "chest",
+      "description": "El paso consciente. No se camina para llegar. Se camina para estar."
+    },
+    {
+      "id": "parada",
+      "name": "Parada",
+      "type": "interruption",
+      "beats": 1,
+      "signal": "foot-block",
+      "requires": "lead",
+      "description": "Detener al otro sin fuerza. Con presencia."
+    },
+    {
+      "id": "sacada",
+      "name": "Sacada",
+      "type": "displacement",
+      "beats": 2,
+      "energy": "transfer",
+      "contact": "leg",
+      "description": "Ocupar el espacio que el otro deja."
+    },
+    {
+      "id": "volcada",
+      "name": "Volcada",
+      "type": "off-axis",
+      "beats": 3,
+      "axis": "shared",
+      "trust": "required",
+      "description": "Caer juntos sin caerse. La confianza hecha movimiento."
+    },
+    {
+      "id": "gancho",
+      "name": "Gancho",
+      "type": "hook",
+      "beats": 1,
+      "energy": "explosive",
+      "contact": "leg-wrap",
+      "description": "El enganche. Rápido, preciso, íntimo."
+    },
+    {
+      "id": "boleo",
+      "name": "Boleo",
+      "type": "whip",
+      "beats": 2,
+      "momentum": "circular",
+      "origin": "hip",
+      "description": "La pierna que se suelta. Energía que se libera en el aire."
+    },
+    {
+      "id": "barrida",
+      "name": "Barrida",
+      "type": "sweep",
+      "beats": 2,
+      "contact": "foot-to-foot",
+      "force": "gentle",
+      "description": "Barrer el pie del otro. Guiar sin empujar."
+    }
+  ],
+  "interactions": {
+    "scroll": { "action": "acercarse", "translation": "approach" },
+    "tap": { "action": "compromiso", "translation": "commit" },
+    "longpress": { "action": "esperar", "translation": "wait/sense" },
+    "swipe": { "action": "girar", "translation": "turn/rotate" },
+    "idle": { "action": "respirar", "translation": "breathe", "threshold": "3s" },
+    "back": { "action": "soltar", "translation": "release" }
+  }
+}

@@ -1,0 +1,106 @@
+# Body Interaction Protocol v1.0
+# "En este sistema, el botón no es la mano. Es el peso del cuerpo moviéndose."
+
+version: "1.0"
+system: "tango-magenta"
+language: "es-AR"
+
+timing:
+  bpm: 70
+  beat_ms: 857
+  half_beat_ms: 428
+  double_beat_ms: 1714
+  phrase_ms: 3428
+  breath_ms: 2571
+
+motion_curves:
+  approach:
+    name: "Acercarse"
+    cubic_bezier: [0.16, 1, 0.3, 1]
+    use: "Scroll reveal, element entrance"
+  retreat:
+    name: "Retirarse"
+    cubic_bezier: [0.7, 0, 0.84, 0]
+    use: "Exit animations, fade out"
+  embrace:
+    name: "Abrazo"
+    cubic_bezier: [0.34, 1.56, 0.64, 1]
+    use: "Overshoot, emphasis, arrival"
+  release:
+    name: "Soltar"
+    cubic_bezier: [0.25, 0, 0.5, 1]
+    use: "Gentle release, natural end"
+  heartbeat:
+    name: "Latido"
+    cubic_bezier: [0.4, 0, 0.2, 1]
+    use: "Pulsing, breathing animations"
+
+interactions:
+  scroll:
+    spanish: "Acercarse"
+    english: "Approach"
+    description: "El scroll no es desplazamiento. Es aproximación."
+    implementation: "IntersectionObserver, threshold 0.1"
+    css_class: "revelar → visible"
+
+  tap:
+    spanish: "Compromiso"
+    english: "Commitment"
+    description: "El tap no es un click. Es una decisión."
+    implementation: "Native click/touchend"
+    timing: "Response within half_beat"
+
+  hold:
+    spanish: "Esperar"
+    english: "Wait/Sense"
+    description: "Mantener presionado es esperar. Darle tiempo al secreto."
+    implementation: "touchstart → setTimeout(beat_ms)"
+    css_class: "secreto-visible"
+    data_attr: "data-secreto"
+
+  swipe:
+    spanish: "Girar"
+    english: "Turn/Rotate"
+    description: "El swipe es un giro del cuerpo."
+    implementation: "touchstart/touchend, diff > 80px, elapsed < 500ms"
+    event: "CustomEvent('girar', { detail: { direction } })"
+
+  idle:
+    spanish: "Respirar"
+    english: "Breathe"
+    description: "Cuando dejás de tocar, el sistema respira."
+    implementation: "No interaction for 3000ms"
+    css_class: "body.respirando"
+
+  back:
+    spanish: "Soltar"
+    english: "Release"
+    description: "Volver atrás es soltar. Liberar sin perder conexión."
+    implementation: "history.back(), opacity fade"
+    timing: "half_beat transition"
+
+entrada_ritual:
+  description: "La entrada no es un click. Es una ceremonia."
+  steps:
+    - step: 0
+      name: "Oscuridad"
+      duration_ms: 3000
+      description: "Pantalla negra absoluta"
+    - step: 1
+      name: "Susurro"
+      trigger: "CSS animation-delay: 3s"
+      text: "Respirá despacio."
+      description: "Texto aparece lentamente"
+    - step: 2
+      name: "Despertar"
+      trigger: "setTimeout(3000 + breath + beat)"
+      description: "La pantalla despierta"
+      css_class: "ritual-oscuridad.despierta"
+  session_skip: "sessionStorage('tango_entered')"
+
+principles:
+  - "El cuerpo es la interfaz"
+  - "70 BPM. Nada más rápido."
+  - "La pausa es información"
+  - "Cada transición es un paso de baile"
+  - "El sistema acompaña, no responde"

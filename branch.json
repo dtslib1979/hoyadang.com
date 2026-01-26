@@ -1,0 +1,41 @@
+{
+  "id": "espiritu-tango",
+  "name": "ESPÍRITU TANGO",
+  "tagline": "Performance Protocol for Body",
+  "hq": "dtslib1979/dtslib-branch",
+  "version": "3.0",
+  "status": "active",
+  "visibility": "public",
+  "area": "performance-os",
+  "tier": "protocol",
+  "language": "es-AR",
+  "theme": {
+    "primary": "#E91E63",
+    "accent": "#FFD54F",
+    "bg": "#0a0008",
+    "text": "#f0e8ec"
+  },
+  "nodes": [
+    {
+      "id": "magenta",
+      "name": "Tango Magenta",
+      "type": "offline-studio",
+      "status": "flagship"
+    }
+  ],
+  "subscriptions": [
+    {
+      "feedId": "hq-notices",
+      "publisher": "hq",
+      "autoSync": true,
+      "target": null
+    },
+    {
+      "feedId": "hq-sdk",
+      "publisher": "hq",
+      "autoSync": true,
+      "target": "assets/js"
+    }
+  ],
+  "features": ["performance-os", "body-protocol", "5-layer", "scene-making", "audio-layer"]
+}

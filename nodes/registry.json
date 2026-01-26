@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "2.0.0",
+  "description": "ESPÍRITU TANGO Node Registry — 탱고계의 에어비앤비",
+
+  "protocol": {
+    "id": "espiritu-tango",
+    "name": "ESPÍRITU TANGO",
+    "type": "performance-network-os",
+    "architect": "dtslib1979",
+    "philosophy": "당구장처럼 아무 데나 가서 아무나랑 한 판. 그게 교양이 된다."
+  },
+
+  "nodeTypes": {
+    "studio": {
+      "name": "스튜디오",
+      "description": "물리적 공간. 홈베이스 또는 제휴 장소.",
+      "icon": "🏠",
+      "approval": "manual"
+    },
+    "person": {
+      "name": "퍼슨",
+      "description": "원포인트 레슨 제공자. 개인 댄서/강사.",
+      "icon": "👤",
+      "approval": "manual"
+    },
+    "event": {
+      "name": "이벤트",
+      "description": "일회성 밀롱가, 프랙티카, 워크샵.",
+      "icon": "📅",
+      "approval": "auto"
+    },
+    "network": {
+      "name": "네트워크",
+      "description": "온라인 매칭, 랜덤 조인 시스템.",
+      "icon": "🔗",
+      "approval": "system"
+    }
+  },
+
+  "nodes": [
+    {
+      "id": "magenta",
+      "type": "studio",
+      "name": "Tango Magenta",
+      "status": "flagship",
+      "path": "nodes/magenta/node.json",
+      "description": "홈베이스. 서울 강남. 모든 실험의 시작점."
+    }
+  ],
+
+  "pendingSlots": [
+    {
+      "type": "person",
+      "id": "onepoint-pool",
+      "description": "원포인트 레슨 제공자 풀. 승인 대기.",
+      "capacity": "unlimited"
+    },
+    {
+      "type": "event",
+      "id": "milonga-network",
+      "description": "전국 밀롱가 네트워크. 이벤트 등록 시스템.",
+      "regions": ["seoul", "busan", "daegu", "overseas"]
+    },
+    {
+      "type": "network",
+      "id": "random-join",
+      "description": "랜덤 파트너 매칭. 당구장 모드.",
+      "status": "design"
+    }
+  ],
+
+  "governance": {
+    "architect": "dtslib1979",
+    "approvalRequired": ["studio", "person"],
+    "autoApprove": ["event"],
+    "qualityStandards": {
+      "person": {
+        "minExperience": "1year",
+        "verification": "video-submission",
+        "rating": "community-based"
+      },
+      "event": {
+        "requirements": ["venue", "date", "dj-or-playlist"],
+        "listing": "automatic"
+      }
+    }
+  },
+
+  "networkRules": {
+    "randomJoin": {
+      "description": "아무나랑 한 판 칠 수 있는 시스템",
+      "matching": ["location", "level-range", "availability"],
+      "session": {
+        "type": "one-tanda",
+        "duration": "12min",
+        "noCommitment": true
+      }
+    },
+    "onePointLesson": {
+      "description": "원포인트 레슨 — 한 가지만 배운다",
+      "duration": "30min",
+      "focus": "single-technique",
+      "price": "provider-sets"
+    }
+  },
+
+  "expansion": {
+    "phase1": "magenta + onepoint-pool",
+    "phase2": "milonga-network (seoul)",
+    "phase3": "random-join MVP",
+    "phase4": "nationwide + overseas"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "$schema": "../node.schema.json",
+  "id": "magenta",
+  "type": "studio",
+  "version": "2.0.0",
+  "status": "flagship",
+
+  "identity": {
+    "name": "Tango Magenta",
+    "nameKo": "탱고 마젠타",
+    "tagline": "홈베이스. 모든 실험의 시작점.",
+    "protocol": "tango",
+    "role": "flagship-studio",
+    "narrative": "내가 연화라면 — 박씨의 탱고 이야기",
+    "location": {
+      "city": "Seoul",
+      "district": "Gangnam",
+      "address": "선릉로 709 B1",
+      "station": "강남구청역 3-1번 출구"
+    }
+  },
+
+  "theme": {
+    "primary": "#E91E63",
+    "accent": "#FFD54F",
+    "bg": "#0a0008",
+    "text": "#f0e8ec"
+  },
+
+  "contact": {
+    "phone": "+82-507-1402-3774",
+    "cafe": "http://cafe.naver.com/thestep2011"
+  },
+
+  "content": {
+    "owns": [
+      "emisión/",
+      "emisión/l1/",
+      "emisión/l2/",
+      "emisión/l3/",
+      "emisión/l4/",
+      "emisión/club/",
+      "emisión/oneday/"
+    ],
+    "assets": [
+      "magenta.mp4",
+      "shoes.png",
+      "danza-poster.jpg"
+    ]
+  },
+
+  "programs": {
+    "season01": {
+      "name": "Tango Protocol",
+      "episodes": [
+        {
+          "id": "ep01",
+          "name": "First Gesture",
+          "nameKo": "첫 번째 몸짓",
+          "price": 29000
+        },
+        {
+          "id": "ep02",
+          "name": "Two Bodies",
+          "nameKo": "두 몸이 하나의 장면"
+        },
+        {
+          "id": "ep03",
+          "name": "Scene Making",
+          "nameKo": "당신의 장면 촬영"
+        },
+        {
+          "id": "ep04",
+          "name": "Origin Trip",
+          "nameKo": "프로토콜 원산지"
+        }
+      ]
+    },
+    "pass": {
+      "name": "Studio Pass",
+      "nameKo": "스튜디오 패스",
+      "type": "unlimited-access"
+    },
+    "single": {
+      "name": "Single Session",
+      "nameKo": "한 장면 체험",
+      "price": 10000
+    }
+  },
+
+  "operator": {
+    "id": "dtslib1979",
+    "role": "architect-operator",
+    "status": "active",
+    "note": "연화 없이 직접 운영. 내가 연화라면."
+  },
+
+  "networkRole": {
+    "canHostEvents": true,
+    "canApprovePersonNodes": true,
+    "isMatchingHub": true,
+    "description": "다른 노드들의 허브. 원포인트 레슨 제공자 승인권."
+  },
+
+  "created": "2026-01-26",
+  "upstream": "espiritu-tango"
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "../node.schema.json",
+  "id": "{{event_id}}",
+  "type": "event",
+  "version": "1.0.0",
+  "status": "listed",
+
+  "identity": {
+    "name": "{{event_name}}",
+    "nameKo": "{{event_name_ko}}",
+    "type": "milonga",
+    "protocol": "tango"
+  },
+
+  "details": {
+    "date": "{{YYYY-MM-DD}}",
+    "time": {
+      "start": "{{HH:MM}}",
+      "end": "{{HH:MM}}"
+    },
+    "venue": {
+      "name": "{{venue_name}}",
+      "address": "{{address}}",
+      "city": "{{city}}"
+    },
+    "capacity": "{{number}}",
+    "price": {
+      "door": "{{price}}",
+      "advance": "{{price}}",
+      "currency": "KRW"
+    }
+  },
+
+  "program": {
+    "dj": "{{dj_name}}",
+    "playlist": "{{playlist_url}}",
+    "style": ["traditional", "alternative", "mixed"],
+    "cortinas": true,
+    "tandas": "3-4 songs"
+  },
+
+  "features": {
+    "lessonBefore": {
+      "available": false,
+      "time": null,
+      "instructor": null
+    },
+    "randomJoinEnabled": true,
+    "beginnerFriendly": true
+  },
+
+  "host": {
+    "nodeId": "{{host_node_id}}",
+    "contact": "{{contact}}"
+  },
+
+  "registration": {
+    "required": false,
+    "link": null,
+    "deadline": null
+  }
+}

@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0008">
+  <title>Console — TANGO MAGENTA ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --card: #1a1a25;
+      --border: #2a2a3a;
+      --magenta: #E91E63;
+      --deep: #880E4F;
+      --gold: #FFD54F;
+      --green: #4CAF50;
+      --red: #f44336;
+      --blue: #42A5F5;
+      --text: #e8e8f0;
+      --dim: rgba(232, 232, 240, 0.5);
+      --ghost: rgba(232, 232, 240, 0.06);
+      --sans: 'DM Sans', 'Noto Sans KR', sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --radius: 10px;
+      --radius-sm: 6px;
+    }
+    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; overflow: hidden; }
+
+    /* Layout */
+    .app { display: flex; flex-direction: column; height: 100%; }
+    .topbar { height: 48px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 16px; gap: 12px; flex-shrink: 0; }
+    .topbar-brand { font-family: var(--mono); font-size: 0.7rem; color: var(--magenta); letter-spacing: 0.1em; font-weight: 500; }
+    .topbar-title { font-size: 0.75rem; color: var(--dim); }
+    .topbar-right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+    .topbar-btn { font-family: var(--mono); font-size: 0.6rem; padding: 4px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--card); color: var(--dim); cursor: pointer; transition: all 0.15s; }
+    .topbar-btn:active { border-color: var(--magenta); color: var(--text); }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+    /* Tabs */
+    .tabs { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; flex-shrink: 0; -webkit-overflow-scrolling: touch; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab { padding: 10px 16px; font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.05em; color: var(--dim); cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.15s; -webkit-tap-highlight-color: transparent; }
+    .tab.active { color: var(--magenta); border-bottom-color: var(--magenta); }
+    .tab:active { color: var(--text); }
+
+    /* Main content */
+    .main { flex: 1; overflow-y: auto; padding: 16px; -webkit-overflow-scrolling: touch; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* Cards */
+    .grid { display: grid; gap: 12px; }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .kpi-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+    .kpi-label { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin-bottom: 6px; }
+    .kpi-value { font-family: var(--mono); font-size: 1.4rem; font-weight: 500; }
+    .kpi-sub { font-size: 0.65rem; color: var(--dim); margin-top: 4px; }
+    .kpi-up { color: var(--green); }
+    .kpi-down { color: var(--red); }
+
+    /* Section */
+    .section { margin-bottom: 24px; }
+    .section-title { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); margin-bottom: 12px; }
+
+    /* Chart container */
+    .chart-wrap { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; position: relative; }
+    .chart-wrap canvas { width: 100% !important; max-height: 200px; }
+
+    /* Table */
+    .tbl-wrap { overflow-x: auto; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); }
+    .tbl { width: 100%; border-collapse: collapse; font-size: 0.75rem; min-width: 500px; }
+    .tbl th { text-align: left; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); padding: 10px 12px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--card); }
+    .tbl td { padding: 10px 12px; border-bottom: 1px solid var(--ghost); vertical-align: middle; }
+    .tbl tr:last-child td { border-bottom: none; }
+    .tbl .mono { font-family: var(--mono); }
+    .tbl .num { font-family: var(--mono); text-align: right; }
+    .tbl .positive { color: var(--green); }
+    .tbl .negative { color: var(--red); }
+    .tbl .bold { font-weight: 700; }
+    .tbl .total-row { background: var(--ghost); font-weight: 600; }
+
+    /* Badge */
+    .badge { font-family: var(--mono); font-size: 0.55rem; padding: 2px 6px; border-radius: 3px; }
+    .badge-active { background: rgba(76,175,80,0.15); color: var(--green); }
+    .badge-pending { background: rgba(255,213,79,0.15); color: var(--gold); }
+    .badge-expired { background: rgba(244,67,54,0.1); color: var(--red); }
+
+    /* Form */
+    .form-group { margin-bottom: 14px; }
+    .form-label { font-family: var(--mono); font-size: 0.6rem; color: var(--dim); letter-spacing: 0.05em; margin-bottom: 4px; display: block; }
+    .form-input { width: 100%; padding: 8px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-family: var(--sans); font-size: 0.8rem; outline: none; transition: border-color 0.15s; }
+    .form-input:focus { border-color: var(--magenta); }
+    .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23888' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+    .btn { padding: 8px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--card); color: var(--text); font-family: var(--mono); font-size: 0.7rem; cursor: pointer; transition: all 0.15s; -webkit-tap-highlight-color: transparent; }
+    .btn:active { border-color: var(--magenta); background: rgba(233,30,99,0.1); }
+    .btn-primary { background: var(--magenta); border-color: var(--magenta); color: #fff; }
+    .btn-primary:active { background: var(--deep); }
+    .btn-sm { padding: 4px 10px; font-size: 0.6rem; }
+
+    /* Modal */
+    .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .modal-bg.show { display: flex; }
+    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; width: 100%; max-width: 400px; max-height: 80vh; overflow-y: auto; }
+    .modal-title { font-size: 1rem; font-weight: 600; margin-bottom: 16px; }
+    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+
+    /* Financial statements */
+    .stmt { margin-bottom: 20px; }
+    .stmt-header { font-family: var(--mono); font-size: 0.7rem; font-weight: 600; color: var(--magenta); padding: 8px 12px; background: rgba(233,30,99,0.05); border-radius: var(--radius-sm) var(--radius-sm) 0 0; border: 1px solid var(--border); border-bottom: none; }
+    .stmt-body { border: 1px solid var(--border); border-radius: 0 0 var(--radius-sm) var(--radius-sm); }
+    .stmt-row { display: flex; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid var(--ghost); font-size: 0.75rem; }
+    .stmt-row:last-child { border-bottom: none; }
+    .stmt-row.indent { padding-left: 28px; color: var(--dim); }
+    .stmt-row.total { font-weight: 700; background: var(--ghost); border-top: 1px solid var(--border); }
+    .stmt-row .amt { font-family: var(--mono); }
+
+    /* Pivot */
+    .pivot-controls { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .pivot-controls select { font-size: 0.7rem; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* Schedule */
+    .schedule-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .schedule-day { font-family: var(--mono); font-size: 0.55rem; text-align: center; color: var(--dim); padding: 6px 0; }
+    .schedule-slot { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 6px 4px; font-size: 0.6rem; text-align: center; min-height: 50px; }
+    .schedule-slot.has-class { border-color: rgba(233,30,99,0.3); background: rgba(233,30,99,0.05); }
+    .schedule-slot .slot-name { font-weight: 500; color: var(--magenta); font-size: 0.55rem; }
+    .schedule-slot .slot-time { color: var(--dim); font-family: var(--mono); font-size: 0.5rem; margin-top: 2px; }
+
+    @media (max-width: 430px) {
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <!-- Topbar -->
+  <div class="topbar">
+    <span class="status-dot"></span>
+    <span class="topbar-brand">MAGENTA</span>
+    <span class="topbar-title">Control Console</span>
+    <div class="topbar-right">
+      <button class="topbar-btn" onclick="exportData()">Export</button>
+      <button class="topbar-btn" onclick="document.getElementById('import-file').click()">Import</button>
+      <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-tab="dashboard">Dashboard</div>
+    <div class="tab" data-tab="members">Members</div>
+    <div class="tab" data-tab="programs">Programs</div>
+    <div class="tab" data-tab="finance">Finance</div>
+    <div class="tab" data-tab="analytics">Analytics</div>
+    <div class="tab" data-tab="schedule">Schedule</div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="panel active" id="panel-dashboard">
+      <div class="section">
+        <p class="section-title">KPI Overview</p>
+        <div class="grid grid-3">
+          <div class="kpi-card"><p class="kpi-label">Club Members</p><p class="kpi-value" id="kpi-members">0</p><p class="kpi-sub">목표: 45명</p></div>
+          <div class="kpi-card"><p class="kpi-label">L1 This Month</p><p class="kpi-value" id="kpi-l1">0</p><p class="kpi-sub">목표: 30건</p></div>
+          <div class="kpi-card"><p class="kpi-label">Revenue</p><p class="kpi-value" id="kpi-revenue">₩0</p><p class="kpi-sub">월 매출</p></div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="grid grid-2">
+          <div class="kpi-card"><p class="kpi-label">L1→Club 전환</p><p class="kpi-value" id="kpi-conv">0%</p></div>
+          <div class="kpi-card"><p class="kpi-label">영업이익</p><p class="kpi-value" id="kpi-profit">₩0</p></div>
+        </div>
+      </div>
+      <div class="section">
+        <p class="section-title">Revenue Trend (6M)</p>
+        <div class="chart-wrap"><canvas id="chart-revenue"></canvas></div>
+      </div>
+      <div class="section">
+        <p class="section-title">Member Growth</p>
+        <div class="chart-wrap"><canvas id="chart-members"></canvas></div>
+      </div>
+      <div class="section">
+        <p class="section-title">Revenue Breakdown</p>
+        <div class="chart-wrap"><canvas id="chart-breakdown"></canvas></div>
+      </div>
+    </div>
+
+    <!-- MEMBERS -->
+    <div class="panel" id="panel-members">
+      <div class="section">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <p class="section-title" style="margin:0;">Member Database</p>
+          <button class="btn btn-primary btn-sm" onclick="showAddMember()">+ Add</button>
+        </div>
+        <div class="tbl-wrap">
+          <table class="tbl" id="members-table">
+            <thead><tr><th>이름</th><th>레벨</th><th>Club</th><th>가입일</th><th>상태</th></tr></thead>
+            <tbody id="members-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRAMS -->
+    <div class="panel" id="panel-programs">
+      <div class="section">
+        <p class="section-title">Program Status</p>
+        <div class="grid grid-2">
+          <div class="kpi-card"><p class="kpi-label">L1 Signature</p><p class="kpi-value" id="prog-l1">0</p><p class="kpi-sub">이번 달 수강</p></div>
+          <div class="kpi-card"><p class="kpi-label">L2 Partner</p><p class="kpi-value" id="prog-l2">0</p><p class="kpi-sub">현재 기수</p></div>
+          <div class="kpi-card"><p class="kpi-label">L3 Showcase</p><p class="kpi-value" id="prog-l3">0</p><p class="kpi-sub">진행 중</p></div>
+          <div class="kpi-card"><p class="kpi-label">L4 BA Tour</p><p class="kpi-value" id="prog-l4">0</p><p class="kpi-sub">예약</p></div>
+        </div>
+      </div>
+      <div class="section">
+        <p class="section-title">Active Classes</p>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th>프로그램</th><th>기수</th><th>수강생</th><th>시작일</th><th>상태</th></tr></thead>
+            <tbody id="classes-body"></tbody>
+          </table>
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <button class="btn btn-sm" onclick="showAddClass()">+ 클래스 추가</button>
+      </div>
+    </div>
+
+    <!-- FINANCE -->
+    <div class="panel" id="panel-finance">
+      <div class="section">
+        <p class="section-title">Financial Statements</p>
+        <div class="pivot-controls">
+          <select class="form-input form-select" id="finance-month" onchange="renderFinance()" style="width:auto;padding:6px 28px 6px 10px;">
+            <option value="2026-01">2026년 1월</option>
+            <option value="2026-02">2026년 2월</option>
+            <option value="2026-03">2026년 3월</option>
+            <option value="2026-04">2026년 4월</option>
+            <option value="2026-05">2026년 5월</option>
+            <option value="2026-06">2026년 6월</option>
+          </select>
+          <button class="btn btn-sm" onclick="showAddTransaction()">+ 거래 입력</button>
+        </div>
+      </div>
+
+      <!-- P&L -->
+      <div class="stmt">
+        <div class="stmt-header">손익계산서 (Income Statement)</div>
+        <div class="stmt-body" id="stmt-pl"></div>
+      </div>
+
+      <!-- Balance Sheet -->
+      <div class="stmt">
+        <div class="stmt-header">대차대조표 (Balance Sheet)</div>
+        <div class="stmt-body" id="stmt-bs"></div>
+      </div>
+
+      <!-- Cash Flow -->
+      <div class="stmt">
+        <div class="stmt-header">현금흐름표 (Cash Flow Statement)</div>
+        <div class="stmt-body" id="stmt-cf"></div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div class="panel" id="panel-analytics">
+      <div class="section">
+        <p class="section-title">Pivot Table</p>
+        <div class="pivot-controls">
+          <select class="form-input form-select" id="pivot-rows" style="width:auto;padding:6px 28px 6px 10px;">
+            <option value="level">레벨별</option>
+            <option value="month">월별</option>
+            <option value="status">상태별</option>
+            <option value="club">Club 유형별</option>
+          </select>
+          <select class="form-input form-select" id="pivot-values" style="width:auto;padding:6px 28px 6px 10px;">
+            <option value="count">인원 수</option>
+            <option value="revenue">매출</option>
+          </select>
+          <button class="btn btn-sm" onclick="renderPivot()">적용</button>
+        </div>
+        <div class="tbl-wrap" id="pivot-result"></div>
+      </div>
+      <div class="section">
+        <p class="section-title">Conversion Funnel</p>
+        <div class="chart-wrap"><canvas id="chart-funnel"></canvas></div>
+      </div>
+      <div class="section">
+        <p class="section-title">Club Retention</p>
+        <div class="chart-wrap"><canvas id="chart-retention"></canvas></div>
+      </div>
+    </div>
+
+    <!-- SCHEDULE -->
+    <div class="panel" id="panel-schedule">
+      <div class="section">
+        <p class="section-title">Weekly Schedule</p>
+        <div class="schedule-grid">
+          <div class="schedule-day">MON</div>
+          <div class="schedule-day">TUE</div>
+          <div class="schedule-day">WED</div>
+          <div class="schedule-day">THU</div>
+          <div class="schedule-day">FRI</div>
+          <div class="schedule-day">SAT</div>
+          <div class="schedule-day">SUN</div>
+        </div>
+        <div class="schedule-grid" id="schedule-slots"></div>
+      </div>
+      <div style="margin-top:12px;">
+        <button class="btn btn-sm" onclick="showAddSchedule()">+ 스케줄 추가</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Add Member Modal -->
+<div class="modal-bg" id="modal-member">
+  <div class="modal">
+    <p class="modal-title">회원 추가</p>
+    <div class="form-group"><label class="form-label">이름</label><input class="form-input" id="m-name" placeholder="홍길동"></div>
+    <div class="form-group"><label class="form-label">연락처</label><input class="form-input" id="m-phone" placeholder="010-0000-0000"></div>
+    <div class="form-group"><label class="form-label">레벨</label><select class="form-input form-select" id="m-level"><option value="L1">L1 Signature</option><option value="L2">L2 Partner</option><option value="L3">L3 Showcase</option><option value="L4">L4 Buenos Aires</option></select></div>
+    <div class="form-group"><label class="form-label">Club 구독</label><select class="form-input form-select" id="m-club"><option value="none">없음</option><option value="basic">Basic ₩79,000</option><option value="unlimited">Unlimited ₩149,000</option></select></div>
+    <div class="form-group"><label class="form-label">메모</label><input class="form-input" id="m-note" placeholder="특이사항"></div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-member')">취소</button><button class="btn btn-primary" onclick="addMember()">추가</button></div>
+  </div>
+</div>
+
+<!-- Add Transaction Modal -->
+<div class="modal-bg" id="modal-transaction">
+  <div class="modal">
+    <p class="modal-title">거래 입력</p>
+    <div class="form-group"><label class="form-label">유형</label><select class="form-input form-select" id="t-type"><option value="revenue">수입</option><option value="expense">지출</option></select></div>
+    <div class="form-group"><label class="form-label">카테고리</label><select class="form-input form-select" id="t-category">
+      <option value="L1">L1 수강료</option><option value="L2">L2 수강료</option><option value="L3">L3 프로덕션</option><option value="L4">L4 투어</option>
+      <option value="club-basic">Club Basic</option><option value="club-unlimited">Club Unlimited</option><option value="online">Online Kit</option>
+      <option value="rent">임대료</option><option value="salary">인건비</option><option value="equipment">장비/소모품</option><option value="marketing">마케팅</option><option value="utility">관리비</option><option value="other">기타</option>
+    </select></div>
+    <div class="form-group"><label class="form-label">금액 (원)</label><input class="form-input" id="t-amount" type="number" placeholder="0"></div>
+    <div class="form-group"><label class="form-label">날짜</label><input class="form-input" id="t-date" type="date"></div>
+    <div class="form-group"><label class="form-label">메모</label><input class="form-input" id="t-note" placeholder=""></div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-transaction')">취소</button><button class="btn btn-primary" onclick="addTransaction()">저장</button></div>
+  </div>
+</div>
+
+<!-- Add Class Modal -->
+<div class="modal-bg" id="modal-class">
+  <div class="modal">
+    <p class="modal-title">클래스 추가</p>
+    <div class="form-group"><label class="form-label">프로그램</label><select class="form-input form-select" id="c-program"><option value="L1">L1 Signature</option><option value="L2">L2 Partner</option><option value="L3">L3 Showcase</option><option value="Club">Club Practice</option></select></div>
+    <div class="form-group"><label class="form-label">기수</label><input class="form-input" id="c-cohort" placeholder="1기"></div>
+    <div class="form-group"><label class="form-label">수강생 수</label><input class="form-input" id="c-count" type="number" placeholder="0"></div>
+    <div class="form-group"><label class="form-label">시작일</label><input class="form-input" id="c-start" type="date"></div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-class')">취소</button><button class="btn btn-primary" onclick="addClass()">추가</button></div>
+  </div>
+</div>
+
+<!-- Add Schedule Modal -->
+<div class="modal-bg" id="modal-schedule">
+  <div class="modal">
+    <p class="modal-title">스케줄 추가</p>
+    <div class="form-group"><label class="form-label">요일</label><select class="form-input form-select" id="s-day"><option value="0">월</option><option value="1">화</option><option value="2">수</option><option value="3">목</option><option value="4">금</option><option value="5">토</option><option value="6">일</option></select></div>
+    <div class="form-group"><label class="form-label">시간</label><input class="form-input" id="s-time" type="time" value="19:00"></div>
+    <div class="form-group"><label class="form-label">프로그램</label><select class="form-input form-select" id="s-program"><option value="L1">L1 Signature</option><option value="L2">L2 Partner</option><option value="Club Practice">Club Practice</option><option value="Milonga Night">Milonga Night</option></select></div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-schedule')">취소</button><button class="btn btn-primary" onclick="addSchedule()">추가</button></div>
+  </div>
+</div>
+
+<script>
+// ═══ DATA LAYER (IndexedDB) ═══
+var DB_NAME = 'MagentaERP';
+var DB_VER = 1;
+var db;
+
+function openDB(cb) {
+  var req = indexedDB.open(DB_NAME, DB_VER);
+  req.onupgradeneeded = function(e) {
+    var d = e.target.result;
+    if (!d.objectStoreNames.contains('members')) d.createObjectStore('members', {keyPath:'id',autoIncrement:true});
+    if (!d.objectStoreNames.contains('transactions')) d.createObjectStore('transactions', {keyPath:'id',autoIncrement:true});
+    if (!d.objectStoreNames.contains('classes')) d.createObjectStore('classes', {keyPath:'id',autoIncrement:true});
+    if (!d.objectStoreNames.contains('schedule')) d.createObjectStore('schedule', {keyPath:'id',autoIncrement:true});
+  };
+  req.onsuccess = function(e) { db = e.target.result; if(cb) cb(); };
+}
+
+function dbAll(store, cb) {
+  var tx = db.transaction(store, 'readonly');
+  var req = tx.objectStore(store).getAll();
+  req.onsuccess = function() { cb(req.result); };
+}
+
+function dbAdd(store, data, cb) {
+  var tx = db.transaction(store, 'readwrite');
+  tx.objectStore(store).add(data);
+  tx.oncomplete = function() { if(cb) cb(); };
+}
+
+function dbClear(store, cb) {
+  var tx = db.transaction(store, 'readwrite');
+  tx.objectStore(store).clear();
+  tx.oncomplete = function() { if(cb) cb(); };
+}
+
+// ═══ TAB NAVIGATION ═══
+document.getElementById('tabs').addEventListener('click', function(e) {
+  if (!e.target.classList.contains('tab')) return;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  e.target.classList.add('active');
+  document.getElementById('panel-' + e.target.dataset.tab).classList.add('active');
+  if (e.target.dataset.tab === 'dashboard') refreshDashboard();
+  if (e.target.dataset.tab === 'members') renderMembers();
+  if (e.target.dataset.tab === 'programs') renderPrograms();
+  if (e.target.dataset.tab === 'finance') renderFinance();
+  if (e.target.dataset.tab === 'analytics') { renderPivot(); renderAnalyticsCharts(); }
+  if (e.target.dataset.tab === 'schedule') renderSchedule();
+});
+
+// ═══ DASHBOARD ═══
+var chartRevenue, chartMembers, chartBreakdown;
+
+function refreshDashboard() {
+  dbAll('members', function(members) {
+    dbAll('transactions', function(txns) {
+      var clubMembers = members.filter(function(m){return m.club !== 'none' && m.status === 'active';});
+      var l1This = members.filter(function(m){return m.level === 'L1';});
+      var totalRevenue = txns.filter(function(t){return t.type==='revenue';}).reduce(function(s,t){return s+Number(t.amount);},0);
+      var totalExpense = txns.filter(function(t){return t.type==='expense';}).reduce(function(s,t){return s+Number(t.amount);},0);
+
+      document.getElementById('kpi-members').textContent = clubMembers.length;
+      document.getElementById('kpi-l1').textContent = l1This.length;
+      document.getElementById('kpi-revenue').textContent = '₩' + (totalRevenue/10000).toFixed(0) + '만';
+      document.getElementById('kpi-profit').textContent = '₩' + ((totalRevenue-totalExpense)/10000).toFixed(0) + '만';
+      document.getElementById('kpi-conv').textContent = l1This.length > 0 ? Math.round(clubMembers.length/l1This.length*100)+'%' : '0%';
+
+      renderCharts(txns, members);
+    });
+  });
+}
+
+function renderCharts(txns, members) {
+  var months = ['1월','2월','3월','4월','5월','6월'];
+  var revByMonth = [0,0,0,0,0,0];
+  var expByMonth = [0,0,0,0,0,0];
+  txns.forEach(function(t) {
+    var m = new Date(t.date).getMonth();
+    if (m < 6) {
+      if (t.type === 'revenue') revByMonth[m] += Number(t.amount)/10000;
+      else expByMonth[m] += Number(t.amount)/10000;
+    }
+  });
+
+  if (chartRevenue) chartRevenue.destroy();
+  chartRevenue = new Chart(document.getElementById('chart-revenue'), {
+    type: 'bar', data: { labels: months, datasets: [
+      { label: '수입', data: revByMonth, backgroundColor: 'rgba(233,30,99,0.6)' },
+      { label: '지출', data: expByMonth, backgroundColor: 'rgba(100,100,120,0.4)' }
+    ]}, options: { responsive: true, plugins: { legend: { labels: { color: '#888', font: { size: 10 } } } }, scales: { x: { ticks: { color: '#666' }, grid: { display: false } }, y: { ticks: { color: '#666', callback: function(v){return v+'만';} }, grid: { color: 'rgba(255,255,255,0.05)' } } } }
+  });
+
+  var membersByMonth = [0,0,0,0,0,0];
+  members.forEach(function(m) { var mo = new Date(m.joinDate).getMonth(); if(mo<6) membersByMonth[mo]++; });
+  var cumulative = []; var sum = 0; membersByMonth.forEach(function(v){ sum+=v; cumulative.push(sum); });
+
+  if (chartMembers) chartMembers.destroy();
+  chartMembers = new Chart(document.getElementById('chart-members'), {
+    type: 'line', data: { labels: months, datasets: [{ label: '누적 회원', data: cumulative, borderColor: '#42A5F5', backgroundColor: 'rgba(66,165,245,0.1)', fill: true, tension: 0.3 }] },
+    options: { responsive: true, plugins: { legend: { labels: { color: '#888', font: { size: 10 } } } }, scales: { x: { ticks: { color: '#666' }, grid: { display: false } }, y: { ticks: { color: '#666' }, grid: { color: 'rgba(255,255,255,0.05)' } } } }
+  });
+
+  var breakdown = { L1: 0, L2: 0, L3: 0, Club: 0, Online: 0, Other: 0 };
+  txns.filter(function(t){return t.type==='revenue';}).forEach(function(t) {
+    if (t.category === 'L1') breakdown.L1 += Number(t.amount);
+    else if (t.category === 'L2') breakdown.L2 += Number(t.amount);
+    else if (t.category === 'L3') breakdown.L3 += Number(t.amount);
+    else if (t.category.startsWith('club')) breakdown.Club += Number(t.amount);
+    else if (t.category === 'online') breakdown.Online += Number(t.amount);
+    else breakdown.Other += Number(t.amount);
+  });
+
+  if (chartBreakdown) chartBreakdown.destroy();
+  chartBreakdown = new Chart(document.getElementById('chart-breakdown'), {
+    type: 'doughnut', data: { labels: Object.keys(breakdown), datasets: [{ data: Object.values(breakdown), backgroundColor: ['#E91E63','#9C27B0','#FF5722','#42A5F5','#FFD54F','#666'] }] },
+    options: { responsive: true, plugins: { legend: { position: 'right', labels: { color: '#888', font: { size: 10 }, padding: 8 } } } }
+  });
+}
+
+// ═══ MEMBERS ═══
+function renderMembers() {
+  dbAll('members', function(members) {
+    var tbody = document.getElementById('members-body');
+    tbody.innerHTML = members.map(function(m) {
+      var badge = m.status === 'active' ? '<span class="badge badge-active">Active</span>' : '<span class="badge badge-expired">Inactive</span>';
+      var clubText = m.club === 'basic' ? 'Basic' : m.club === 'unlimited' ? 'Unlimited' : '—';
+      return '<tr><td class="label-col">'+m.name+'</td><td class="mono">'+m.level+'</td><td>'+clubText+'</td><td class="mono">'+m.joinDate+'</td><td>'+badge+'</td></tr>';
+    }).join('');
+    if (members.length === 0) tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--dim);padding:20px;">데이터 없음. + Add로 회원 추가.</td></tr>';
+  });
+}
+
+function showAddMember() { document.getElementById('modal-member').classList.add('show'); }
+
+function addMember() {
+  var data = {
+    name: document.getElementById('m-name').value || '이름없음',
+    phone: document.getElementById('m-phone').value,
+    level: document.getElementById('m-level').value,
+    club: document.getElementById('m-club').value,
+    note: document.getElementById('m-note').value,
+    joinDate: new Date().toISOString().split('T')[0],
+    status: 'active'
+  };
+  dbAdd('members', data, function() { closeModal('modal-member'); renderMembers(); refreshDashboard(); });
+}
+
+// ═══ PROGRAMS ═══
+function renderPrograms() {
+  dbAll('classes', function(classes) {
+    dbAll('members', function(members) {
+      document.getElementById('prog-l1').textContent = members.filter(function(m){return m.level==='L1';}).length;
+      document.getElementById('prog-l2').textContent = classes.filter(function(c){return c.program==='L2' && c.status==='active';}).length;
+      document.getElementById('prog-l3').textContent = classes.filter(function(c){return c.program==='L3' && c.status==='active';}).length;
+      document.getElementById('prog-l4').textContent = members.filter(function(m){return m.level==='L4';}).length;
+
+      var tbody = document.getElementById('classes-body');
+      tbody.innerHTML = classes.map(function(c) {
+        var badge = c.status === 'active' ? '<span class="badge badge-active">진행중</span>' : '<span class="badge badge-pending">대기</span>';
+        return '<tr><td class="label-col">'+c.program+'</td><td class="mono">'+c.cohort+'</td><td class="num">'+c.count+'명</td><td class="mono">'+c.startDate+'</td><td>'+badge+'</td></tr>';
+      }).join('');
+      if (classes.length === 0) tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--dim);padding:20px;">클래스 없음</td></tr>';
+    });
+  });
+}
+
+function showAddClass() { document.getElementById('modal-class').classList.add('show'); }
+
+function addClass() {
+  var data = {
+    program: document.getElementById('c-program').value,
+    cohort: document.getElementById('c-cohort').value || '1기',
+    count: Number(document.getElementById('c-count').value) || 0,
+    startDate: document.getElementById('c-start').value || new Date().toISOString().split('T')[0],
+    status: 'active'
+  };
+  dbAdd('classes', data, function() { closeModal('modal-class'); renderPrograms(); });
+}
+
+// ═══ FINANCE ═══
+function renderFinance() {
+  var selMonth = document.getElementById('finance-month').value;
+  dbAll('transactions', function(txns) {
+    var filtered = txns.filter(function(t) { return t.date && t.date.startsWith(selMonth); });
+    var revenue = {}; var expenses = {};
+    filtered.forEach(function(t) {
+      if (t.type === 'revenue') { revenue[t.category] = (revenue[t.category]||0) + Number(t.amount); }
+      else { expenses[t.category] = (expenses[t.category]||0) + Number(t.amount); }
+    });
+
+    var totalRev = Object.values(revenue).reduce(function(s,v){return s+v;},0);
+    var totalExp = Object.values(expenses).reduce(function(s,v){return s+v;},0);
+    var netIncome = totalRev - totalExp;
+
+    // P&L
+    var plHtml = '';
+    plHtml += '<div class="stmt-row bold"><span>매출 (Revenue)</span><span class="amt">₩' + fmt(totalRev) + '</span></div>';
+    Object.keys(revenue).forEach(function(k) { plHtml += '<div class="stmt-row indent"><span>'+catName(k)+'</span><span class="amt">₩'+fmt(revenue[k])+'</span></div>'; });
+    plHtml += '<div class="stmt-row bold"><span>비용 (Expenses)</span><span class="amt">₩' + fmt(totalExp) + '</span></div>';
+    Object.keys(expenses).forEach(function(k) { plHtml += '<div class="stmt-row indent"><span>'+catName(k)+'</span><span class="amt">₩'+fmt(expenses[k])+'</span></div>'; });
+    plHtml += '<div class="stmt-row total"><span>순이익 (Net Income)</span><span class="amt" style="color:'+(netIncome>=0?'var(--green)':'var(--red)')+'">₩' + fmt(netIncome) + '</span></div>';
+    document.getElementById('stmt-pl').innerHTML = plHtml;
+
+    // Balance Sheet (simplified)
+    var allRev = txns.filter(function(t){return t.type==='revenue';}).reduce(function(s,t){return s+Number(t.amount);},0);
+    var allExp = txns.filter(function(t){return t.type==='expense';}).reduce(function(s,t){return s+Number(t.amount);},0);
+    var cash = allRev - allExp;
+    var bsHtml = '';
+    bsHtml += '<div class="stmt-row bold"><span>자산 (Assets)</span><span class="amt"></span></div>';
+    bsHtml += '<div class="stmt-row indent"><span>현금 및 현금성자산</span><span class="amt">₩'+fmt(cash)+'</span></div>';
+    bsHtml += '<div class="stmt-row indent"><span>설비자산 (추정)</span><span class="amt">₩'+fmt(30000000)+'</span></div>';
+    bsHtml += '<div class="stmt-row total"><span>자산 총계</span><span class="amt">₩'+fmt(cash+30000000)+'</span></div>';
+    bsHtml += '<div class="stmt-row bold"><span>부채 (Liabilities)</span><span class="amt"></span></div>';
+    bsHtml += '<div class="stmt-row indent"><span>보증금</span><span class="amt">₩'+fmt(50000000)+'</span></div>';
+    bsHtml += '<div class="stmt-row bold"><span>자본 (Equity)</span><span class="amt"></span></div>';
+    bsHtml += '<div class="stmt-row indent"><span>이익잉여금</span><span class="amt">₩'+fmt(cash+30000000-50000000)+'</span></div>';
+    bsHtml += '<div class="stmt-row total"><span>부채+자본 총계</span><span class="amt">₩'+fmt(cash+30000000)+'</span></div>';
+    document.getElementById('stmt-bs').innerHTML = bsHtml;
+
+    // Cash Flow
+    var cfHtml = '';
+    cfHtml += '<div class="stmt-row bold"><span>영업활동</span><span class="amt"></span></div>';
+    cfHtml += '<div class="stmt-row indent"><span>수강료 수입</span><span class="amt positive">₩'+fmt(totalRev)+'</span></div>';
+    cfHtml += '<div class="stmt-row indent"><span>운영비 지출</span><span class="amt negative">-₩'+fmt(totalExp)+'</span></div>';
+    cfHtml += '<div class="stmt-row total"><span>영업활동 현금흐름</span><span class="amt" style="color:'+(netIncome>=0?'var(--green)':'var(--red)')+'">₩'+fmt(netIncome)+'</span></div>';
+    cfHtml += '<div class="stmt-row bold"><span>투자활동</span><span class="amt">₩0</span></div>';
+    cfHtml += '<div class="stmt-row bold"><span>재무활동</span><span class="amt">₩0</span></div>';
+    cfHtml += '<div class="stmt-row total"><span>현금 증감</span><span class="amt">₩'+fmt(netIncome)+'</span></div>';
+    document.getElementById('stmt-cf').innerHTML = cfHtml;
+  });
+}
+
+function showAddTransaction() {
+  document.getElementById('t-date').value = new Date().toISOString().split('T')[0];
+  document.getElementById('modal-transaction').classList.add('show');
+}
+
+function addTransaction() {
+  var data = {
+    type: document.getElementById('t-type').value,
+    category: document.getElementById('t-category').value,
+    amount: Number(document.getElementById('t-amount').value) || 0,
+    date: document.getElementById('t-date').value,
+    note: document.getElementById('t-note').value
+  };
+  dbAdd('transactions', data, function() { closeModal('modal-transaction'); renderFinance(); refreshDashboard(); });
+}
+
+// ═══ ANALYTICS ═══
+function renderPivot() {
+  var rowKey = document.getElementById('pivot-rows').value;
+  var valKey = document.getElementById('pivot-values').value;
+
+  dbAll('members', function(members) {
+    dbAll('transactions', function(txns) {
+      var groups = {};
+      if (valKey === 'count') {
+        members.forEach(function(m) {
+          var key = rowKey === 'level' ? m.level : rowKey === 'status' ? m.status : rowKey === 'club' ? m.club : m.joinDate ? m.joinDate.substring(0,7) : 'N/A';
+          groups[key] = (groups[key]||0) + 1;
+        });
+      } else {
+        txns.filter(function(t){return t.type==='revenue';}).forEach(function(t) {
+          var key = rowKey === 'month' ? (t.date?t.date.substring(0,7):'N/A') : t.category;
+          groups[key] = (groups[key]||0) + Number(t.amount);
+        });
+      }
+
+      var html = '<table class="tbl"><thead><tr><th>'+rowKey.toUpperCase()+'</th><th>'+(valKey==='count'?'인원':'매출')+'</th></tr></thead><tbody>';
+      var total = 0;
+      Object.keys(groups).sort().forEach(function(k) {
+        var v = groups[k];
+        total += v;
+        html += '<tr><td class="label-col">'+(k||'N/A')+'</td><td class="num">'+(valKey==='count'?v+'명':'₩'+fmt(v))+'</td></tr>';
+      });
+      html += '<tr class="total-row"><td class="bold">합계</td><td class="num bold">'+(valKey==='count'?total+'명':'₩'+fmt(total))+'</td></tr>';
+      html += '</tbody></table>';
+      document.getElementById('pivot-result').innerHTML = html;
+    });
+  });
+}
+
+var chartFunnel, chartRetention;
+function renderAnalyticsCharts() {
+  dbAll('members', function(members) {
+    var l1 = members.filter(function(m){return m.level==='L1';}).length || 1;
+    var club = members.filter(function(m){return m.club!=='none';}).length;
+    var l2 = members.filter(function(m){return m.level==='L2';}).length;
+    var l3 = members.filter(function(m){return m.level==='L3';}).length;
+
+    if (chartFunnel) chartFunnel.destroy();
+    chartFunnel = new Chart(document.getElementById('chart-funnel'), {
+      type: 'bar', data: { labels: ['L1','Club','L2','L3'], datasets: [{ data: [l1,club,l2,l3], backgroundColor: ['#E91E63','#9C27B0','#FF5722','#FFD54F'] }] },
+      options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#666' }, grid: { color: 'rgba(255,255,255,0.05)' } }, y: { ticks: { color: '#888' }, grid: { display: false } } } }
+    });
+
+    // Retention mock
+    if (chartRetention) chartRetention.destroy();
+    chartRetention = new Chart(document.getElementById('chart-retention'), {
+      type: 'line', data: { labels: ['1M','2M','3M','4M','5M','6M','7M','8M'], datasets: [{ label: 'Club 유지율', data: [100,88,78,70,62,55,50,45], borderColor: '#FFD54F', backgroundColor: 'rgba(255,213,79,0.1)', fill: true, tension: 0.3 }] },
+      options: { responsive: true, plugins: { legend: { labels: { color: '#888', font: { size: 10 } } } }, scales: { x: { ticks: { color: '#666' }, grid: { display: false } }, y: { ticks: { color: '#666', callback: function(v){return v+'%';} }, grid: { color: 'rgba(255,255,255,0.05)' }, min: 0, max: 100 } } }
+    });
+  });
+}
+
+// ═══ SCHEDULE ═══
+function renderSchedule() {
+  dbAll('schedule', function(slots) {
+    var container = document.getElementById('schedule-slots');
+    var html = '';
+    for (var d = 0; d < 7; d++) {
+      var daySlots = slots.filter(function(s){return Number(s.day)===d;});
+      if (daySlots.length > 0) {
+        html += '<div class="schedule-slot has-class">';
+        daySlots.forEach(function(s) { html += '<div class="slot-name">'+s.program+'</div><div class="slot-time">'+s.time+'</div>'; });
+        html += '</div>';
+      } else {
+        html += '<div class="schedule-slot">—</div>';
+      }
+    }
+    container.innerHTML = html;
+  });
+}
+
+function showAddSchedule() { document.getElementById('modal-schedule').classList.add('show'); }
+
+function addSchedule() {
+  var data = {
+    day: document.getElementById('s-day').value,
+    time: document.getElementById('s-time').value,
+    program: document.getElementById('s-program').value
+  };
+  dbAdd('schedule', data, function() { closeModal('modal-schedule'); renderSchedule(); });
+}
+
+// ═══ UTILITIES ═══
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+function fmt(n) { return Math.round(n).toLocaleString(); }
+function catName(c) {
+  var map = { L1:'L1 수강료',L2:'L2 수강료',L3:'L3 프로덕션',L4:'L4 투어','club-basic':'Club Basic','club-unlimited':'Club Unlimited', online:'Online Kit', rent:'임대료', salary:'인건비', equipment:'장비', marketing:'마케팅', utility:'관리비', other:'기타' };
+  return map[c] || c;
+}
+
+// Export/Import
+function exportData() {
+  var result = {};
+  var stores = ['members','transactions','classes','schedule'];
+  var done = 0;
+  stores.forEach(function(s) {
+    dbAll(s, function(data) {
+      result[s] = data;
+      done++;
+      if (done === stores.length) {
+        var blob = new Blob([JSON.stringify(result, null, 2)], {type:'application/json'});
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'magenta-erp-backup-' + new Date().toISOString().split('T')[0] + '.json';
+        a.click();
+      }
+    });
+  });
+}
+
+function importData(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      var data = JSON.parse(ev.target.result);
+      var stores = ['members','transactions','classes','schedule'];
+      var done = 0;
+      stores.forEach(function(s) {
+        if (!data[s]) { done++; return; }
+        dbClear(s, function() {
+          var remaining = data[s].length;
+          if (remaining === 0) { done++; if(done===stores.length) location.reload(); return; }
+          data[s].forEach(function(item) {
+            delete item.id;
+            dbAdd(s, item, function() { remaining--; if(remaining===0){done++; if(done===stores.length) location.reload();} });
+          });
+        });
+      });
+    } catch(err) { alert('Import failed: ' + err.message); }
+  };
+  reader.readAsText(file);
+}
+
+// ═══ INIT ═══
+openDB(function() {
+  refreshDashboard();
+  renderSchedule();
+});
+</script>
+</body>
+</html>

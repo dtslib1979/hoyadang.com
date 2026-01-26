@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0008">
+  <title>Gesture Lab — ESPÍRITU TANGO</title>
+  <meta name="description" content="L3 Gesture Lab. 제스처를 설계한다. 움직임이 프로토콜이 되는 곳.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../design/tango.css">
+</head>
+<body>
+
+  <!-- ═══ Cabecera ═══ -->
+  <section class="espacio-centro" aria-label="Gesture Lab">
+    <p class="susurro latido">L3</p>
+    <h1 class="monumento mt-md">Gesture Lab</h1>
+    <p class="voz mt-lg">
+      Donde los <span class="magenta">movimientos</span><br>
+      se vuelven <span class="magenta">protocolo</span>.
+    </p>
+    <span lang="ko" class="ko mt-sm">움직임이 프로토콜이 되는 곳. 제스처를 설계한다.</span>
+  </section>
+
+  <!-- ═══ Gesture Engine ═══ -->
+  <section class="espacio--compact" aria-label="Gesture Engine">
+    <p class="susurro revelar">GESTURE ENGINE v1.0</p>
+
+    <article class="tarjeta revelar mt-lg">
+      <p class="susurro">GESTURE 001</p>
+      <h2 class="tarjeta-titulo">Ocho</h2>
+      <p class="tarjeta-texto">기본 움직임. 발로 그리는 <span class="magenta">무한</span> 도형. 8자.</p>
+      <span lang="ko" class="ko mt-sm">앞으로, 뒤로. 피벗과 함께.</span>
+      <div class="codigo mt-md">
+        <span style="color: var(--gold);">{ type: "figure", beats: 4, pivot: true }</span>
+      </div>
+    </article>
+
+    <article class="tarjeta revelar">
+      <p class="susurro">GESTURE 002</p>
+      <h2 class="tarjeta-titulo">Caminata</h2>
+      <p class="tarjeta-texto"><span class="magenta">의식적인</span> 걸음. 도착이 아닌 존재를 위한 걸음.</p>
+      <span lang="ko" class="ko mt-sm">가슴으로 연결. 무게 전체 이동.</span>
+      <div class="codigo mt-md">
+        <span style="color: var(--gold);">{ type: "locomotion", beats: 2, connection: "chest" }</span>
+      </div>
+    </article>
+
+    <article class="tarjeta revelar">
+      <p class="susurro">GESTURE 003</p>
+      <h2 class="tarjeta-titulo">Parada</h2>
+      <p class="tarjeta-texto">힘이 아닌 <span class="magenta">존재감</span>으로 멈추게 하기. 발이 "여기"라고 말한다.</p>
+      <span lang="ko" class="ko mt-sm">리드 필요. 1박.</span>
+      <div class="codigo mt-md">
+        <span style="color: var(--gold);">{ type: "interruption", beats: 1, requires: "lead" }</span>
+      </div>
+    </article>
+
+    <article class="tarjeta revelar">
+      <p class="susurro">GESTURE 004</p>
+      <h2 class="tarjeta-titulo">Sacada</h2>
+      <p class="tarjeta-texto">상대가 남긴 <span class="magenta">공간</span>을 채우기. 밀지 않고.</p>
+      <span lang="ko" class="ko mt-sm">에너지 전이. 다리 접촉.</span>
+      <div class="codigo mt-md">
+        <span style="color: var(--gold);">{ type: "displacement", beats: 2, energy: "transfer" }</span>
+      </div>
+    </article>
+
+    <article class="tarjeta revelar">
+      <p class="susurro">GESTURE 005</p>
+      <h2 class="tarjeta-titulo">Volcada</h2>
+      <p class="tarjeta-texto">함께 쓰러지되 넘어지지 않기. <span class="magenta">신뢰</span>의 움직임.</p>
+      <span lang="ko" class="ko mt-sm">공유 축. 신뢰 필수.</span>
+      <div class="codigo mt-md">
+        <span style="color: var(--gold);">{ type: "off-axis", beats: 3, trust: "required" }</span>
+      </div>
+    </article>
+
+    <article class="tarjeta revelar">
+      <p class="susurro">GESTURE 006</p>
+      <h2 class="tarjeta-titulo">Gancho</h2>
+      <p class="tarjeta-texto">걸기. 빠르고, 정확하고, <span class="magenta">친밀</span>하게.</p>
+      <span lang="ko" class="ko mt-sm">폭발적 에너지. 다리 감기.</span>
+      <div class="codigo mt-md">
+        <span style="color: var(--gold);">{ type: "hook", beats: 1, energy: "explosive" }</span>
+      </div>
+    </article>
+
+    <article class="tarjeta revelar">
+      <p class="susurro">GESTURE 007</p>
+      <h2 class="tarjeta-titulo">Boleo</h2>
+      <p class="tarjeta-texto">놓아버린 다리. 공중에서 해방되는 <span class="magenta">에너지</span>.</p>
+      <span lang="ko" class="ko mt-sm">원형 모멘텀. 엉덩이에서 시작.</span>
+      <div class="codigo mt-md">
+        <span style="color: var(--gold);">{ type: "whip", beats: 2, momentum: "circular" }</span>
+      </div>
+    </article>
+
+    <article class="tarjeta revelar">
+      <p class="susurro">GESTURE 008</p>
+      <h2 class="tarjeta-titulo">Barrida</h2>
+      <p class="tarjeta-texto">상대의 발을 쓸어주기. 밀지 않고 <span class="magenta">안내</span>하며.</p>
+      <span lang="ko" class="ko mt-sm">발 대 발 접촉. 부드러운 힘.</span>
+      <div class="codigo mt-md">
+        <span style="color: var(--gold);">{ type: "sweep", beats: 2, force: "gentle" }</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- ═══ Pipeline ═══ -->
+  <section class="espacio--compact" aria-label="Render Pipeline">
+    <p class="susurro revelar">RENDER PIPELINE</p>
+    <div class="codigo revelar mt-xl">
+      <span style="color: var(--magenta);">01</span> INPUT &nbsp;→ 몸이 제스처 감지<br>
+      <span style="color: var(--magenta);">02</span> PARSE &nbsp;→ 엔진이 피겨 식별<br>
+      <span style="color: var(--magenta);">03</span> TIMING → BPM 동기화 (70)<br>
+      <span style="color: var(--magenta);">04</span> CURVE &nbsp;→ ease-embrace 적용<br>
+      <span style="color: var(--magenta);">05</span> RENDER → CSS transition 실행<br>
+      <span style="color: var(--magenta);">06</span> SENSE &nbsp;→ 피드백 확인
+    </div>
+  </section>
+
+  <!-- ═══ Navegación ═══ -->
+  <section class="espacio-centro revelar" aria-label="Navegación">
+    <a href="../" class="puerta">← Protocol</a>
+  </section>
+
+  <footer class="pie" role="contentinfo">
+    <p class="pie-marca">ESPÍRITU TANGO</p>
+    <p class="pie-copy">L3 Gesture Lab · 제스처 설계</p>
+  </footer>
+
+  <script src="../design/body-protocol.js"></script>
+  <script src="https://dtslib1979.github.io/dtslib-branch/hq/sdk/dtslib-bridge.js"></script>
+</body>
+</html>

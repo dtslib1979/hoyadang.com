@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0008">
+  <title>Inner Portal — ESPÍRITU TANGO</title>
+  <meta name="description" content="Acceso restringido. Protocol Architect only.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../design/tango.css">
+</head>
+<body>
+
+  <!-- ═══ Gate ═══ -->
+  <div class="puerta-secreta" data-gate-code="1126" id="gate">
+    <div style="text-align: center;">
+      <h1 class="monumento" style="font-size: 2rem;">Inner Portal</h1>
+      <p class="susurro mt-md">Ingresá la clave</p>
+
+      <div class="clave-input" role="group" aria-label="Código de acceso">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="Dígito 1">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="Dígito 2">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="Dígito 3">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="Dígito 4">
+      </div>
+
+      <p class="susurro mt-lg" style="opacity: 0.3;">Protocol Architect only</p>
+    </div>
+  </div>
+
+  <!-- ═══ Inner World ═══ -->
+  <section class="espacio-centro" id="innerWorld" style="display: none;" aria-label="Protocol OS">
+    <p class="susurro latido">PROTOCOL OS</p>
+    <h1 class="monumento mt-md" style="font-size: clamp(2rem, 10vw, 4rem);">Bienvenido.</h1>
+    <p class="voz mt-lg">5-Layer Performance OS</p>
+    <span lang="ko" class="ko mt-sm">작전 중심부에 도착.</span>
+
+    <nav class="mt-xl" style="width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: var(--s-sm);">
+      <a href="../emisión/" class="puerta">L1 — Emission</a>
+      <a href="../cuerpo/" class="puerta">L2 — Body Grammar</a>
+      <a href="../laboratorio/" class="puerta">L3 — Gesture Lab</a>
+      <a href="../control/" class="puerta">L4 — Control Room</a>
+      <a href="../legado/" class="puerta">L5 — Legacy</a>
+    </nav>
+
+    <div class="linea mt-xl"></div>
+
+    <nav class="mt-lg" style="width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: var(--s-sm);">
+      <a href="../control/console/" class="puerta puerta--principal">Console →</a>
+      <a href="../" class="puerta">← Protocol</a>
+    </nav>
+  </section>
+
+  <script>
+    (function() {
+      'use strict';
+      const BEAT = 857;
+      const gate = document.getElementById('gate');
+      const code = gate.getAttribute('data-gate-code');
+      const inputs = gate.querySelectorAll('.clave-digito');
+      const inner = document.getElementById('innerWorld');
+
+      if (sessionStorage.getItem('espiritu_auth') === 'true') {
+        gate.style.display = 'none';
+        inner.style.display = 'flex';
+      } else {
+        inputs[0].focus();
+      }
+
+      inputs.forEach((input, i) => {
+        input.addEventListener('input', () => {
+          if (input.value && i < inputs.length - 1) inputs[i + 1].focus();
+          checkCode();
+        });
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !input.value && i > 0) inputs[i - 1].focus();
+        });
+      });
+
+      function checkCode() {
+        const entered = Array.from(inputs).map(i => i.value).join('');
+        if (entered.length === 4) {
+          if (entered === code) {
+            sessionStorage.setItem('espiritu_auth', 'true');
+            gate.style.transition = `opacity ${BEAT}ms var(--retreat)`;
+            gate.style.opacity = '0';
+            setTimeout(() => {
+              gate.style.display = 'none';
+              inner.style.display = 'flex';
+            }, BEAT);
+          } else {
+            inputs.forEach(i => { i.value = ''; i.style.borderColor = 'var(--magenta)'; });
+            inputs[0].focus();
+            setTimeout(() => inputs.forEach(i => { i.style.borderColor = ''; }), BEAT);
+          }
+        }
+      }
+    })();
+  </script>
+  <script src="https://dtslib1979.github.io/dtslib-branch/hq/sdk/dtslib-bridge.js"></script>
+</body>
+</html>

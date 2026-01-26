@@ -1,0 +1,73 @@
+{
+  "$schema": "../node.schema.json",
+  "id": "random-join",
+  "type": "network",
+  "version": "1.0.0",
+  "status": "design",
+
+  "identity": {
+    "name": "Random Join",
+    "nameKo": "랜덤 조인",
+    "tagline": "당구장처럼 아무나랑 한 판",
+    "description": "탱고는 교양이다. 다양한 사람과의 경험이 실력이 된다."
+  },
+
+  "matchingEngine": {
+    "algorithm": "proximity-first",
+    "factors": [
+      {
+        "name": "location",
+        "weight": 0.4,
+        "description": "가까운 사람 우선"
+      },
+      {
+        "name": "level",
+        "weight": 0.3,
+        "description": "비슷한 레벨 ±1 범위"
+      },
+      {
+        "name": "availability",
+        "weight": 0.2,
+        "description": "지금 가능한 사람"
+      },
+      {
+        "name": "history",
+        "weight": 0.1,
+        "description": "안 춰본 사람 우선"
+      }
+    ]
+  },
+
+  "sessionRules": {
+    "type": "one-tanda",
+    "duration": "12min",
+    "songs": "3-4",
+    "commitment": "none",
+    "repeat": {
+      "allowed": true,
+      "cooldown": "1hour"
+    }
+  },
+
+  "levels": {
+    "L0": { "name": "처음", "description": "탱고 시작한 지 3개월 미만" },
+    "L1": { "name": "입문", "description": "기본 걸음 가능" },
+    "L2": { "name": "초급", "description": "오초, 히로 가능" },
+    "L3": { "name": "중급", "description": "밀롱가 자유롭게 가능" },
+    "L4": { "name": "고급", "description": "뮤지컬리티 있음" },
+    "L5": { "name": "마스터", "description": "가르칠 수 있음" }
+  },
+
+  "etiquette": {
+    "cabeceo": "optional",
+    "decline": "always-ok",
+    "feedback": "private-only",
+    "respect": "mandatory"
+  },
+
+  "integration": {
+    "events": "auto-enable-at-milongas",
+    "studios": "hub-controlled",
+    "persons": "opt-in"
+  }
+}

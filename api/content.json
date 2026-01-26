@@ -1,0 +1,39 @@
+{
+  "studio": "tango-magenta",
+  "version": "2.1",
+  "description": "5-Layer Studio & Broadcast System",
+  "baseUrl": "https://dtslib1979.github.io/tango-magenta",
+  "lastUpdated": "2026-01-25",
+  "layers": [
+    { "id": "emisión", "name": "Emisión", "status": "active" },
+    { "id": "cuerpo", "name": "Cuerpo", "status": "active" },
+    { "id": "laboratorio", "name": "Laboratorio", "status": "active" },
+    { "id": "control", "name": "Control", "status": "active" },
+    { "id": "legado", "name": "Legado", "status": "active" }
+  ],
+  "designTokens": {
+    "timing": {
+      "beat": 857,
+      "halfBeat": 428,
+      "doubleBeat": 1714,
+      "breath": 2571,
+      "phrase": 3428
+    },
+    "colors": {
+      "primary": "#E91E63",
+      "accent": "#FFD54F",
+      "bg": "#0a0008",
+      "glow": "#f0e8ec"
+    },
+    "easing": {
+      "approach": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "retreat": "cubic-bezier(0.7, 0, 0.84, 0)",
+      "embrace": "cubic-bezier(0.34, 1.56, 0.64, 1)"
+    }
+  },
+  "exports": {
+    "bodyProtocol": "/design/body-protocol.js",
+    "tangoCss": "/design/tango.css",
+    "factoryConfig": "/FACTORY.json"
+  }
+}

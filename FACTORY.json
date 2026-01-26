@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "espiritu-tango",
+  "version": "3.0.0",
+
+  "identity": {
+    "name": "ESPÍRITU TANGO",
+    "tagline": "Performance Protocol for Body",
+    "subtitle": "몸으로 장면을 만드는 퍼포먼스 프로토콜",
+    "type": "performance-studio-os",
+    "domain": "dtslib1979.github.io/espiritu-tango",
+    "language": "es-AR",
+    "NOT": ["website", "academy", "dance-school", "학원", "레슨"]
+  },
+
+  "meta": {
+    "layer": "protocol",
+    "description": "상위 메타 레이어. 실제 스튜디오는 Node로 연결됨.",
+    "registry": "nodes/registry.json",
+    "activeNode": "magenta",
+    "nodeSystem": {
+      "version": "1.0",
+      "configPath": "nodes/{nodeId}/node.json",
+      "forkable": true
+    }
+  },
+
+  "philosophy": {
+    "core": "춤을 가르치지 않는다. 몸의 언어를 편집한다.",
+    "coreEs": "No enseñamos baile. Editamos el lenguaje del cuerpo.",
+    "medium": "Body",
+    "output": "Scene",
+    "method": "Protocol",
+    "humanRole": "퍼포머",
+    "systemRole": "장면을 만드는 도구",
+    "result": "일상이 무대가 된다"
+  },
+
+  "architecture": {
+    "name": "5-Layer Performance Studio OS",
+    "layers": [
+      { "level": 1, "id": "emisión", "name": "Emission", "purpose": "장면을 송출한다", "verb": "Transmití" },
+      { "level": 2, "id": "cuerpo", "name": "Body Grammar", "purpose": "몸의 언어를 편집한다", "verb": "Editá" },
+      { "level": 3, "id": "laboratorio", "name": "Gesture Lab", "purpose": "제스처를 설계한다", "verb": "Diseñá" },
+      { "level": 4, "id": "control", "name": "Control Room", "purpose": "시스템을 관측한다", "verb": "Observá" },
+      { "level": 5, "id": "legado", "name": "Legacy", "purpose": "서사를 축적한다", "verb": "Recordá" }
+    ]
+  },
+
+  "protocol": {
+    "current": "tango",
+    "version": "1.0",
+    "description": "첫 번째 Body Protocol",
+    "expandable": true,
+    "future": ["food", "sound", "space", "craft"]
+  },
+
+  "bodyProtocol": {
+    "version": "1.0",
+    "bpm": 70,
+    "interactions": {
+      "scroll": "acercarse",
+      "tap": "compromiso",
+      "hold": "esperar",
+      "swipe": "girar",
+      "idle": "respirar",
+      "back": "soltar"
+    }
+  },
+
+  "timing": {
+    "bpm": 70,
+    "beat_ms": 857,
+    "half_beat_ms": 428,
+    "breath_ms": 2571,
+    "phrase_ms": 3428
+  },
+
+  "theme": {
+    "primary": "#E91E63",
+    "accent": "#FFD54F",
+    "bg": "#0a0008",
+    "glow": "#f0e8ec",
+    "void": "#0a0008",
+    "smoke": "#1a1118"
+  },
+
+  "audio": {
+    "sources": ["spotify", "youtube"],
+    "serviceWorker": false,
+    "position": "fixed-bottom",
+    "height": "80px"
+  },
+
+  "compatibility": {
+    "bingReadAloud": true,
+    "translation": true,
+    "semanticHTML": true,
+    "reducedMotion": true,
+    "mobileOnly": true,
+    "maxWidth": "430px"
+  }
+}

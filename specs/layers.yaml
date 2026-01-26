@@ -1,0 +1,99 @@
+# 5-Layer Studio & Broadcast Architecture
+# "El primer sistema que respira."
+
+version: "2.0"
+system: "tango-magenta"
+language: "es-AR"
+
+layers:
+  - level: 1
+    id: "emisión"
+    name: "Emisión"
+    english: "Broadcast"
+    purpose: "La señal que sale al mundo"
+    verb: "Sintonizá"
+    content:
+      - "Spotify playlists (tango, ambient, experimental)"
+      - "YouTube video sessions"
+      - "Audio archive"
+    audio: true
+
+  - level: 2
+    id: "cuerpo"
+    name: "Cuerpo"
+    english: "Body"
+    purpose: "La gramática del movimiento"
+    verb: "Sentí"
+    content:
+      - "Body API documentation"
+      - "6 interaction definitions"
+      - "Design principles"
+      - "Hidden secrets (long press)"
+
+  - level: 3
+    id: "laboratorio"
+    name: "Laboratorio"
+    english: "Laboratory"
+    purpose: "El motor de gestos"
+    verb: "Experimentá"
+    content:
+      - "Gesture database (8 tango figures)"
+      - "Render pipeline visualization"
+      - "Code-level gesture definitions"
+
+  - level: 4
+    id: "control"
+    name: "Control"
+    english: "Control Room"
+    purpose: "La cabina del sistema"
+    verb: "Observá"
+    content:
+      - "System status dashboard"
+      - "Live metrics (emissions, gestures, legacy)"
+      - "Architecture visualization"
+      - "HQ connection status"
+
+  - level: 5
+    id: "legado"
+    name: "Legado"
+    english: "Legacy"
+    purpose: "Donde la vida se vuelve mundo"
+    verb: "Recordá"
+    content:
+      - "World constitution (5 articles)"
+      - "Archive entries (timeline)"
+      - "Manifesto"
+
+entrada:
+  description: "La entrada no es un click. Es una ceremonia."
+  ritual: true
+  steps: 3
+  duration: "~6.4s (3000 + 2571 + 857)"
+
+gate:
+  location: "inner/"
+  code: "1126"
+  session_storage: "tango_auth"
+
+body_protocol:
+  version: "1.0"
+  bpm: 70
+  interactions: 6
+  philosophy: "El cuerpo es la interfaz"
+
+audio_layer:
+  sources: ["spotify", "youtube"]
+  service_worker: false
+  position: "fixed-bottom"
+  height: "80px"
+  class: "reproductor"
+
+compatibility:
+  bing_read_aloud: true
+  translation: true
+  semantic_html: true
+  reduced_motion: true
+  mobile_only: true
+  max_width: "430px"
+
+funnel: "Oscuridad → Ritual → Monumento → Capas → Profundidad"

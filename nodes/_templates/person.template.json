@@ -1,0 +1,68 @@
+{
+  "$schema": "../node.schema.json",
+  "id": "{{handle}}",
+  "type": "person",
+  "version": "1.0.0",
+  "status": "pending",
+
+  "identity": {
+    "name": "{{display_name}}",
+    "handle": "@{{handle}}",
+    "tagline": "원포인트 레슨 제공자",
+    "protocol": "tango",
+    "location": {
+      "city": "{{city}}",
+      "flexible": true
+    }
+  },
+
+  "profile": {
+    "experience": "{{years}}년",
+    "style": ["salon", "nuevo", "milonguero"],
+    "role": ["leader", "follower", "both"],
+    "languages": ["ko", "en", "es"],
+    "verification": {
+      "video": "{{video_url}}",
+      "status": "pending"
+    }
+  },
+
+  "offering": {
+    "onePointLesson": {
+      "available": true,
+      "duration": "30min",
+      "price": "{{price}}",
+      "currency": "KRW",
+      "focus": [
+        "기본 걸음",
+        "오초",
+        "히로",
+        "연결",
+        "뮤지컬리티"
+      ],
+      "booking": "{{booking_method}}"
+    },
+    "randomJoin": {
+      "available": true,
+      "preference": "{{level_range}}"
+    }
+  },
+
+  "availability": {
+    "days": ["mon", "wed", "fri"],
+    "hours": "19:00-22:00",
+    "location": ["magenta", "flexible"]
+  },
+
+  "rating": {
+    "score": null,
+    "reviews": 0,
+    "badges": []
+  },
+
+  "approval": {
+    "approvedBy": null,
+    "date": null,
+    "note": ""
+  }
+}

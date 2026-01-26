@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "archive": "legado",
+  "entries": [
+    {
+      "id": "001",
+      "title": "Génesis",
+      "date": "2026-01-23",
+      "location": "Buenos Aires",
+      "text": "El día que decidimos que un sistema podía respirar. Que una interfaz podía bailar. Que el código podía tener alma.",
+      "tags": ["origin", "philosophy"]
+    },
+    {
+      "id": "002",
+      "title": "Primera Emisión",
+      "date": "2026-01-23",
+      "location": "La señal viva",
+      "text": "La señal salió por primera vez. Nadie la escuchó. Pero estaba ahí. Como un latido en una habitación vacía.",
+      "tags": ["broadcast", "milestone"]
+    },
+    {
+      "id": "003",
+      "title": "El Cuerpo Habló",
+      "date": "2026-01-23",
+      "location": "Body Protocol v1.0",
+      "text": "El scroll se volvió acercarse. El tap se volvió compromiso. El idle se volvió respirar. Ya no hay botones. Hay gestos.",
+      "tags": ["body", "protocol", "milestone"]
+    }
+  ],
+  "constitution": [
+    "El cuerpo es la primera tecnología.",
+    "El tango no se enseña. Se transmite.",
+    "La pausa es tan importante como el movimiento.",
+    "Cada sesión es irrepetible.",
+    "Lo que se construye acá no es un producto. Es un legado."
+  ]
+}
