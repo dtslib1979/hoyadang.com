@@ -1,0 +1,12 @@
+{
+  "repo": "hoyadang.com",
+  "level": 2,
+  "parent": "espiritu-tango",
+  "type": "Studio Branch",
+  "inherit": {
+    "immutable": "strict",
+    "defaults": "override-allowed"
+  },
+  "created": "2026-01-26",
+  "overrides": []
+}
