@@ -504,6 +504,61 @@ body::after {
   font-weight: 600;
 }
 
+/* CAD Floor Plan */
+.cad-plano {
+  padding: var(--s-xl) var(--s-sm) !important;
+}
+
+.cad-svg {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  display: block;
+  margin: var(--s-md) auto;
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.15));
+}
+
+.cad-plano .susurro {
+  text-align: center;
+  color: var(--harina);
+}
+
+/* Contacto grid for floor plan section */
+.contacto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-md);
+}
+
+.contacto-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-sm);
+}
+
+.contacto-icono {
+  font-size: var(--t-lg);
+  line-height: 1.2;
+}
+
+.contacto-texto {
+  flex: 1;
+}
+
+.contacto-label {
+  font-family: var(--f-code);
+  font-size: var(--t-xs);
+  color: var(--aceite);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--s-3xs);
+}
+
+.contacto-valor {
+  font-size: var(--t-sm);
+  color: var(--carbon);
+}
+
 
 /* ─── VII. 5 Pasos (Cooking Layers) ─── */
 

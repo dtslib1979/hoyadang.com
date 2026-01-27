@@ -365,54 +365,139 @@
 
 
   <!-- ═══ PASO 5: El Estudio ═══ -->
-  <section class="paso paso--preparar revelar" id="estudio" aria-label="El Estudio">
-    <div class="paso-header">
-      <span class="paso-numero">5</span>
-      <h2 class="paso-titulo">El Estudio</h2>
-      <span class="paso-subtitulo">스튜디오</span>
-    </div>
+  <section class="espacio" id="estudio" aria-label="El Estudio">
 
-    <!-- Polaroid del Abuelo -->
-    <div class="polaroid mt-lg" style="max-width: 280px; margin: 0 auto;">
-      <img class="polaroid-imagen"
-           src="https://images.pexels.com/photos/3814446/pexels-photo-3814446.jpeg?auto=compress&cs=tinysrgb&w=400"
-           alt="호야당 아저씨"
-           loading="lazy">
-      <p class="polaroid-caption">호야당 아저씨 — Mr. Hoyadang</p>
-    </div>
+    <!-- Floor Plan — CAD Style -->
+    <article class="tarjeta revelar cad-plano film-frame" aria-label="好爺堂 Floor Plan">
+      <!-- Film sprocket holes -->
+      <div class="film-sprockets film-sprockets--left" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="film-sprockets film-sprockets--right" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
 
-    <p class="voz mt-xl" style="text-align: center;">
-      Un fotógrafo que cocina.<br>
-      Un cocinero que fotografía.
-    </p>
-    <span class="ko" style="text-align: center; display: block;">요리하는 사진작가. 사진 찍는 요리사.</span>
+      <!-- Film frame number -->
+      <div class="film-code" aria-hidden="true">
+        <span class="film-code-num">05</span>
+        <span class="film-code-label">STUDIO</span>
+      </div>
 
-    <!-- Contacto -->
-    <div class="contacto mt-xl">
-      <div class="contacto-item">
-        <span class="contacto-icono">📍</span>
-        <div class="contacto-texto">
-          <p class="contacto-label">Ubicación</p>
-          <p class="contacto-valor">안양시 만안구 와룡로 12-1</p>
+      <p class="susurro">L5 — EL ESTUDIO</p>
+      <span lang="ko" class="ko" style="display:block;text-align:center;font-size:var(--t-xs);margin-bottom:var(--s-sm);opacity:0.6;">好爺堂 평면도</span>
+
+      <svg class="cad-svg" viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg" aria-label="好爺堂 Floor Plan">
+        <defs>
+          <style>
+            .w-ext { stroke: var(--aceite, #8B7355); fill: none; stroke-width: 2.5; stroke-linecap: square; }
+            .w-int { stroke: var(--aceite, #8B7355); fill: none; stroke-width: 1.5; opacity: 0.5; }
+            .w-door { stroke: var(--aceite, #8B7355); fill: none; stroke-width: 0.8; opacity: 0.4; }
+            .rm { fill: transparent; cursor: pointer; transition: fill 0.3s; }
+            .rm:hover { fill: rgba(212,168,83,0.1); }
+            .rm:active { fill: rgba(212,168,83,0.2); }
+            .t-code { font-family: 'JetBrains Mono',monospace; font-size: 9px; fill: var(--aceite, #8B7355); letter-spacing: 0.5px; opacity: 0.7; }
+            .t-name { font-family: 'Noto Sans KR',sans-serif; font-size: 12px; fill: var(--carbon, #1A1A1A); font-weight: 500; }
+            .t-name-es { font-family: 'Cormorant Garamond',serif; font-size: 10px; fill: var(--aceite, #8B7355); font-style: italic; }
+            .t-dim { font-family: 'JetBrains Mono',monospace; font-size: 7px; fill: var(--aceite, #8B7355); opacity: 0.4; }
+            .d-line { stroke: var(--aceite, #8B7355); stroke-width: 0.5; opacity: 0.2; }
+            .icon { fill: var(--dorado, #D4A853); opacity: 0.6; }
+          </style>
+        </defs>
+
+        <!-- Outer walls -->
+        <rect x="15" y="25" width="270" height="230" class="w-ext"/>
+
+        <!-- KITCHEN — 주방 (Top section) -->
+        <rect x="15" y="25" width="270" height="80" class="rm"/>
+        <line x1="15" y1="105" x2="285" y2="105" class="w-int"/>
+        <!-- Kitchen door -->
+        <line x1="130" y1="105" x2="170" y2="105" stroke="var(--harina, #FFFAF5)" stroke-width="3"/>
+        <path d="M 130 105 Q 130 118 143 118" class="w-door"/>
+        <text x="150" y="55" text-anchor="middle" class="t-code">COCINA</text>
+        <text x="150" y="72" text-anchor="middle" class="t-name">주방</text>
+        <text x="150" y="88" text-anchor="middle" class="t-name-es">Kitchen</text>
+        <!-- Oven icon -->
+        <rect x="40" y="45" width="25" height="20" rx="2" class="icon" opacity="0.3"/>
+        <rect x="235" y="45" width="25" height="20" rx="2" class="icon" opacity="0.3"/>
+
+        <!-- DISPLAY — 판매대 (Middle section) -->
+        <rect x="15" y="105" width="270" height="70" class="rm"/>
+        <line x1="15" y1="175" x2="285" y2="175" class="w-int"/>
+        <text x="150" y="130" text-anchor="middle" class="t-code">VITRINA</text>
+        <text x="150" y="147" text-anchor="middle" class="t-name">판매대</text>
+        <text x="150" y="163" text-anchor="middle" class="t-name-es">Display</text>
+        <!-- Display counter line -->
+        <line x1="50" y1="125" x2="250" y2="125" stroke="var(--dorado, #D4A853)" stroke-width="2" opacity="0.4"/>
+        <line x1="50" y1="155" x2="250" y2="155" stroke="var(--dorado, #D4A853)" stroke-width="2" opacity="0.4"/>
+
+        <!-- SEATING — 좌석 (Bottom left) -->
+        <rect x="15" y="175" width="160" height="80" class="rm"/>
+        <line x1="175" y1="175" x2="175" y2="255" class="w-int"/>
+        <text x="95" y="200" text-anchor="middle" class="t-code">SALA</text>
+        <text x="95" y="217" text-anchor="middle" class="t-name">좌석</text>
+        <text x="95" y="233" text-anchor="middle" class="t-name-es">Seating</text>
+        <!-- Table icons -->
+        <circle cx="50" cy="215" r="8" class="icon" opacity="0.2"/>
+        <circle cx="95" cy="215" r="8" class="icon" opacity="0.2"/>
+        <circle cx="140" cy="215" r="8" class="icon" opacity="0.2"/>
+
+        <!-- PICKUP — 픽업 (Bottom right) -->
+        <rect x="175" y="175" width="110" height="80" class="rm"/>
+        <text x="230" y="200" text-anchor="middle" class="t-code">RECOGER</text>
+        <text x="230" y="217" text-anchor="middle" class="t-name">픽업</text>
+        <text x="230" y="233" text-anchor="middle" class="t-name-es">Pickup</text>
+
+        <!-- ENTRANCE -->
+        <line x1="50" y1="255" x2="100" y2="255" stroke="var(--harina, #FFFAF5)" stroke-width="4"/>
+        <path d="M 50 255 Q 50 270 65 268" class="w-door"/>
+        <polygon points="75,268 75,275 68,271.5" fill="var(--tomate, #C44536)" opacity="0.6"/>
+        <text x="82" y="273" class="t-dim" style="fill:var(--tomate, #C44536);opacity:0.7;">ENTRADA 입구</text>
+
+        <!-- Address line -->
+        <line x1="15" y1="18" x2="285" y2="18" class="d-line"/>
+        <text x="150" y="15" text-anchor="middle" class="t-dim">와룡로 12-1 · 안양시 만안구</text>
+      </svg>
+    </article>
+
+    <div class="linea"></div>
+
+    <!-- Info Cards -->
+    <article class="tarjeta revelar">
+      <p class="susurro">INFO</p>
+      <h2 class="tarjeta-titulo" style="font-size: var(--t-xl);">好爺堂</h2>
+
+      <div class="contacto mt-lg">
+        <div class="contacto-item">
+          <span class="contacto-icono">📍</span>
+          <div class="contacto-texto">
+            <p class="contacto-label">Ubicación</p>
+            <p class="contacto-valor">안양시 만안구 와룡로 12-1</p>
+          </div>
+        </div>
+
+        <div class="contacto-item">
+          <span class="contacto-icono">🕐</span>
+          <div class="contacto-texto">
+            <p class="contacto-label">Horario</p>
+            <p class="contacto-valor">월-토 08:00-20:00</p>
+          </div>
+        </div>
+
+        <div class="contacto-item">
+          <span class="contacto-icono">📞</span>
+          <div class="contacto-texto">
+            <p class="contacto-label">Teléfono</p>
+            <p class="contacto-valor">070-8886-3300</p>
+          </div>
         </div>
       </div>
 
-      <div class="contacto-item">
-        <span class="contacto-icono">🕐</span>
-        <div class="contacto-texto">
-          <p class="contacto-label">Horario</p>
-          <p class="contacto-valor">월-토 08:00-20:00</p>
-        </div>
-      </div>
+      <p class="voz mt-lg" style="text-align: center; font-size: var(--t-sm);">
+        Un fotógrafo que cocina. Un cocinero que fotografía.
+      </p>
+      <span class="ko" style="text-align: center; display: block; margin-top: var(--s-xs);">요리하는 사진작가. 사진 찍는 요리사.</span>
+    </article>
 
-      <div class="contacto-item">
-        <span class="contacto-icono">📞</span>
-        <div class="contacto-texto">
-          <p class="contacto-label">Teléfono</p>
-          <p class="contacto-valor">070-8886-3300</p>
-        </div>
-      </div>
-    </div>
   </section>
 
 
