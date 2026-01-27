@@ -506,12 +506,77 @@
 
 
   <!-- YouTube Player (Hidden) -->
-  <div id="ytPlayer" style="position:absolute;left:-9999px;"></div>
+  <div id="ytPlayer" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;"></div>
 
 
   <!-- Scripts -->
   <script src="design/entrada.js"></script>
-  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <!-- YouTube Audio Player -->
+  <script>
+  (function() {
+    'use strict';
+    var VIDEO_ID = 'e9RS4biqyAc';  // Aranjuez - Adagio (embeddable version)
+    var playBtn = document.getElementById('audioBtn');
+    var playIcon = document.getElementById('audioIcon');
+    var player;
+    var isPlaying = false;
+
+    // Load YouTube API
+    var tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+
+    window.onYouTubeIframeAPIReady = function() {
+      player = new YT.Player('ytPlayer', {
+        videoId: VIDEO_ID,
+        playerVars: {
+          autoplay: 0,
+          loop: 1,
+          playlist: VIDEO_ID,
+          controls: 0,
+          disablekb: 1,
+          fs: 0,
+          modestbranding: 1,
+          playsinline: 1,
+          rel: 0,
+          origin: window.location.origin
+        },
+        events: {
+          onReady: function(e) {
+            e.target.setVolume(50);
+            console.log('YouTube Player Ready');
+          },
+          onStateChange: function(e) {
+            if (e.data === YT.PlayerState.PLAYING) {
+              isPlaying = true;
+              playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+            } else {
+              isPlaying = false;
+              playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+            }
+          },
+          onError: function(e) {
+            console.error('YouTube Error:', e.data);
+          }
+        }
+      });
+    };
+
+    // Button click
+    if (playBtn) {
+      playBtn.addEventListener('click', function() {
+        if (!player) return;
+        if (isPlaying) {
+          player.pauseVideo();
+        } else {
+          player.unMute();
+          player.playVideo();
+        }
+      });
+    }
+  })();
+  </script>
 
 </body>
 </html>
