@@ -1,629 +1,583 @@
 <!DOCTYPE html>
-<html lang="es-AR">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#0a0008">
+  <meta name="theme-color" content="#FFFAF5">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-  <!-- Translation Support -->
-  <meta name="google" content="translate">
-  <meta http-equiv="Content-Language" content="es-AR, ko-KR">
+  <title>好爺堂 — Tu cocina. Sabor coreano.</title>
+  <meta name="description" content="好爺堂 (호야당) — Recetas coreanas para tu cocina. Con las manos. 손으로. K-Food tutorials con sartén, airfryer y microondas.">
+  <meta name="keywords" content="好爺堂, 호야당, hoyadang, K-food, croqueta coreana, 고로케, recetas coreanas, korean recipes, airfryer recipes">
 
-  <title>HOYADANG — Performance Protocol</title>
-  <meta name="description" content="Performance Protocol for Body. 몸으로 장면을 만드는 퍼포먼스 프로토콜. No es academia. Es estudio.">
-  <!-- Hidden SEO: 검색용 (학원 키워드 유지) -->
-  <meta name="keywords" content="tango, 탱고, 강남 탱고, hoyadang, 호야당, 강남구청역, 레스토랑, performance studio">
+  <!-- Bilingual SEO -->
+  <meta name="description" lang="ko" content="好爺堂 호야당 — 당신의 주방에서 한국의 맛을. 손으로 전하는 K-Food 레시피. 팬, 에어프라이어, 전자레인지로 80% 재현.">
 
-  <!-- Korean SEO -->
-  <meta name="description" lang="ko" content="에스피리투 탱고 — 몸으로 장면을 만드는 퍼포먼스 스튜디오. 학원이 아닙니다. 탱고는 첫 번째 프로토콜입니다.">
-
-  <!-- OG -->
-  <meta property="og:title" content="HOYADANG — Performance Protocol">
-  <meta property="og:description" content="Performance Protocol for Body. 몸으로 장면을 만드는 스튜디오.">
+  <!-- Open Graph -->
+  <meta property="og:title" content="好爺堂 — Con las manos. 손으로.">
+  <meta property="og:description" content="Recetas coreanas para tu cocina. K-Food que podés hacer en casa.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://dtslib1979.github.io/hoyadang.com/">
-  <meta property="og:site_name" content="HOYADANG">
-  <meta property="og:locale" content="es_AR">
+  <meta property="og:url" content="https://hoyadang.com/">
+  <meta property="og:site_name" content="好爺堂">
+  <meta property="og:locale" content="es_ES">
   <meta property="og:locale:alternate" content="ko_KR">
 
-  <!-- Structured Data: LocalBusiness (Node: Magenta) -->
+  <!-- Structured Data: Restaurant + Recipe Publisher -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "PerformingArtsTheater",
-    "name": "Hoyadang",
+    "@type": "Restaurant",
+    "name": "好爺堂",
     "alternateName": "호야당",
-    "url": "https://dtslib1979.github.io/hoyadang.com/",
-    "telephone": "+82-507-1402-3774",
+    "url": "https://hoyadang.com/",
+    "telephone": "+82-70-8886-3300",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "선릉로 709 B1",
-      "addressLocality": "강남구",
-      "addressRegion": "서울특별시",
+      "streetAddress": "와룡로 12-1",
+      "addressLocality": "안양시 만안구",
+      "addressRegion": "경기도",
       "addressCountry": "KR"
     },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 37.5172,
-      "longitude": 127.0473
-    },
-    "openingHours": "Mo-Su",
-    "priceRange": "₩10,000-₩80,000",
-    "sameAs": ["http://cafe.naver.com/thestep2011"],
-    "description": "Performance Studio. 몸으로 장면을 만드는 스튜디오. 강남구청역 도보 1분.",
-    "knowsAbout": ["Body Protocol", "Performance Art", "Argentine Tango"]
+    "servesCuisine": ["Korean", "Bakery", "Croquette"],
+    "openingHours": "Mo-Sa 08:00-20:00",
+    "priceRange": "₩4,500-₩15,000",
+    "description": "요리하는 Bakery. K-Food tutorials. 고로케, 도넛, 빵."
   }
   </script>
 
   <!-- PWA -->
   <link rel="manifest" href="manifest.webmanifest">
 
-  <!-- Preload critical -->
-  <link rel="preload" href="design/tango.css" as="style">
-  <link rel="preload" href="design/entrada.js" as="script">
-
-
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Noto+Sans+KR:wght@400;500&family=Noto+Serif+KR:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Design System -->
-  <link rel="stylesheet" href="design/tango.css">
+  <link rel="stylesheet" href="design/hoyadang.css">
+
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 </head>
 <body class="con-reproductor">
 
-  <!-- ═══ Ritual de Entrada ═══ -->
-  <div class="ritual" role="presentation" aria-hidden="true">
-    <p class="ritual-texto">Respirá despacio.</p>
-    <button class="ritual-saltar" aria-label="건너뛰기">건너뛰기</button>
+  <!-- ═══ INTRO — 셔터 오프닝 ═══ -->
+  <div class="intro" id="intro" role="presentation">
+    <!-- TODO: 교체 - 손으로 반죽하는 영상 -->
+    <video class="intro-video" autoplay muted loop playsinline preload="auto"
+      poster="https://images.pexels.com/photos/784633/pexels-photo-784633.jpeg?auto=compress&cs=tinysrgb&w=800">
+      <!-- 플레이스홀더: Pexels 무료 영상 (손으로 반죽) -->
+      <source src="https://player.vimeo.com/external/370467553.sd.mp4?s=399baa6c5f8e591ad2f7bb01e8c0e8f0c0e8f0c0&profile_id=165" type="video/mp4">
+      <!-- TODO: 실제 영상으로 교체 - assets/video/manos-intro.mp4 -->
+    </video>
+
+    <div class="intro-contenido">
+      <h1 class="intro-titulo">Con las manos.</h1>
+      <p class="intro-subtitulo">
+        <span class="ko">손으로.</span>
+      </p>
+    </div>
+
+    <button class="intro-skip" id="introSkip">건너뛰기</button>
   </div>
 
-  <!-- ═══ Ribbon — 인연의 실 (Thread of Fate) ═══ -->
-  <div class="ribbon-container" id="ribbonContainer" aria-hidden="true">
-    <svg class="ribbon-svg" viewBox="0 0 430 932" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="ribbon-glow">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
-          <feMerge>
-            <feMergeNode in="blur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-        <filter id="ribbon-ambient">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="8"/>
-        </filter>
-      </defs>
 
-      <!-- Ambient glow layer (wide, soft, behind everything) -->
-      <path class="ribbon-path ribbon-path--ambient" id="ribbonAmbient"
-        d="M 215 -10
-           C 300 60, 130 130, 340 200
-           S 90 290, 260 370
-           C 380 430, 60 500, 215 580
-           S 360 660, 170 740
-           C 50 800, 370 860, 215 942" />
+  <!-- ═══ SCENE 1: HERO ═══ -->
+  <section class="hero" id="hero">
+    <!-- Background Video -->
+    <div class="hero-video-wrap">
+      <!-- TODO: 교체 - 호야당 아저씨 손 클로즈업 영상 -->
+      <video class="hero-video" autoplay muted loop playsinline preload="auto"
+        poster="https://images.pexels.com/photos/6287295/pexels-photo-6287295.jpeg?auto=compress&cs=tinysrgb&w=1200">
+        <!-- 플레이스홀더: 요리하는 손 영상 -->
+        <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c27eecc69a27dbc4ff2b87d38afc35f1ebe51a25&profile_id=165" type="video/mp4">
+        <!-- TODO: 실제 영상으로 교체 - assets/video/manos-hero.mp4 -->
+      </video>
+      <div class="hero-overlay"></div>
+    </div>
 
-      <!-- Main silk ribbon — core thread -->
-      <path class="ribbon-path ribbon-path--main" id="ribbonMain"
-        d="M 215 -10
-           C 300 60, 130 130, 340 200
-           S 90 290, 260 370
-           C 380 430, 60 500, 215 580
-           S 360 660, 170 740
-           C 50 800, 370 860, 215 942" />
+    <div class="hero-contenido">
+      <h1 class="hero-logo">好爺堂</h1>
 
-      <!-- Silk thread 1 — tight weave, slight offset left -->
-      <path class="ribbon-path ribbon-path--thread" id="ribbonThread1"
-        d="M 210 -10
-           C 290 65, 125 135, 333 205
-           S 85 295, 254 375
-           C 372 435, 55 505, 209 585
-           S 353 665, 164 745
-           C 44 805, 363 865, 209 942" />
+      <p class="hero-tagline">Tu cocina. Sabor coreano.</p>
+      <p class="hero-tagline-ko">당신의 주방. 한국의 맛.</p>
 
-      <!-- Silk thread 2 — tight weave, slight offset right -->
-      <path class="ribbon-path ribbon-path--thread" id="ribbonThread2"
-        d="M 220 -10
-           C 310 55, 137 125, 347 195
-           S 97 285, 266 365
-           C 388 425, 67 495, 221 575
-           S 367 655, 176 735
-           C 57 795, 377 855, 221 942" />
+      <div class="mt-xl">
+        <a href="#filosofia" class="boton boton--grande">
+          Descubrí
+          <span class="ko--inline">알아보기</span>
+        </a>
+      </div>
+    </div>
 
-      <!-- Partner echo — distant trace -->
-      <path class="ribbon-path ribbon-path--echo" id="ribbonEcho1"
-        d="M 190 -10
-           C 100 80, 330 160, 150 260
-           S 350 350, 190 440
-           C 60 520, 370 600, 240 700
-           S 100 800, 250 942" />
-    </svg>
-  </div>
-
-  <!-- ═══ I. Monumento ═══ -->
-  <section class="espacio-centro" aria-label="Entrada">
-    <p class="susurro latido">PERFORMANCE PROTOCOL FOR <span class="magenta">BODY</span></p>
-
-    <h1 class="monumento mt-lg">HOYA<br>DANG</h1>
-
-    <p class="voz mt-xl">
-      No enseñamos <span class="magenta">baile</span>.<br>
-      Editamos el lenguaje del <span class="magenta">cuerpo</span>.
-    </p>
-    <span lang="ko" class="ko mt-sm">춤을 가르치지 않습니다. 몸의 언어를 편집합니다.</span>
-
-    <div class="linea"></div>
-
-    <a href="#pisos" class="puerta puerta--principal" aria-label="Entrar">
-      Entrá.
-    </a>
+    <div class="hero-scroll">
+      <div class="hero-scroll-icon"></div>
+      <span class="susurro">Scroll</span>
+    </div>
   </section>
 
-  <!-- ═══ Dance Video — La Danza ═══ -->
-  <section class="danza-section revelar" id="danza" aria-label="La Danza">
-    <div class="danza-video-wrap">
-      <video class="danza-video"
-             src="magenta.mp4"
-             poster="danza-poster.jpg"
-             autoplay
-             muted
-             loop
-             playsinline
-             preload="metadata"
-             aria-label="Tango dance"></video>
-      <div class="danza-caption">
-        <p class="susurro">EL CUERPO HABLA</p>
+
+  <!-- ═══ SCENE 2: FILOSOFÍA — 철학 ═══ -->
+  <section class="seccion seccion--centrado" id="filosofia">
+    <div class="contenedor">
+      <p class="susurro revelar">FILOSOFÍA</p>
+
+      <h2 class="titulo-seccion revelar mt-md" style="font-style: italic;">
+        "No necesitás un horno profesional."
+      </h2>
+      <p class="ko revelar" style="font-size: var(--t-md); opacity: 0.8;">
+        "전문 오븐은 필요 없습니다."
+      </p>
+
+      <div class="linea"></div>
+
+      <div class="bilingue revelar mt-lg">
+        <p class="bilingue-es texto" style="font-size: var(--t-md); max-width: 320px; margin: 0 auto;">
+          Con tu sartén, tu airfryer, tu microondas —
+          el <strong class="dorado">80%</strong> del sabor coreano
+          llega a tu mesa.
+        </p>
+        <p class="bilingue-ko">
+          팬, 에어프라이어, 전자레인지만 있으면<br>
+          한국 맛의 80%가 당신의 식탁에 도착합니다.
+        </p>
+      </div>
+
+      <!-- Film Strip — 요리 과정 -->
+      <div class="film-strip mt-xl">
+        <!-- Frame 1: 재료 -->
+        <div class="film-frame revelar">
+          <!-- TODO: 교체 - 재료 손질 사진 -->
+          <img class="film-imagen light-leak"
+            src="https://images.pexels.com/photos/8477066/pexels-photo-8477066.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="Preparar ingredientes">
+          <p class="film-caption">
+            Preparar<br>
+            <span class="ko">준비하다</span>
+          </p>
+          <span class="film-numero">1A</span>
+        </div>
+
+        <!-- Frame 2: 반죽 -->
+        <div class="film-frame revelar">
+          <!-- TODO: 교체 - 반죽하는 손 사진 -->
+          <img class="film-imagen light-leak"
+            src="https://images.pexels.com/photos/6287525/pexels-photo-6287525.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="Formar con las manos">
+          <p class="film-caption">
+            Formar<br>
+            <span class="ko">빚다</span>
+          </p>
+          <span class="film-numero">2A</span>
+        </div>
+
+        <!-- Frame 3: 요리 -->
+        <div class="film-frame revelar">
+          <!-- TODO: 교체 - 튀기는/굽는 손 사진 -->
+          <img class="film-imagen light-leak"
+            src="https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="Cocinar">
+          <p class="film-caption">
+            Cocinar<br>
+            <span class="ko">요리하다</span>
+          </p>
+          <span class="film-numero">3A</span>
+        </div>
+
+        <!-- Frame 4: 완성 -->
+        <div class="film-frame revelar">
+          <!-- TODO: 교체 - 접시에 담는 손 사진 -->
+          <img class="film-imagen light-leak"
+            src="https://images.pexels.com/photos/6287519/pexels-photo-6287519.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="Servir">
+          <p class="film-caption">
+            Servir<br>
+            <span class="ko">대접하다</span>
+          </p>
+          <span class="film-numero">4A</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ II. Los 5 Pisos ═══ -->
-  <section class="espacio" id="pisos" aria-label="Studio OS">
 
-    <!-- L1: Emission — Floor Plan (Film Frame) -->
-    <article class="tarjeta revelar cad-plano film-frame" aria-label="L1 Emission Floor Plan">
-      <!-- Film sprocket holes -->
-      <div class="film-sprockets film-sprockets--left" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  <!-- ═══ SCENE 3: HERRAMIENTAS — 도구 ═══ -->
+  <section class="seccion seccion--crema" id="herramientas">
+    <div class="contenedor">
+      <p class="susurro revelar text-center">TUS HERRAMIENTAS</p>
+      <h2 class="titulo-seccion revelar mt-md">
+        당신의 도구들
+      </h2>
+
+      <p class="texto text-center revelar mt-sm" style="max-width: 280px; margin-left: auto; margin-right: auto;">
+        이 세 가지면 충분합니다.<br>
+        <span class="es" style="color: var(--text-secondary);">Con estos tres, suficiente.</span>
+      </p>
+
+      <div class="herramientas mt-lg">
+        <!-- 팬 -->
+        <div class="herramienta revelar" data-tool="sarten">
+          <span class="herramienta-icono">🍳</span>
+          <p class="herramienta-nombre">Sartén</p>
+          <p class="herramienta-nombre-ko">팬</p>
+        </div>
+
+        <!-- 에어프라이어 -->
+        <div class="herramienta revelar" data-tool="airfryer">
+          <span class="herramienta-icono">🌀</span>
+          <p class="herramienta-nombre">Airfryer</p>
+          <p class="herramienta-nombre-ko">에어프라이어</p>
+        </div>
+
+        <!-- 전자레인지 -->
+        <div class="herramienta revelar" data-tool="micro">
+          <span class="herramienta-icono">📦</span>
+          <p class="herramienta-nombre">Microondas</p>
+          <p class="herramienta-nombre-ko">전자레인지</p>
+        </div>
       </div>
-      <div class="film-sprockets film-sprockets--right" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+
+      <div class="text-center mt-lg revelar">
+        <p class="camara-deco">
+          📷 KODAK PORTRA 400
+        </p>
       </div>
-
-      <!-- Film frame number -->
-      <div class="film-code" aria-hidden="true">
-        <span class="film-code-num">70</span>
-        <span class="film-code-label">BPM</span>
-      </div>
-
-      <p class="susurro">L1 — EMISSION</p>
-      <span lang="ko" class="ko" style="display:block;text-align:center;font-size:var(--t-xs);margin-bottom:var(--s-sm);opacity:0.4;">장면 송출</span>
-
-      <svg class="cad-svg" viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg" aria-label="Studio B1">
-        <defs>
-          <style>
-            .w-ext { stroke: rgba(200,225,210,0.6); fill: none; stroke-width: 2.5; stroke-linecap: square; }
-            .w-int { stroke: rgba(200,225,210,0.35); fill: none; stroke-width: 1.5; }
-            .w-door { stroke: rgba(200,225,210,0.25); fill: none; stroke-width: 0.8; }
-            .rm { fill: transparent; cursor: pointer; }
-            .rm:active { fill: rgba(233,30,99,0.1); }
-            .t-code { font-family: 'JetBrains Mono',monospace; font-size: 10px; fill: rgba(200,225,210,0.55); letter-spacing: 0.5px; }
-            .t-name { font-family: 'Noto Sans KR',sans-serif; font-size: 11px; fill: rgba(240,232,236,0.8); font-weight: 500; }
-            .t-price { font-family: 'JetBrains Mono',monospace; font-size: 8px; fill: rgba(255,213,79,0.55); }
-            .t-dim { font-family: 'JetBrains Mono',monospace; font-size: 7px; fill: rgba(200,225,210,0.2); }
-            .d-line { stroke: rgba(200,225,210,0.12); stroke-width: 0.5; }
-          </style>
-        </defs>
-
-        <!-- Outer walls -->
-        <rect x="15" y="15" width="270" height="220" class="w-ext"/>
-
-        <!-- Main Hall L1 -->
-        <a href="emisión/l1/">
-          <rect x="15" y="15" width="270" height="110" class="rm"/>
-        </a>
-        <line x1="15" y1="125" x2="285" y2="125" class="w-int"/>
-        <line x1="130" y1="125" x2="165" y2="125" stroke="#091209" stroke-width="2.5"/>
-        <path d="M 130 125 Q 130 112 145 112" class="w-door"/>
-        <text x="150" y="62" text-anchor="middle" class="t-code">EP.01</text>
-        <text x="150" y="80" text-anchor="middle" class="t-name">First Gesture</text>
-        <text x="150" y="96" text-anchor="middle" class="t-price">₩29,000</text>
-
-        <!-- L2 center -->
-        <a href="emisión/l2/">
-          <rect x="75" y="125" width="130" height="60" class="rm"/>
-        </a>
-        <line x1="75" y1="125" x2="75" y2="185" class="w-int"/>
-        <line x1="205" y1="125" x2="205" y2="185" class="w-int"/>
-        <line x1="75" y1="185" x2="205" y2="185" class="w-int"/>
-        <line x1="110" y1="125" x2="128" y2="125" stroke="#091209" stroke-width="2"/>
-        <text x="140" y="152" text-anchor="middle" class="t-code">EP.02</text>
-        <text x="140" y="170" text-anchor="middle" class="t-name">Two Bodies</text>
-
-        <!-- L3 left -->
-        <a href="emisión/l3/">
-          <rect x="15" y="125" width="60" height="60" class="rm"/>
-        </a>
-        <line x1="40" y1="185" x2="58" y2="185" stroke="#091209" stroke-width="2"/>
-        <path d="M 40 185 Q 40 196 50 196" class="w-door"/>
-        <text x="45" y="152" text-anchor="middle" class="t-code">EP.03</text>
-        <text x="45" y="170" text-anchor="middle" class="t-name">Scene</text>
-
-        <!-- L4 right -->
-        <a href="emisión/l4/">
-          <rect x="205" y="125" width="80" height="60" class="rm"/>
-        </a>
-        <line x1="215" y1="125" x2="232" y2="125" stroke="#091209" stroke-width="2"/>
-        <path d="M 232 125 Q 232 137 222 137" class="w-door"/>
-        <text x="245" y="152" text-anchor="middle" class="t-code">EP.04</text>
-        <text x="245" y="170" text-anchor="middle" class="t-name">Origin</text>
-
-        <!-- Club bottom right -->
-        <a href="emisión/club/">
-          <rect x="140" y="185" width="145" height="50" class="rm"/>
-        </a>
-        <line x1="140" y1="185" x2="140" y2="235" class="w-int"/>
-        <line x1="140" y1="195" x2="140" y2="215" stroke="#091209" stroke-width="2"/>
-        <path d="M 140 195 Q 127 195 127 205" class="w-door"/>
-        <text x="212" y="208" text-anchor="middle" class="t-code">PASS</text>
-        <text x="212" y="225" text-anchor="middle" class="t-name">Studio</text>
-
-        <!-- 1-Day bottom left -->
-        <a href="emisión/oneday/">
-          <rect x="15" y="185" width="125" height="50" class="rm"/>
-        </a>
-        <line x1="50" y1="235" x2="78" y2="235" stroke="#091209" stroke-width="3"/>
-        <path d="M 50 235 Q 50 248 63 246" class="w-door"/>
-        <text x="77" y="208" text-anchor="middle" class="t-code">1-POINT</text>
-        <text x="77" y="225" text-anchor="middle" class="t-name">체험</text>
-        <text x="77" y="238" text-anchor="middle" class="t-price">₩10,000</text>
-
-        <!-- Minimal dimension -->
-        <line x1="15" y1="8" x2="285" y2="8" class="d-line"/>
-        <text x="150" y="7" text-anchor="middle" class="t-dim">B1 · 선릉로 709</text>
-
-        <!-- Entrance arrow -->
-        <polygon points="64,250 64,256 58,253" fill="rgba(233,30,99,0.35)"/>
-        <text x="70" y="255" class="t-dim" style="fill:rgba(233,30,99,0.4);">ENTRADA</text>
-      </svg>
-    </article>
-
-    <div class="linea"></div>
-
-    <!-- L2: Body Grammar -->
-    <article class="tarjeta revelar">
-      <p class="susurro">L2 — BODY GRAMMAR</p>
-      <h2 class="tarjeta-titulo">몸의 언어를 편집한다</h2>
-      <p class="tarjeta-texto">
-        스크롤은 <span class="magenta">다가감</span>, 탭은 <span class="magenta">결단</span>.
-        버튼은 손이 아니다. 움직이는 몸의 무게다.
-      </p>
-      <span lang="ko" class="ko">70 BPM. 857ms = 1 beat. 모든 인터랙션이 춤이 된다.</span>
-      <a href="cuerpo/" class="puerta mt-md">Editá</a>
-    </article>
-
-    <div class="linea"></div>
-
-    <!-- L3: Gesture Lab -->
-    <article class="tarjeta revelar" data-floor="3">
-      <p class="susurro">L3 — GESTURE LAB</p>
-      <h2 class="tarjeta-titulo">제스처를 설계한다</h2>
-      <p class="tarjeta-texto">
-        Ocho, Caminata, Parada, Sacada, Volcada, Gancho, Boleo, Barrida.
-        <span class="magenta">8개</span>의 기본 제스처 엔진.
-      </p>
-      <span lang="ko" class="ko">움직임이 프로토콜이 되는 곳.</span>
-      <a href="laboratorio/" class="puerta mt-md">Diseñá</a>
-    </article>
-
-    <div class="linea"></div>
-
-    <!-- L4: Control Room -->
-    <article class="tarjeta revelar" data-floor="4">
-      <p class="susurro">L4 — CONTROL ROOM</p>
-      <h2 class="tarjeta-titulo">시스템을 관측한다</h2>
-      <p class="tarjeta-texto">
-        Node Network. <span class="magenta">Random Join</span>.
-        당구장처럼 아무나랑 한 판.
-      </p>
-      <span lang="ko" class="ko">노드 확장, 퍼포머 풀, 이벤트 관리.</span>
-      <a href="control/" class="puerta mt-md">Observá</a>
-    </article>
-
-    <div class="linea"></div>
-
-    <!-- L5: Legacy -->
-    <article class="tarjeta revelar" data-floor="5">
-      <p class="susurro">L5 — LEGACY</p>
-      <h2 class="tarjeta-titulo">서사를 축적한다</h2>
-      <p class="tarjeta-texto">
-        Constitution, Archive, Manifesto.
-        여기서 만드는 건 제품이 아니라 <span class="magenta">유산</span>.
-      </p>
-      <span lang="ko" class="ko">몸의 역사. 내가 연화라면.</span>
-      <a href="legado/" class="puerta mt-md">Recordá</a>
-    </article>
-
+    </div>
   </section>
 
-  <!-- ═══ Partner Guide — 파트너 시스템 가이드 ═══ -->
-  <section class="espacio--compact revelar" aria-label="Partner Guide" id="partner-guide">
-    <div class="guide-container">
-      <p class="susurro" style="text-align:center;">CÓMO BAILAR JUNTOS</p>
-      <h2 class="guide-titulo">El tango no se baila solo.</h2>
-      <span lang="ko" class="ko" style="display:block;text-align:center;margin-top:calc(-1 * var(--s-md));margin-bottom:var(--s-xl);">탱고는 혼자 추는 춤이 아닙니다.</span>
 
-      <div class="guide-steps">
-        <!-- Step 1 -->
-        <div class="guide-step" data-step="1">
-          <div class="guide-step-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
-            </svg>
+  <!-- ═══ SCENE 4: RECETAS — 레시피 ═══ -->
+  <section class="seccion" id="recetas">
+    <div class="contenedor">
+      <p class="susurro revelar text-center">ÁLBUM DE RECETAS</p>
+      <h2 class="titulo-seccion revelar mt-md">
+        레시피 앨범
+      </h2>
+
+      <div class="recetas-grid mt-lg">
+        <!-- Croqueta 고로케 -->
+        <article class="receta-card revelar">
+          <div class="receta-imagen-wrap">
+            <!-- TODO: 교체 - 고로케 만드는 손 사진 -->
+            <img class="receta-imagen"
+              src="https://images.pexels.com/photos/6941028/pexels-photo-6941028.jpeg?auto=compress&cs=tinysrgb&w=400"
+              alt="Croqueta coreana">
           </div>
-          <p class="guide-step-title">1. Compartí</p>
-          <p class="guide-step-desc">Enviá tu código a tu pareja.</p>
-          <span lang="ko" class="ko guide-step-ko">코드를 파트너에게 보내세요</span>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="guide-step" data-step="2">
-          <div class="guide-step-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a 4 4 0 0 1 0 7.75"/>
-            </svg>
-          </div>
-          <p class="guide-step-title">2. Conectá</p>
-          <p class="guide-step-desc">Tu pareja ingresa el código.</p>
-          <span lang="ko" class="ko guide-step-ko">파트너가 코드 입력</span>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="guide-step" data-step="3">
-          <div class="guide-step-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-          </div>
-          <p class="guide-step-title">3. Desbloqueá</p>
-          <p class="guide-step-desc">Pisos 3-5 se abren.</p>
-          <span lang="ko" class="ko guide-step-ko">3-5층 잠금 해제</span>
-        </div>
-      </div>
-
-      <!-- Interactive Demo -->
-      <div class="guide-demo">
-        <p class="susurro">DEMOSTRACIÓN</p>
-        <div class="demo-phones">
-          <div class="demo-phone demo-phone--lead" id="demoLead">
-            <div class="demo-screen">
-              <div class="demo-dot"></div>
-              <span>Líder</span>
+          <div class="receta-info">
+            <h3 class="receta-nombre">Croqueta</h3>
+            <p class="receta-nombre-ko">고로케</p>
+            <div class="receta-meta">
+              <span>⏱ 15min</span>
+              <span>🍳 Sartén</span>
             </div>
+            <p class="receta-fecha">'26.01.27</p>
           </div>
-          <div class="demo-sync-line" id="demoSyncLine"></div>
-          <div class="demo-phone demo-phone--follow" id="demoFollow">
-            <div class="demo-screen">
-              <div class="demo-dot"></div>
-              <span>Seguidor</span>
+        </article>
+
+        <!-- K-Donut 케이도넛 -->
+        <article class="receta-card revelar">
+          <div class="receta-imagen-wrap">
+            <!-- TODO: 교체 - 도넛 만드는 손 사진 -->
+            <img class="receta-imagen"
+              src="https://images.pexels.com/photos/4686818/pexels-photo-4686818.jpeg?auto=compress&cs=tinysrgb&w=400"
+              alt="K-Donut">
+          </div>
+          <div class="receta-info">
+            <h3 class="receta-nombre">K-Donut</h3>
+            <p class="receta-nombre-ko">케이도넛</p>
+            <div class="receta-meta">
+              <span>⏱ 20min</span>
+              <span>🌀 Airfryer</span>
             </div>
+            <p class="receta-fecha">'26.01.20</p>
           </div>
-        </div>
-        <p class="guide-demo-hint">Incliná el teléfono, tu pareja se mueve con vos.</p>
-        <span lang="ko" class="ko" style="display:block;text-align:center;margin-top:var(--s-2xs);margin-bottom:var(--s-md);font-size:var(--t-xs);">폰을 기울이면 파트너도 함께 움직입니다</span>
-        <button class="puerta guide-demo-btn" id="demoBtn">Probalo</button>
+        </article>
+
+        <!-- Hotteok 호떡 -->
+        <article class="receta-card revelar">
+          <div class="receta-imagen-wrap">
+            <!-- TODO: 교체 - 호떡 만드는 손 사진 -->
+            <img class="receta-imagen"
+              src="https://images.pexels.com/photos/5792329/pexels-photo-5792329.jpeg?auto=compress&cs=tinysrgb&w=400"
+              alt="Hotteok">
+          </div>
+          <div class="receta-info">
+            <h3 class="receta-nombre">Hotteok</h3>
+            <p class="receta-nombre-ko">호떡</p>
+            <div class="receta-meta">
+              <span>⏱ 10min</span>
+              <span>🍳 Sartén</span>
+            </div>
+            <p class="receta-fecha">'26.01.15</p>
+          </div>
+        </article>
+
+        <!-- Pan de ajo 마늘빵 -->
+        <article class="receta-card revelar">
+          <div class="receta-imagen-wrap">
+            <!-- TODO: 교체 - 마늘빵 만드는 손 사진 -->
+            <img class="receta-imagen"
+              src="https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=400"
+              alt="Pan de ajo coreano">
+          </div>
+          <div class="receta-info">
+            <h3 class="receta-nombre">Pan de Ajo</h3>
+            <p class="receta-nombre-ko">마늘빵</p>
+            <div class="receta-meta">
+              <span>⏱ 8min</span>
+              <span>🌀 Airfryer</span>
+            </div>
+            <p class="receta-fecha">'26.01.10</p>
+          </div>
+        </article>
       </div>
 
-      <!-- Invite Code Box -->
-      <div class="guide-invite" id="guideInvite">
-        <p class="susurro">MI CÓDIGO</p>
-        <div class="guide-invite-code" id="guideInviteCode">conectando...</div>
-        <button class="guide-copy-btn" id="guideCopyBtn" aria-label="Copiar código">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="9" y="9" width="13" height="13" rx="2"/>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Partner Input -->
-      <div class="guide-join">
-        <p class="susurro">CÓDIGO DE PAREJA</p>
-        <input type="text" class="partner-code guide-partner-input" id="guidePartnerInput" placeholder="abc123" aria-label="Código de pareja" maxlength="10">
-        <button class="puerta guide-join-btn" id="guideJoinBtn">Conectar</button>
-      </div>
-
-      <!-- Connection Status -->
-      <div class="guide-status" id="guideStatus">
-        <span class="guide-status-dot"></span>
-        <span class="guide-status-text">Esperando conexión<span lang="ko" class="ko--inline">연결 대기 중</span></span>
+      <div class="text-center mt-xl revelar">
+        <a href="recetas/" class="boton">
+          Ver todas las recetas
+          <span class="ko--inline">모든 레시피 보기</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ═══ III. Manifiesto — Stone Tablets ═══ -->
-  <section class="tablet-section" aria-label="Manifiesto">
-    <p class="susurro revelar" style="text-align:center; padding-top: var(--s-xl);">MANIFIESTO</p>
 
-    <div class="tablet-carousel" id="tabletCarousel">
-      <div class="tablet-track" id="tabletTrack">
+  <!-- ═══ SCENE 5: ESTUDIO — 스튜디오 ═══ -->
+  <section class="seccion seccion--oscuro" id="estudio">
+    <div class="contenedor">
+      <p class="susurro revelar text-center" style="color: rgba(255,250,245,0.5);">NUESTRO ESTUDIO</p>
+      <h2 class="titulo-seccion revelar mt-md" style="color: var(--harina);">
+        우리의 스튜디오
+      </h2>
 
-        <div class="tablet">
-          <div class="tablet-block">
-            <span class="tablet-numeral">I</span>
-            <p class="tablet-text">
-              No construimos software.<br>
-              Construimos <span class="tablet-glow">mundos</span>.
-            </p>
-            <span lang="ko" class="tablet-ko">소프트웨어가 아닌 세계를.</span>
-          </div>
-        </div>
-
-        <div class="tablet">
-          <div class="tablet-block">
-            <span class="tablet-numeral">II</span>
-            <p class="tablet-text">
-              No diseñamos interfaces.<br>
-              Diseñamos <span class="tablet-glow">encuentros</span>.
-            </p>
-            <span lang="ko" class="tablet-ko">인터페이스가 아닌 만남을.</span>
-          </div>
-        </div>
-
-        <div class="tablet">
-          <div class="tablet-block">
-            <span class="tablet-numeral">III</span>
-            <p class="tablet-text">
-              No programamos funciones.<br>
-              Programamos <span class="tablet-glow">rituales</span>.
-            </p>
-            <span lang="ko" class="tablet-ko">함수가 아닌 의식을.</span>
-          </div>
-        </div>
-
-        <div class="tablet">
-          <div class="tablet-block">
-            <span class="tablet-numeral">IV</span>
-            <p class="tablet-text">
-              El <span class="tablet-glow">cuerpo</span> es la primera<br>
-              tecnología.
-            </p>
-            <span lang="ko" class="tablet-ko">몸은 최초의 기술.</span>
-          </div>
-        </div>
-
-        <div class="tablet">
-          <div class="tablet-block">
-            <span class="tablet-numeral">V</span>
-            <p class="tablet-text">
-              El tango no se enseña.<br>
-              Se <span class="tablet-glow">transmite</span>.
-            </p>
-            <span lang="ko" class="tablet-ko">탱고는 가르치는 게 아니라 전해지는 것.</span>
-          </div>
-        </div>
-
-        <div class="tablet">
-          <div class="tablet-block">
-            <span class="tablet-numeral">VI</span>
-            <p class="tablet-text">
-              La <span class="tablet-glow">pausa</span> es tan importante<br>
-              como el movimiento.
-            </p>
-            <span lang="ko" class="tablet-ko">멈춤은 움직임만큼 중요하다.</span>
-          </div>
-        </div>
-
-        <div class="tablet">
-          <div class="tablet-block">
-            <span class="tablet-numeral">VII</span>
-            <p class="tablet-text">
-              Cada sesión es<br>
-              <span class="tablet-glow">irrepetible</span>.
-            </p>
-            <span lang="ko" class="tablet-ko">모든 세션은 반복 불가.</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="tablet-dots" id="tabletDots"></div>
-  </section>
-
-  <!-- ═══ IV. Portal Interno — Huella + Partner Invite ═══ -->
-  <section class="espacio-centro revelar" aria-label="Portal" id="portal">
-    <p class="susurro">PARA LOS QUE YA SABEN</p>
-
-    <a href="inner/" class="huella-link mt-lg" aria-label="Portal Interno">
-      <svg class="huella-svg" viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
-        <!-- Fingerprint ridges — stylized concentric arcs -->
-        <path class="huella-ridge huella-ridge--1" d="M 60 125 C 25 125, 18 90, 18 70 C 18 35, 40 15, 60 15 C 80 15, 102 35, 102 70 C 102 90, 95 125, 60 125" />
-        <path class="huella-ridge huella-ridge--2" d="M 60 115 C 32 115, 28 88, 28 70 C 28 42, 42 25, 60 25 C 78 25, 92 42, 92 70 C 92 88, 88 115, 60 115" />
-        <path class="huella-ridge huella-ridge--3" d="M 60 105 C 38 105, 36 85, 36 70 C 36 50, 46 35, 60 35 C 74 35, 84 50, 84 70 C 84 85, 82 105, 60 105" />
-        <path class="huella-ridge huella-ridge--4" d="M 60 95 C 45 95, 44 82, 44 70 C 44 56, 50 45, 60 45 C 70 45, 76 56, 76 70 C 76 82, 75 95, 60 95" />
-        <path class="huella-ridge huella-ridge--5" d="M 60 85 C 52 85, 52 78, 52 70 C 52 62, 55 55, 60 55 C 65 55, 68 62, 68 70 C 68 78, 68 85, 60 85" />
-        <!-- Center whorl -->
-        <circle class="huella-core" cx="60" cy="70" r="4" />
-      </svg>
-      <span lang="ko" class="huella-label">파트너를 초대하세요</span>
-    </a>
-
-    <!-- Invite Code (shown when solo) -->
-    <div class="invite-code" id="inviteCode" style="display:none;"></div>
-
-    <!-- Partner Code Input -->
-    <input type="text" class="partner-code" placeholder="파트너 코드 입력" lang="ko" aria-label="파트너 코드">
-  </section>
-
-  <!-- ═══ ENDING CREDITS — Tango Shoes ═══ -->
-  <section class="ending-credits" aria-label="Ending Credits">
-    <div class="credits-curtain"></div>
-
-    <div class="credits-stage">
-      <!-- Spotlight -->
-      <div class="spotlight"></div>
-
-      <!-- The Shoes -->
-      <div class="credits-shoes">
-        <img src="shoes.png" alt="Tango Shoes — Where two souls meet" class="shoes-hero">
-        <div class="shoes-reflection"></div>
-        <div class="shoes-shadow"></div>
+      <!-- 아저씨 포트레이트 -->
+      <div class="polaroid revelar mt-lg" style="max-width: 280px; margin: 0 auto;">
+        <!-- TODO: 교체 - 호야당 아저씨 포트레이트 (카메라 들고) -->
+        <img class="polaroid-imagen"
+          src="https://images.pexels.com/photos/3814446/pexels-photo-3814446.jpeg?auto=compress&cs=tinysrgb&w=400"
+          alt="好爺堂 아저씨">
+        <p class="polaroid-caption">
+          好爺堂 아저씨<br>
+          <span style="font-size: var(--t-xs); opacity: 0.6;">Desde 2016</span>
+        </p>
       </div>
 
-      <!-- Floating Particles -->
-      <div class="credits-particles" aria-hidden="true"></div>
-    </div>
+      <div class="bilingue revelar mt-lg text-center">
+        <p class="bilingue-es" style="color: var(--harina); font-style: italic; max-width: 300px; margin: 0 auto;">
+          "Soy cocinero y fotógrafo.<br>
+          Cocino con las manos,<br>
+          fotografío con las manos."
+        </p>
+        <p class="bilingue-ko" style="color: rgba(255,250,245,0.6);">
+          "저는 요리사이자 사진작가입니다.<br>
+          손으로 요리하고, 손으로 찍습니다."
+        </p>
+      </div>
 
-    <!-- Credits Text -->
-    <div class="credits-text">
-      <p class="credits-tagline">donde dos almas se encuentran</p>
-      <span class="credits-tagline-ko">두 영혼이 만나는 곳</span>
+      <div class="linea" style="background: linear-gradient(90deg, transparent, var(--dorado), transparent);"></div>
 
-      <div class="credits-divider"></div>
+      <!-- 매장 정보 -->
+      <div class="revelar text-center" style="color: rgba(255,250,245,0.8);">
+        <p style="margin-bottom: var(--s-xs);">
+          <span style="color: var(--dorado);">📍</span>
+          경기도 안양시 만안구 와룡로 12-1
+        </p>
+        <p style="margin-bottom: var(--s-xs);">
+          <span style="color: var(--dorado);">☎️</span>
+          070-8886-3300
+        </p>
+        <p style="margin-bottom: var(--s-xs);">
+          <span style="color: var(--dorado);">🕐</span>
+          월-토 08:00 - 20:00
+        </p>
+        <p style="font-size: var(--t-xs); opacity: 0.5; margin-top: var(--s-md);">
+          Delivery: 10:00 - 18:00 (사전 예약)
+        </p>
+      </div>
 
-      <p class="credits-role">DIRECTED BY</p>
-      <p class="credits-name">EL TANGO</p>
-
-      <p class="credits-role">CHOREOGRAPHY</p>
-      <p class="credits-name">BUENOS AIRES × SEOUL</p>
+      <div class="text-center mt-lg revelar">
+        <a href="https://map.naver.com/v5/search/호야당" target="_blank" rel="noopener" class="boton" style="border-color: var(--dorado); color: var(--harina);">
+          Ver en el mapa
+          <span class="ko--inline">지도 보기</span>
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- ═══ V. Footer ═══ -->
+
+  <!-- ═══ SCENE 6: COMUNIDAD ═══ -->
+  <section class="seccion" id="comunidad">
+    <div class="contenedor">
+      <p class="susurro revelar text-center">MANOS DEL MUNDO</p>
+      <h2 class="titulo-seccion revelar mt-md">
+        세계의 손들
+      </h2>
+
+      <div class="bilingue revelar text-center mt-sm">
+        <p class="bilingue-es texto">
+          Mostranos lo que hiciste con tus manos.
+        </p>
+        <p class="bilingue-ko">
+          당신의 손으로 만든 요리를 보여주세요.
+        </p>
+      </div>
+
+      <!-- 커뮤니티 그리드 플레이스홀더 -->
+      <div class="recetas-grid mt-lg">
+        <div class="tarjeta revelar text-center" style="padding: var(--s-xl);">
+          <span style="font-size: 2rem;">🇦🇷</span>
+          <p class="mt-sm" style="font-size: var(--t-sm);">María</p>
+          <p class="ko" style="font-size: var(--t-xs);">"완벽해요!"</p>
+        </div>
+        <div class="tarjeta revelar text-center" style="padding: var(--s-xl);">
+          <span style="font-size: 2rem;">🇲🇽</span>
+          <p class="mt-sm" style="font-size: var(--t-sm);">Juan</p>
+          <p class="ko" style="font-size: var(--t-xs);">"맛있어요!"</p>
+        </div>
+        <div class="tarjeta revelar text-center" style="padding: var(--s-xl);">
+          <span style="font-size: 2rem;">🇰🇷</span>
+          <p class="mt-sm" style="font-size: var(--t-sm);">민수</p>
+          <p class="ko" style="font-size: var(--t-xs);">"집에서도 됩니다"</p>
+        </div>
+        <div class="tarjeta revelar text-center" style="padding: var(--s-xl);">
+          <span style="font-size: 2rem;">🇨🇱</span>
+          <p class="mt-sm" style="font-size: var(--t-sm);">Sofía</p>
+          <p class="ko" style="font-size: var(--t-xs);">"쉬웠어요!"</p>
+        </div>
+      </div>
+
+      <div class="text-center mt-lg revelar">
+        <p class="susurro">#好爺堂 #ManosCoreanas #호야당홈쿡</p>
+      </div>
+
+      <div class="text-center mt-md revelar">
+        <a href="https://www.instagram.com/hoyadangbakery" target="_blank" rel="noopener" class="boton">
+          📷 사진 보내기
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ SCENE 7: ENDING ═══ -->
+  <section class="seccion seccion--crema text-center" id="ending">
+    <div class="contenedor">
+      <div class="revelar">
+        <!-- TODO: 교체 - 손 닦는 영상/이미지 -->
+        <img src="https://images.pexels.com/photos/6287495/pexels-photo-6287495.jpeg?auto=compress&cs=tinysrgb&w=400"
+          alt="Manos limpias"
+          style="width: 120px; height: 120px; object-fit: cover; border-radius: 50%; margin: 0 auto var(--s-lg);">
+      </div>
+
+      <p class="titulo-seccion revelar" style="font-style: italic;">
+        Gracias.
+      </p>
+      <p class="ko revelar" style="font-size: var(--t-md);">
+        감사합니다.
+      </p>
+
+      <div class="linea"></div>
+
+      <p class="susurro revelar">好爺堂 · Desde 2016</p>
+      <p class="ko revelar mt-xs" style="opacity: 0.5;">빵으로 동네를 만든다</p>
+    </div>
+  </section>
+
+
+  <!-- ═══ FOOTER ═══ -->
   <footer class="pie" role="contentinfo">
-    <p class="pie-marca respirar">HOYADANG</p>
-    <p class="pie-copy">&copy; 2026 Performance Protocol · Node: Magenta</p>
+    <p class="pie-logo">好爺堂</p>
+    <p class="pie-tagline">Con las manos. 손으로.</p>
+
+    <!-- Language Toggle -->
+    <nav class="idiomas" aria-label="Idioma">
+      <button class="idioma activo" data-lang="es">한국어</button>
+      <button class="idioma" data-lang="ko">스페인어</button>
+      <button class="idioma" data-lang="zh">中文</button>
+    </nav>
+
+    <div class="pie-links">
+      <a href="https://www.instagram.com/hoyadangbakery" target="_blank" rel="noopener" class="pie-link">Instagram</a>
+      <a href="mailto:mrhoya80@hanmail.net" class="pie-link">Email</a>
+    </div>
+
+    <p class="pie-copy">© 好爺堂 2016-2026 · Fotografía & Cocina</p>
   </footer>
 
-  <!-- ═══ Audio Layer (CNN Breaking Ticker) ═══ -->
-  <div class="reproductor" id="reproductor" aria-label="Live Ticker">
-    <div class="ticker" id="ticker">
-      <div class="ticker-badge">
-        <span class="ticker-dot"></span>
-        <span class="ticker-label">LIVE</span>
-      </div>
-      <div class="ticker-scroll">
-        <span class="ticker-text"><b>Por una Cabeza</b> — Carlos Gardel<span class="sep"></span>HOYADANG<span class="sep"></span>Performance Protocol<span class="sep"></span><b>Por una Cabeza</b> — Carlos Gardel<span class="sep"></span>HOYADANG<span class="sep"></span>Performance Protocol<span class="sep"></span></span>
-      </div>
-      <div class="ticker-play" id="ticker-play">▶</div>
+
+  <!-- ═══ AUDIO PLAYER — Aranjuez ═══ -->
+  <div class="reproductor" id="reproductor">
+    <div class="reproductor-progreso" id="reproductoProgreso"></div>
+    <div class="reproductor-info">
+      <p class="reproductor-titulo">Concierto de Aranjuez — II. Adagio</p>
+      <p class="reproductor-artista">Joaquín Rodrigo</p>
     </div>
+    <button class="reproductor-control" id="reproductoControl" aria-label="Play/Pause">
+      ▶
+    </button>
     <!-- Hidden YouTube Player -->
     <div id="yt-player" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;"></div>
   </div>
 
+
+  <!-- ═══ SCRIPTS ═══ -->
   <script>
-  // YouTube Audio — Tap to Play
+  // ─── Intro Skip ───
+  (function() {
+    const intro = document.getElementById('intro');
+    const skipBtn = document.getElementById('introSkip');
+
+    function hideIntro() {
+      intro.classList.add('oculto');
+      sessionStorage.setItem('hoyadang_intro', '1');
+    }
+
+    // Auto hide after 4 seconds
+    const autoHide = setTimeout(hideIntro, 4000);
+
+    // Skip button
+    if (skipBtn) {
+      skipBtn.addEventListener('click', function() {
+        clearTimeout(autoHide);
+        hideIntro();
+      });
+    }
+
+    // Check if already seen
+    if (sessionStorage.getItem('hoyadang_intro')) {
+      intro.style.display = 'none';
+    }
+  })();
+
+
+  // ─── Scroll Reveal ───
+  (function() {
+    const reveals = document.querySelectorAll('.revelar');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    reveals.forEach(el => observer.observe(el));
+  })();
+
+
+  // ─── YouTube Audio — Concierto de Aranjuez ───
   (function() {
     'use strict';
-    var VIDEO_ID = 'gt8-DAi9Jmg';
-    var playBtn = document.getElementById('ticker-play');
+    // Aranjuez 2악장 Adagio
+    var VIDEO_ID = 'RxWa8tXu8y4';
+    var playBtn = document.getElementById('reproductoControl');
+    var progressBar = document.getElementById('reproductoProgreso');
     var player;
     var started = false;
 
@@ -642,13 +596,15 @@
           fs: 0,
           modestbranding: 1,
           playsinline: 1,
-          rel: 0
+          rel: 0,
+          start: 0
         },
         events: {
           onStateChange: function(e) {
             if (e.data === YT.PlayerState.PLAYING) {
-              playBtn.textContent = '♪';
+              playBtn.textContent = '❚❚';
               playBtn.classList.add('playing');
+              updateProgress();
             } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
               playBtn.textContent = '▶';
               playBtn.classList.remove('playing');
@@ -658,432 +614,65 @@
       });
     };
 
-    function startAudio() {
-      if (started || !player) return;
-      started = true;
-      player.setVolume(80);
-      player.unMute();
-      player.playVideo();
-    }
-
-    // Double tap to play
-    var tapCount = 0;
-    var tapTimer;
-    document.addEventListener('touchend', function() {
-      tapCount++;
-      if (tapCount === 1) {
-        tapTimer = setTimeout(function() { tapCount = 0; }, 400);
-      } else if (tapCount === 2) {
-        clearTimeout(tapTimer);
-        tapCount = 0;
-        startAudio();
+    function updateProgress() {
+      if (!player || !player.getCurrentTime) return;
+      var current = player.getCurrentTime();
+      var duration = player.getDuration();
+      if (duration > 0) {
+        var pct = (current / duration) * 100;
+        progressBar.style.width = pct + '%';
       }
-    }, { passive: true });
-
-    // Play button click
-    if (playBtn) {
-      playBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (!player) return;
-        if (!started) { startAudio(); return; }
-        var state = player.getPlayerState();
-        if (state === YT.PlayerState.PLAYING) {
-          player.pauseVideo();
-        } else {
-          player.playVideo();
-        }
-      });
-    }
-  })();
-  </script>
-
-  <!-- Scripts -->
-  <script src="design/tango-partner.js"></script>
-  <script src="design/entrada.js"></script>
-  <script src="design/body-protocol.js"></script>
-
-  <!-- Tablet Carousel -->
-  <script>
-  (function() {
-    var track = document.getElementById('tabletTrack');
-    var dotsEl = document.getElementById('tabletDots');
-    if (!track || !dotsEl) return;
-
-    var slides = track.children;
-    var total = slides.length;
-    var current = 0;
-    var startX = 0;
-    var dx = 0;
-    var dragging = false;
-    var autoTimer;
-
-    // Build dots
-    for (var i = 0; i < total; i++) {
-      var dot = document.createElement('button');
-      dot.className = 'tablet-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Slide ' + (i + 1));
-      dot.dataset.idx = i;
-      dotsEl.appendChild(dot);
-    }
-    var dots = dotsEl.querySelectorAll('.tablet-dot');
-
-    function goTo(idx) {
-      current = (idx + total) % total;
-      track.style.transform = 'translateX(-' + (current * 100) + '%)';
-      for (var j = 0; j < dots.length; j++) {
-        dots[j].classList.toggle('active', j === current);
+      if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+        requestAnimationFrame(updateProgress);
       }
     }
 
-    function next() { goTo(current + 1); }
-
-    function resetAuto() {
-      clearInterval(autoTimer);
-      autoTimer = setInterval(next, 4500);
-    }
-
-    // Touch — prevent browser back/forward navigation on horizontal swipe
-    var startY = 0;
-    var isHorizontal = false;
-
-    track.addEventListener('touchstart', function(e) {
-      dragging = true;
-      isHorizontal = false;
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-      dx = 0;
-      track.style.transition = 'none';
-      clearInterval(autoTimer);
-    }, { passive: true });
-
-    track.addEventListener('touchmove', function(e) {
-      if (!dragging) return;
-      dx = e.touches[0].clientX - startX;
-      var dy = e.touches[0].clientY - startY;
-      if (!isHorizontal && Math.abs(dx) > 8) {
-        isHorizontal = Math.abs(dx) > Math.abs(dy);
+    function togglePlay() {
+      if (!player) return;
+      if (!started) {
+        started = true;
+        player.setVolume(60);
+        player.unMute();
+        player.playVideo();
+        return;
       }
-      if (isHorizontal) {
-        e.preventDefault();
-        var offset = -(current * 100) + (dx / track.offsetWidth) * 100;
-        track.style.transform = 'translateX(' + offset + '%)';
-      }
-    }, { passive: false });
-
-    track.addEventListener('touchend', function() {
-      if (!dragging) return;
-      dragging = false;
-      track.style.transition = '';
-      if (isHorizontal) {
-        if (dx < -40) next();
-        else if (dx > 40) goTo(current - 1);
-        else goTo(current);
-      }
-      isHorizontal = false;
-      resetAuto();
-    });
-
-    // Dots click
-    dotsEl.addEventListener('click', function(e) {
-      var t = e.target;
-      if (t.dataset && t.dataset.idx !== undefined) {
-        goTo(parseInt(t.dataset.idx));
-        resetAuto();
-      }
-    });
-
-    resetAuto();
-  })();
-  </script>
-
-  <!-- Ribbon Animation — 인연의 실 -->
-  <script>
-  (function() {
-    'use strict';
-    var container = document.getElementById('ribbonContainer');
-    var mainPath = document.getElementById('ribbonMain');
-    var ambient = document.getElementById('ribbonAmbient');
-    var thread1 = document.getElementById('ribbonThread1');
-    var thread2 = document.getElementById('ribbonThread2');
-    var echo1 = document.getElementById('ribbonEcho1');
-    if (!container || !mainPath) return;
-
-    // Calculate actual path lengths and set dasharray for reveal
-    var paths = [
-      { el: mainPath, lag: 0 },
-      { el: ambient, lag: 0 },
-      { el: thread1, lag: 0.02 },
-      { el: thread2, lag: 0.04 },
-      { el: echo1, lag: 0.1 }
-    ];
-
-    paths.forEach(function(p) {
-      if (!p.el) return;
-      p.len = p.el.getTotalLength();
-      p.el.style.strokeDasharray = p.len;
-      p.el.style.strokeDashoffset = p.len;
-    });
-
-    // Initial draw amount (visible on hero without scrolling)
-    var INITIAL_DRAW = 0.22;
-    var APPROACH = 'cubic-bezier(0.16, 1, 0.3, 1)';
-
-    // Show ribbon after ritual, then animate initial portion
-    var showDelay = sessionStorage.getItem('tango_entered') ? 500 : 5500;
-    setTimeout(function() {
-      container.classList.add('visible');
-
-      // Staggered initial draw for each layer
-      paths.forEach(function(p, i) {
-        if (!p.el) return;
-        var delay = i * 200;
-        var drawAmount = INITIAL_DRAW * Math.max(0.4, 1 - p.lag * 3);
-        setTimeout(function() {
-          p.el.style.transition = 'stroke-dashoffset 2.5s ' + APPROACH;
-          p.el.style.strokeDashoffset = p.len * (1 - drawAmount);
-        }, delay);
-      });
-
-      // Reset to fast transitions after initial draw
-      setTimeout(function() {
-        paths.forEach(function(p) {
-          if (p.el) p.el.style.transition = 'stroke-dashoffset 0.08s linear';
-        });
-      }, 3500);
-    }, showDelay);
-
-    // Scroll-linked reveal
-    var ticking = false;
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(function() {
-        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        var scrollProgress = Math.min(scrollTop / docHeight, 1);
-
-        paths.forEach(function(p) {
-          if (!p.el) return;
-          var progress = Math.max(INITIAL_DRAW,
-            INITIAL_DRAW + Math.max(0, scrollProgress - p.lag) * (1 - INITIAL_DRAW));
-          p.el.style.strokeDashoffset = p.len * (1 - progress);
-        });
-
-        // Flicker when scrolled
-        if (scrollProgress > 0.05) {
-          mainPath.classList.add('alive');
-          if (thread1) thread1.classList.add('alive');
-          if (thread2) thread2.classList.add('alive');
-        } else {
-          mainPath.classList.remove('alive');
-          if (thread1) thread1.classList.remove('alive');
-          if (thread2) thread2.classList.remove('alive');
-        }
-
-        ticking = false;
-      });
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-  })();
-  </script>
-
-  <!-- Partner Guide Script -->
-  <script>
-  (function() {
-    'use strict';
-
-    // Elements
-    var demoBtn = document.getElementById('demoBtn');
-    var guideDemo = document.querySelector('.guide-demo');
-    var guideInviteCode = document.getElementById('guideInviteCode');
-    var guideCopyBtn = document.getElementById('guideCopyBtn');
-    var guidePartnerInput = document.getElementById('guidePartnerInput');
-    var guideJoinBtn = document.getElementById('guideJoinBtn');
-    var guideStatus = document.getElementById('guideStatus');
-    var guideStatusText = guideStatus ? guideStatus.querySelector('.guide-status-text') : null;
-
-    // Demo animation toggle
-    var demoActive = false;
-    if (demoBtn && guideDemo) {
-      demoBtn.addEventListener('click', function() {
-        demoActive = !demoActive;
-        guideDemo.classList.toggle('active', demoActive);
-        demoBtn.textContent = demoActive ? '중지' : '체험하기';
-      });
-    }
-
-    // Show invite code when connection is ready
-    function updateInviteCode() {
-      if (window.tangoConnection && window.tangoConnection.myPeerId) {
-        if (guideInviteCode) {
-          guideInviteCode.textContent = window.tangoConnection.myPeerId;
-        }
+      var state = player.getPlayerState();
+      if (state === YT.PlayerState.PLAYING) {
+        player.pauseVideo();
       } else {
-        // Check again in a moment
-        setTimeout(updateInviteCode, 500);
+        player.playVideo();
       }
     }
-    updateInviteCode();
 
-    // Copy button
-    if (guideCopyBtn && guideInviteCode) {
-      guideCopyBtn.addEventListener('click', function() {
-        var code = guideInviteCode.textContent;
-        if (code && code !== '연결 중...') {
-          navigator.clipboard.writeText(code).then(function() {
-            guideCopyBtn.classList.add('copied');
-            setTimeout(function() {
-              guideCopyBtn.classList.remove('copied');
-            }, 1500);
-          });
-        }
-      });
+    if (playBtn) {
+      playBtn.addEventListener('click', togglePlay);
     }
-
-    // Join button
-    if (guideJoinBtn && guidePartnerInput) {
-      function tryConnect() {
-        var code = guidePartnerInput.value.trim().toLowerCase();
-        if (code && window.tangoConnection) {
-          updateStatus('connecting', '연결 중...');
-          window.tangoConnection.connect(code);
-        }
-      }
-
-      guideJoinBtn.addEventListener('click', tryConnect);
-      guidePartnerInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') tryConnect();
-      });
-    }
-
-    // Status updates
-    function updateStatus(state, text) {
-      if (!guideStatus || !guideStatusText) return;
-      guideStatus.className = 'guide-status ' + state;
-      guideStatusText.textContent = text;
-    }
-
-    // Watch for connection state
-    var statusObserver = new MutationObserver(function() {
-      if (document.body.classList.contains('paired')) {
-        updateStatus('connected', '파트너와 연결됨!');
-        // Highlight step 3
-        var step3 = document.querySelector('.guide-step[data-step="3"]');
-        if (step3) step3.classList.add('active');
-      } else if (document.body.classList.contains('in-sync')) {
-        updateStatus('connected', '완벽한 싱크!');
-      } else if (document.body.classList.contains('drifting')) {
-        updateStatus('connecting', '싱크 맞추는 중...');
-      }
-    });
-    statusObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-
-    // Highlight steps on scroll
-    var steps = document.querySelectorAll('.guide-step');
-    var currentStep = 0;
-
-    function animateSteps() {
-      if (steps.length === 0) return;
-
-      setInterval(function() {
-        // Only animate if not paired
-        if (document.body.classList.contains('paired')) return;
-
-        steps.forEach(function(s, i) {
-          s.classList.toggle('active', i === currentStep);
-        });
-        currentStep = (currentStep + 1) % steps.length;
-      }, 2000);
-    }
-    animateSteps();
-
-    console.log('Partner Guide initialized');
   })();
+
+
+  // ─── Tool Selection ───
+  document.querySelectorAll('.herramienta').forEach(function(el) {
+    el.addEventListener('click', function() {
+      document.querySelectorAll('.herramienta').forEach(function(h) {
+        h.classList.remove('activo');
+      });
+      this.classList.add('activo');
+    });
+  });
+
+
+  // ─── Language Toggle (placeholder) ───
+  document.querySelectorAll('.idioma').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.idioma').forEach(function(b) {
+        b.classList.remove('activo');
+      });
+      this.classList.add('activo');
+      // TODO: Implement actual language switching
+      console.log('Language:', this.dataset.lang);
+    });
+  });
   </script>
 
-  <!-- Ending Credits — Cinematic Effects -->
-  <script>
-  (function() {
-    'use strict';
-    var section = document.querySelector('.ending-credits');
-    var shoesImg = document.querySelector('.shoes-hero');
-    var particles = document.querySelector('.credits-particles');
-    if (!section || !shoesImg) return;
-
-    // 3D Parallax on mouse move
-    section.addEventListener('mousemove', function(e) {
-      var rect = section.getBoundingClientRect();
-      var x = (e.clientX - rect.left) / rect.width - 0.5;
-      var y = (e.clientY - rect.top) / rect.height - 0.5;
-      shoesImg.style.transform = 'translateY(' + (y * -15) + 'px) rotateY(' + (x * 10) + 'deg) rotateX(' + (y * -5) + 'deg)';
-    });
-
-    section.addEventListener('mouseleave', function() {
-      shoesImg.style.transform = '';
-    });
-
-    // Scroll-triggered entrance animation
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          section.classList.add('revealed');
-          createMagicParticles();
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    observer.observe(section);
-
-    // Create floating magic particles
-    function createMagicParticles() {
-      if (!particles) return;
-      for (var i = 0; i < 20; i++) {
-        setTimeout(function() {
-          var p = document.createElement('div');
-          var size = 2 + Math.random() * 4;
-          var x = 20 + Math.random() * 60;
-          var duration = 3 + Math.random() * 4;
-          var delay = Math.random() * 2;
-          p.style.cssText = 'position:absolute;width:' + size + 'px;height:' + size + 'px;' +
-            'background:radial-gradient(circle,rgba(200,160,140,0.8),rgba(180,140,120,0.3));' +
-            'border-radius:50%;left:' + x + '%;bottom:20%;pointer-events:none;' +
-            'animation:particle-rise ' + duration + 's ease-out ' + delay + 's forwards;' +
-            'box-shadow:0 0 ' + (size * 2) + 'px rgba(200,160,140,0.4);';
-          particles.appendChild(p);
-          setTimeout(function() { p.remove(); }, (duration + delay) * 1000 + 500);
-        }, i * 150);
-      }
-    }
-
-    // Continuous ambient particles
-    setInterval(function() {
-      if (!particles || !section.classList.contains('revealed')) return;
-      if (Math.random() > 0.7) {
-        var p = document.createElement('div');
-        var size = 1 + Math.random() * 2;
-        var x = 10 + Math.random() * 80;
-        p.style.cssText = 'position:absolute;width:' + size + 'px;height:' + size + 'px;' +
-          'background:rgba(180,150,140,0.5);border-radius:50%;left:' + x + '%;bottom:0;' +
-          'pointer-events:none;animation:particle-rise 5s ease-out forwards;';
-        particles.appendChild(p);
-        setTimeout(function() { p.remove(); }, 5500);
-      }
-    }, 400);
-
-    // Add keyframes
-    var style = document.createElement('style');
-    style.textContent = '@keyframes particle-rise{' +
-      '0%{transform:translateY(0) scale(1);opacity:0;}' +
-      '10%{opacity:1;}' +
-      '90%{opacity:0.5;}' +
-      '100%{transform:translateY(-150px) scale(0.3);opacity:0;}' +
-      '}';
-    document.head.appendChild(style);
-  })();
-  </script>
-
-  <!-- DTSLIB HQ -->
-  <script src="https://dtslib1979.github.io/dtslib-branch/hq/sdk/dtslib-bridge.js"></script>
 </body>
 </html>
