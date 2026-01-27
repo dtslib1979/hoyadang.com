@@ -1181,6 +1181,18 @@ body::after {
   text-shadow: 0 0 8px rgba(255, 69, 0, 0.6);
 }
 
+/* Film Archive Intro */
+.film-archive-intro {
+  text-align: center;
+  padding: 0 var(--s-lg) var(--s-xl);
+}
+.film-archive-intro .voz {
+  color: #FFFAF5;
+}
+.film-archive-intro .ko {
+  color: rgba(255, 250, 245, 0.6);
+}
+
 /* Film Strip Container */
 .film-strip-archive {
   display: flex;
