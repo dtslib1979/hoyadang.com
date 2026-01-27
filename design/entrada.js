@@ -29,7 +29,7 @@
       intro.classList.add('abierto');
       setTimeout(() => {
         intro.style.display = 'none';
-        initMasaRibbon();
+        initFlourDust();
         initScrollEffects();
       }, 100);
       return;
@@ -67,94 +67,124 @@
 
     setTimeout(() => {
       intro.style.display = 'none';
-      initMasaRibbon();
+      initFlourDust();
       initScrollEffects();
     }, 1500);
   }
 
-  // Masa Ribbon — Dough thread animation
-  function initMasaRibbon() {
-    const container = document.getElementById('masaContainer');
-    const mainPath = document.getElementById('masaMain');
-    const ambient = document.getElementById('masaAmbient');
-    const thread1 = document.getElementById('masaThread1');
-    const thread2 = document.getElementById('masaThread2');
+  // Flour Dust — 밀가루 먼지 파티클 애니메이션
+  function initFlourDust() {
+    const container = document.getElementById('flourDust');
+    const canvas = document.getElementById('dustCanvas');
+    if (!container || !canvas) return;
 
-    if (!container || !mainPath) return;
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animationId;
+    let width, height;
 
-    const paths = [
-      { el: mainPath, lag: 0 },
-      { el: ambient, lag: 0 },
-      { el: thread1, lag: 0.02 },
-      { el: thread2, lag: 0.04 }
-    ];
+    // Particle class
+    class Particle {
+      constructor() {
+        this.reset();
+      }
 
-    // Initialize path lengths
-    paths.forEach(p => {
-      if (!p.el) return;
-      p.len = p.el.getTotalLength();
-      p.el.style.strokeDasharray = p.len;
-      p.el.style.strokeDashoffset = p.len;
-    });
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.speedY = -Math.random() * 0.5 - 0.1;
+        this.opacity = Math.random() * 0.5 + 0.2;
+        this.fadeSpeed = Math.random() * 0.005 + 0.002;
+        this.wobble = Math.random() * Math.PI * 2;
+        this.wobbleSpeed = Math.random() * 0.02 + 0.01;
+      }
 
-    const INITIAL_DRAW = 0.2;
+      update() {
+        this.wobble += this.wobbleSpeed;
+        this.x += this.speedX + Math.sin(this.wobble) * 0.3;
+        this.y += this.speedY;
 
-    // Show ribbon
-    setTimeout(() => {
-      container.classList.add('visible');
-
-      // Staggered initial draw
-      paths.forEach((p, i) => {
-        if (!p.el) return;
-        const delay = i * 150;
-        const drawAmount = INITIAL_DRAW * Math.max(0.5, 1 - p.lag * 2);
-        setTimeout(() => {
-          p.el.style.transition = 'stroke-dashoffset 2s cubic-bezier(0.16, 1, 0.3, 1)';
-          p.el.style.strokeDashoffset = p.len * (1 - drawAmount);
-        }, delay);
-      });
-
-      // Reset to fast transitions
-      setTimeout(() => {
-        paths.forEach(p => {
-          if (p.el) p.el.style.transition = 'stroke-dashoffset 0.1s linear';
-        });
-      }, 3000);
-    }, 500);
-
-    // Scroll-linked reveal
-    let ticking = false;
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollProgress = Math.min(scrollTop / docHeight, 1);
-
-        paths.forEach(p => {
-          if (!p.el) return;
-          const progress = Math.max(INITIAL_DRAW,
-            INITIAL_DRAW + Math.max(0, scrollProgress - p.lag) * (1 - INITIAL_DRAW));
-          p.el.style.strokeDashoffset = p.len * (1 - progress);
-        });
-
-        // Add alive class when scrolled
-        if (scrollProgress > 0.05) {
-          mainPath.classList.add('alive');
-          if (thread1) thread1.classList.add('alive');
-          if (thread2) thread2.classList.add('alive');
-        } else {
-          mainPath.classList.remove('alive');
-          if (thread1) thread1.classList.remove('alive');
-          if (thread2) thread2.classList.remove('alive');
+        // Fade in and out
+        if (this.y < height * 0.3) {
+          this.opacity -= this.fadeSpeed;
         }
 
-        ticking = false;
-      });
+        // Reset if out of bounds or faded
+        if (this.y < -10 || this.opacity <= 0) {
+          this.reset();
+          this.y = height + 10;
+          this.opacity = 0;
+        }
+
+        // Fade in from bottom
+        if (this.y > height * 0.7 && this.opacity < 0.6) {
+          this.opacity += this.fadeSpeed * 2;
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+
+        // Gradient fill for soft look
+        const gradient = ctx.createRadialGradient(
+          this.x, this.y, 0,
+          this.x, this.y, this.size
+        );
+        gradient.addColorStop(0, `rgba(255, 250, 245, ${this.opacity})`);
+        gradient.addColorStop(0.5, `rgba(245, 230, 211, ${this.opacity * 0.6})`);
+        gradient.addColorStop(1, `rgba(212, 168, 83, 0)`);
+
+        ctx.fillStyle = gradient;
+        ctx.fill();
+      }
     }
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+
+      // Recreate particles on resize
+      const particleCount = Math.floor((width * height) / 15000);
+      particles = [];
+      for (let i = 0; i < Math.min(particleCount, 50); i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      animationId = requestAnimationFrame(animate);
+    }
+
+    // Initialize
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Show container after delay
+    setTimeout(() => {
+      container.classList.add('visible');
+      animate();
+    }, 500);
+
+    // Pause animation when not visible
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationId);
+      } else {
+        animate();
+      }
+    });
   }
 
   // Scroll Effects

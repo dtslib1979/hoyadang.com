@@ -83,58 +83,9 @@
   </div>
 
 
-  <!-- ═══ Masa Ribbon — 반죽의 실 ═══ -->
-  <div class="masa-container" id="masaContainer" aria-hidden="true">
-    <svg class="masa-svg" viewBox="0 0 430 932" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="masa-glow">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
-          <feMerge>
-            <feMergeNode in="blur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-        <filter id="masa-ambient">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="8"/>
-        </filter>
-      </defs>
-
-      <!-- Ambient glow layer -->
-      <path class="masa-path masa-path--ambient" id="masaAmbient"
-        d="M 215 -10
-           C 300 60, 130 130, 340 200
-           S 90 290, 260 370
-           C 380 430, 60 500, 215 580
-           S 360 660, 170 740
-           C 50 800, 370 860, 215 942" />
-
-      <!-- Main dough ribbon -->
-      <path class="masa-path masa-path--main" id="masaMain"
-        d="M 215 -10
-           C 300 60, 130 130, 340 200
-           S 90 290, 260 370
-           C 380 430, 60 500, 215 580
-           S 360 660, 170 740
-           C 50 800, 370 860, 215 942" />
-
-      <!-- Thread 1 -->
-      <path class="masa-path masa-path--thread" id="masaThread1"
-        d="M 210 -10
-           C 290 65, 125 135, 333 205
-           S 85 295, 254 375
-           C 372 435, 55 505, 209 585
-           S 353 665, 164 745
-           C 44 805, 363 865, 209 942" />
-
-      <!-- Thread 2 -->
-      <path class="masa-path masa-path--thread" id="masaThread2"
-        d="M 220 -10
-           C 310 55, 137 125, 347 195
-           S 97 285, 266 365
-           C 388 425, 67 495, 221 575
-           S 367 655, 176 735
-           C 57 795, 377 855, 221 942" />
-    </svg>
+  <!-- ═══ Flour Dust — 밀가루 먼지 ═══ -->
+  <div class="flour-dust" id="flourDust" aria-hidden="true">
+    <canvas id="dustCanvas"></canvas>
   </div>
 
 
