@@ -1417,6 +1417,23 @@ body::after {
   font-style: italic;
 }
 
+/* Scene Video Embed */
+.scene-video {
+  position: relative;
+  aspect-ratio: 9/16;
+  background: #000;
+}
+
+.scene-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 2px;
+}
+
 /* THE SHORTCUT Section */
 .shortcut-section {
   text-align: center;
