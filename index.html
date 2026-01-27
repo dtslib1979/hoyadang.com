@@ -23,7 +23,7 @@
   <meta property="og:locale" content="es_ES">
   <meta property="og:locale:alternate" content="ko_KR">
 
-  <!-- Structured Data: Restaurant + Recipe Publisher -->
+  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -41,8 +41,7 @@
     },
     "servesCuisine": ["Korean", "Bakery", "Croquette"],
     "openingHours": "Mo-Sa 08:00-20:00",
-    "priceRange": "₩4,500-₩15,000",
-    "description": "요리하는 Bakery. K-Food tutorials. 고로케, 도넛, 빵."
+    "priceRange": "₩4,500-₩15,000"
   }
   </script>
 
@@ -53,7 +52,10 @@
   <meta name="apple-mobile-web-app-title" content="好爺堂">
   <meta name="application-name" content="好爺堂">
   <meta name="msapplication-TileColor" content="#D4A853">
-  <meta name="msapplication-config" content="none">
+
+  <!-- Preload -->
+  <link rel="preload" href="design/hoyadang.css" as="style">
+  <link rel="preload" href="design/entrada.js" as="script">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,623 +64,454 @@
 
   <!-- Design System -->
   <link rel="stylesheet" href="design/hoyadang.css">
-
-  <!-- GSAP for animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 </head>
 <body class="con-reproductor">
 
-  <!-- ═══ INTRO — 셔터 오프닝 ═══ -->
-  <div class="intro" id="intro" role="presentation">
-    <!-- TODO: 교체 - 손으로 반죽하는 영상 -->
+  <!-- ═══ INTRO — Shutter Opening ═══ -->
+  <div class="intro" id="intro" role="presentation" aria-hidden="true">
     <video class="intro-video" autoplay muted loop playsinline preload="auto"
       poster="https://images.pexels.com/photos/784633/pexels-photo-784633.jpeg?auto=compress&cs=tinysrgb&w=800">
-      <!-- 플레이스홀더: Pexels 무료 영상 (손으로 반죽) -->
-      <source src="https://player.vimeo.com/external/370467553.sd.mp4?s=399baa6c5f8e591ad2f7bb01e8c0e8f0c0e8f0c0&profile_id=165" type="video/mp4">
-      <!-- TODO: 실제 영상으로 교체 - assets/video/manos-intro.mp4 -->
+      <source src="https://videos.pexels.com/video-files/3195394/3195394-sd_640_360_25fps.mp4" type="video/mp4">
     </video>
 
     <div class="intro-contenido">
-      <h1 class="intro-titulo">Con las manos.</h1>
-      <p class="intro-subtitulo">
-        <span class="ko">손으로.</span>
-      </p>
+      <h1 class="intro-titulo">Abrí las manos.</h1>
+      <p class="intro-subtitulo">손을 펴세요.</p>
     </div>
 
-    <button class="intro-skip" id="introSkip">건너뛰기</button>
+    <button class="intro-skip" aria-label="건너뛰기">건너뛰기</button>
   </div>
 
 
-  <!-- ═══ SCENE 1: HERO ═══ -->
-  <section class="hero" id="hero">
-    <!-- Background Video -->
-    <div class="hero-video-wrap">
-      <!-- TODO: 교체 - 호야당 아저씨 손 클로즈업 영상 -->
-      <video class="hero-video" autoplay muted loop playsinline preload="auto"
-        poster="https://images.pexels.com/photos/6287295/pexels-photo-6287295.jpeg?auto=compress&cs=tinysrgb&w=1200">
-        <!-- 플레이스홀더: 요리하는 손 영상 -->
-        <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c27eecc69a27dbc4ff2b87d38afc35f1ebe51a25&profile_id=165" type="video/mp4">
-        <!-- TODO: 실제 영상으로 교체 - assets/video/manos-hero.mp4 -->
+  <!-- ═══ Masa Ribbon — 반죽의 실 ═══ -->
+  <div class="masa-container" id="masaContainer" aria-hidden="true">
+    <svg class="masa-svg" viewBox="0 0 430 932" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="masa-glow">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+        <filter id="masa-ambient">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8"/>
+        </filter>
+      </defs>
+
+      <!-- Ambient glow layer -->
+      <path class="masa-path masa-path--ambient" id="masaAmbient"
+        d="M 215 -10
+           C 300 60, 130 130, 340 200
+           S 90 290, 260 370
+           C 380 430, 60 500, 215 580
+           S 360 660, 170 740
+           C 50 800, 370 860, 215 942" />
+
+      <!-- Main dough ribbon -->
+      <path class="masa-path masa-path--main" id="masaMain"
+        d="M 215 -10
+           C 300 60, 130 130, 340 200
+           S 90 290, 260 370
+           C 380 430, 60 500, 215 580
+           S 360 660, 170 740
+           C 50 800, 370 860, 215 942" />
+
+      <!-- Thread 1 -->
+      <path class="masa-path masa-path--thread" id="masaThread1"
+        d="M 210 -10
+           C 290 65, 125 135, 333 205
+           S 85 295, 254 375
+           C 372 435, 55 505, 209 585
+           S 353 665, 164 745
+           C 44 805, 363 865, 209 942" />
+
+      <!-- Thread 2 -->
+      <path class="masa-path masa-path--thread" id="masaThread2"
+        d="M 220 -10
+           C 310 55, 137 125, 347 195
+           S 97 285, 266 365
+           C 388 425, 67 495, 221 575
+           S 367 655, 176 735
+           C 57 795, 377 855, 221 942" />
+    </svg>
+  </div>
+
+
+  <!-- ═══ Floor Indicator ═══ -->
+  <nav class="piso-indicator" aria-label="Navigation">
+    <div class="piso-dot active" data-paso="1"></div>
+    <div class="piso-dot" data-paso="2"></div>
+    <div class="piso-dot" data-paso="3"></div>
+    <div class="piso-dot" data-paso="4"></div>
+    <div class="piso-dot" data-paso="5"></div>
+  </nav>
+
+
+  <!-- ═══ Vignette ═══ -->
+  <div class="vignette" aria-hidden="true"></div>
+
+
+  <!-- ═══ Film Date Stamp ═══ -->
+  <div class="film-date" aria-hidden="true">'26 01 27</div>
+
+
+  <!-- ═══ I. Monumento — Hero ═══ -->
+  <section class="espacio-centro" aria-label="Entrada">
+    <p class="susurro latido">COOKING PROTOCOL FOR <span class="dorado">HANDS</span></p>
+
+    <h1 class="monumento monumento--hanzi mt-lg">好爺堂</h1>
+
+    <p class="voz mt-xl">
+      No enseñamos <span class="dorado">recetas</span>.<br>
+      Editamos el lenguaje de las <span class="dorado">manos</span>.
+    </p>
+    <span lang="ko" class="ko mt-sm">레시피를 가르치지 않습니다. 손의 언어를 편집합니다.</span>
+
+    <div class="linea"></div>
+
+    <a href="#pasos" class="puerta puerta--principal" aria-label="Entrar">
+      Entrá.
+    </a>
+  </section>
+
+
+  <!-- ═══ Video — La Mano ═══ -->
+  <section class="danza-section revelar" id="mano" aria-label="La Mano">
+    <div class="danza-video-wrap">
+      <video class="danza-video"
+             poster="https://images.pexels.com/photos/6287295/pexels-photo-6287295.jpeg?auto=compress&cs=tinysrgb&w=800"
+             autoplay
+             muted
+             loop
+             playsinline
+             preload="metadata"
+             aria-label="Cooking hands">
+        <source src="https://videos.pexels.com/video-files/5512036/5512036-sd_640_360_25fps.mp4" type="video/mp4">
       </video>
-      <div class="hero-overlay"></div>
-    </div>
-
-    <div class="hero-contenido">
-      <h1 class="hero-logo">好爺堂</h1>
-
-      <p class="hero-tagline">Tu cocina. Sabor coreano.</p>
-      <p class="hero-tagline-ko">당신의 주방. 한국의 맛.</p>
-
-      <div class="mt-xl">
-        <a href="#filosofia" class="boton boton--grande">
-          Descubrí
-          <span class="ko--inline">알아보기</span>
-        </a>
+      <div class="danza-caption">
+        <p class="susurro">LA MANO COCINA</p>
       </div>
-    </div>
-
-    <div class="hero-scroll">
-      <div class="hero-scroll-icon"></div>
-      <span class="susurro">Scroll</span>
     </div>
   </section>
 
 
-  <!-- ═══ SCENE 2: FILOSOFÍA — 철학 ═══ -->
-  <section class="seccion seccion--centrado" id="filosofia">
-    <div class="contenedor">
-      <p class="susurro revelar">FILOSOFÍA</p>
+  <!-- ═══ II. Los 5 Pasos ═══ -->
+  <section class="espacio" id="pasos" aria-label="5 Pasos">
 
-      <h2 class="titulo-seccion revelar mt-md" style="font-style: italic;">
-        "No necesitás un horno profesional."
-      </h2>
-      <p class="ko revelar" style="font-size: var(--t-md); opacity: 0.8;">
-        "전문 오븐은 필요 없습니다."
+    <!-- PASO 1: Preparar — Film Frame -->
+    <article class="tarjeta revelar film-frame" aria-label="Paso 1: Preparar">
+      <div class="film-sprockets film-sprockets--left" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="film-sprockets film-sprockets--right" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="film-code" aria-hidden="true">
+        <span class="film-code-num">01</span>
+        <span class="film-code-label">PREP</span>
+      </div>
+
+      <div class="paso-header">
+        <span class="paso-numero">1</span>
+        <h2 class="paso-titulo" style="color: var(--harina);">Preparar</h2>
+        <span class="paso-subtitulo" style="color: var(--dorado);">준비</span>
+      </div>
+
+      <p class="voz" style="color: var(--harina);">
+        Los ingredientes esperan. Las manos se lavan.<br>
+        Todo empieza con la preparación.
       </p>
+      <span class="ko" style="color: var(--dorado);">재료가 기다립니다. 손을 씻습니다. 모든 것은 준비에서 시작됩니다.</span>
+    </article>
+  </section>
 
-      <div class="linea"></div>
 
-      <div class="bilingue revelar mt-lg">
-        <p class="bilingue-es texto" style="font-size: var(--t-md); max-width: 320px; margin: 0 auto;">
-          Con tu sartén, tu airfryer, tu microondas —
-          el <strong class="dorado">80%</strong> del sabor coreano
-          llega a tu mesa.
-        </p>
-        <p class="bilingue-ko">
-          팬, 에어프라이어, 전자레인지만 있으면<br>
-          한국 맛의 80%가 당신의 식탁에 도착합니다.
-        </p>
+  <!-- ═══ Film Strip — 4 Steps ═══ -->
+  <section class="film-strip revelar" aria-label="Cooking Process">
+    <!-- Frame 1: Preparar -->
+    <div class="film-frame-item">
+      <span class="film-number">01</span>
+      <img class="film-imagen"
+           src="https://images.pexels.com/photos/8477066/pexels-photo-8477066.jpeg?auto=compress&cs=tinysrgb&w=600"
+           alt="Preparar - 준비"
+           loading="lazy">
+      <span class="film-label">PREPARAR 준비</span>
+    </div>
+
+    <!-- Frame 2: Formar -->
+    <div class="film-frame-item">
+      <span class="film-number">02</span>
+      <img class="film-imagen"
+           src="https://images.pexels.com/photos/6287525/pexels-photo-6287525.jpeg?auto=compress&cs=tinysrgb&w=600"
+           alt="Formar - 빚기"
+           loading="lazy">
+      <span class="film-label">FORMAR 빚기</span>
+    </div>
+
+    <!-- Frame 3: Cocinar -->
+    <div class="film-frame-item">
+      <span class="film-number">03</span>
+      <img class="film-imagen"
+           src="https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=600"
+           alt="Cocinar - 요리"
+           loading="lazy">
+      <span class="film-label">COCINAR 요리</span>
+    </div>
+
+    <!-- Frame 4: Servir -->
+    <div class="film-frame-item">
+      <span class="film-number">04</span>
+      <img class="film-imagen"
+           src="https://images.pexels.com/photos/6287519/pexels-photo-6287519.jpeg?auto=compress&cs=tinysrgb&w=600"
+           alt="Servir - 담기"
+           loading="lazy">
+      <span class="film-label">SERVIR 담기</span>
+    </div>
+  </section>
+
+
+  <!-- ═══ PASO 2: Formar ═══ -->
+  <section class="paso paso--formar revelar" aria-label="Paso 2: Formar">
+    <div class="paso-header">
+      <span class="paso-numero">2</span>
+      <h2 class="paso-titulo">Formar</h2>
+      <span class="paso-subtitulo">빚기</span>
+    </div>
+
+    <p class="voz">
+      Las manos dan forma. La masa obedece.<br>
+      Cada croqueta es única.
+    </p>
+    <span class="ko">손이 모양을 만듭니다. 반죽이 따릅니다. 모든 고로케는 유일합니다.</span>
+
+    <div class="herramientas mt-xl">
+      <div class="herramienta">
+        <div class="herramienta-icono">🍳</div>
+        <div class="herramienta-info">
+          <h3 class="herramienta-nombre">Sartén</h3>
+          <p class="herramienta-desc">프라이팬 — El clásico. Todo empieza aquí.</p>
+        </div>
       </div>
 
-      <!-- Film Strip — 요리 과정 -->
-      <div class="film-strip mt-xl">
-        <!-- Frame 1: 재료 -->
-        <div class="film-frame revelar">
-          <!-- TODO: 교체 - 재료 손질 사진 -->
-          <img class="film-imagen light-leak"
-            src="https://images.pexels.com/photos/8477066/pexels-photo-8477066.jpeg?auto=compress&cs=tinysrgb&w=600"
-            alt="Preparar ingredientes">
-          <p class="film-caption">
-            Preparar<br>
-            <span class="ko">준비하다</span>
-          </p>
-          <span class="film-numero">1A</span>
+      <div class="herramienta">
+        <div class="herramienta-icono">🌀</div>
+        <div class="herramienta-info">
+          <h3 class="herramienta-nombre">Airfryer</h3>
+          <p class="herramienta-desc">에어프라이어 — Crujiente sin aceite.</p>
         </div>
+      </div>
 
-        <!-- Frame 2: 반죽 -->
-        <div class="film-frame revelar">
-          <!-- TODO: 교체 - 반죽하는 손 사진 -->
-          <img class="film-imagen light-leak"
-            src="https://images.pexels.com/photos/6287525/pexels-photo-6287525.jpeg?auto=compress&cs=tinysrgb&w=600"
-            alt="Formar con las manos">
-          <p class="film-caption">
-            Formar<br>
-            <span class="ko">빚다</span>
-          </p>
-          <span class="film-numero">2A</span>
-        </div>
-
-        <!-- Frame 3: 요리 -->
-        <div class="film-frame revelar">
-          <!-- TODO: 교체 - 튀기는/굽는 손 사진 -->
-          <img class="film-imagen light-leak"
-            src="https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=600"
-            alt="Cocinar">
-          <p class="film-caption">
-            Cocinar<br>
-            <span class="ko">요리하다</span>
-          </p>
-          <span class="film-numero">3A</span>
-        </div>
-
-        <!-- Frame 4: 완성 -->
-        <div class="film-frame revelar">
-          <!-- TODO: 교체 - 접시에 담는 손 사진 -->
-          <img class="film-imagen light-leak"
-            src="https://images.pexels.com/photos/6287519/pexels-photo-6287519.jpeg?auto=compress&cs=tinysrgb&w=600"
-            alt="Servir">
-          <p class="film-caption">
-            Servir<br>
-            <span class="ko">대접하다</span>
-          </p>
-          <span class="film-numero">4A</span>
+      <div class="herramienta">
+        <div class="herramienta-icono">📻</div>
+        <div class="herramienta-info">
+          <h3 class="herramienta-nombre">Microondas</h3>
+          <p class="herramienta-desc">전자레인지 — Rápido y eficiente.</p>
         </div>
       </div>
     </div>
   </section>
 
 
-  <!-- ═══ SCENE 3: HERRAMIENTAS — 도구 ═══ -->
-  <section class="seccion seccion--crema" id="herramientas">
-    <div class="contenedor">
-      <p class="susurro revelar text-center">TUS HERRAMIENTAS</p>
-      <h2 class="titulo-seccion revelar mt-md">
-        당신의 도구들
-      </h2>
+  <!-- ═══ PASO 3: Cocinar ═══ -->
+  <section class="paso paso--cocinar revelar" aria-label="Paso 3: Cocinar">
+    <div class="paso-header">
+      <span class="paso-numero" style="color: var(--dorado);">3</span>
+      <h2 class="paso-titulo">Cocinar</h2>
+      <span class="paso-subtitulo">요리</span>
+    </div>
 
-      <p class="texto text-center revelar mt-sm" style="max-width: 280px; margin-left: auto; margin-right: auto;">
-        이 세 가지면 충분합니다.<br>
-        <span class="es" style="color: var(--text-secondary);">Con estos tres, suficiente.</span>
-      </p>
+    <p class="voz">
+      El fuego transforma. El aceite canta.<br>
+      Las manos observan el momento justo.
+    </p>
+    <span class="ko">불이 변화시킵니다. 기름이 노래합니다. 손은 정확한 순간을 지켜봅니다.</span>
 
-      <div class="herramientas mt-lg">
-        <!-- 팬 -->
-        <div class="herramienta revelar" data-tool="sarten">
-          <span class="herramienta-icono">🍳</span>
-          <p class="herramienta-nombre">Sartén</p>
-          <p class="herramienta-nombre-ko">팬</p>
+    <p class="susurro mt-xl" style="color: var(--dorado);">80% REPRODUCCIÓN</p>
+    <p class="voz mt-sm">
+      Con herramientas simples,<br>
+      lográs el 80% del sabor original.
+    </p>
+    <span class="ko">간단한 도구로 원래 맛의 80%를 재현합니다.</span>
+  </section>
+
+
+  <!-- ═══ PASO 4: Recetas ═══ -->
+  <section class="paso paso--servir revelar" id="recetas" aria-label="Recetas">
+    <div class="paso-header">
+      <span class="paso-numero">4</span>
+      <h2 class="paso-titulo">Recetas</h2>
+      <span class="paso-subtitulo">레시피</span>
+    </div>
+
+    <div class="recetas-grid">
+      <!-- Croqueta -->
+      <article class="receta-card">
+        <img class="receta-imagen"
+             src="https://images.pexels.com/photos/6941028/pexels-photo-6941028.jpeg?auto=compress&cs=tinysrgb&w=400"
+             alt="Croqueta Coreana"
+             loading="lazy">
+        <div class="receta-contenido">
+          <h3 class="receta-nombre">Croqueta</h3>
+          <p class="receta-nombre-ko">고로케</p>
+          <div class="receta-meta">
+            <span class="receta-tag">15min</span>
+            <span class="receta-tag receta-tag--tool">🍳</span>
+          </div>
         </div>
+      </article>
 
-        <!-- 에어프라이어 -->
-        <div class="herramienta revelar" data-tool="airfryer">
-          <span class="herramienta-icono">🌀</span>
-          <p class="herramienta-nombre">Airfryer</p>
-          <p class="herramienta-nombre-ko">에어프라이어</p>
+      <!-- K-Donut -->
+      <article class="receta-card">
+        <img class="receta-imagen"
+             src="https://images.pexels.com/photos/4686818/pexels-photo-4686818.jpeg?auto=compress&cs=tinysrgb&w=400"
+             alt="K-Donut"
+             loading="lazy">
+        <div class="receta-contenido">
+          <h3 class="receta-nombre">K-Donut</h3>
+          <p class="receta-nombre-ko">케이도넛</p>
+          <div class="receta-meta">
+            <span class="receta-tag">20min</span>
+            <span class="receta-tag receta-tag--tool">🌀</span>
+          </div>
         </div>
+      </article>
 
-        <!-- 전자레인지 -->
-        <div class="herramienta revelar" data-tool="micro">
-          <span class="herramienta-icono">📦</span>
-          <p class="herramienta-nombre">Microondas</p>
-          <p class="herramienta-nombre-ko">전자레인지</p>
+      <!-- Hotteok -->
+      <article class="receta-card">
+        <img class="receta-imagen"
+             src="https://images.pexels.com/photos/5792329/pexels-photo-5792329.jpeg?auto=compress&cs=tinysrgb&w=400"
+             alt="Hotteok"
+             loading="lazy">
+        <div class="receta-contenido">
+          <h3 class="receta-nombre">Hotteok</h3>
+          <p class="receta-nombre-ko">호떡</p>
+          <div class="receta-meta">
+            <span class="receta-tag">25min</span>
+            <span class="receta-tag receta-tag--tool">🍳</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Pan de Ajo -->
+      <article class="receta-card">
+        <img class="receta-imagen"
+             src="https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=400"
+             alt="Pan de Ajo Coreano"
+             loading="lazy">
+        <div class="receta-contenido">
+          <h3 class="receta-nombre">Pan de Ajo</h3>
+          <p class="receta-nombre-ko">마늘빵</p>
+          <div class="receta-meta">
+            <span class="receta-tag">10min</span>
+            <span class="receta-tag receta-tag--tool">🌀</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+
+  <!-- ═══ PASO 5: El Estudio ═══ -->
+  <section class="paso paso--preparar revelar" id="estudio" aria-label="El Estudio">
+    <div class="paso-header">
+      <span class="paso-numero">5</span>
+      <h2 class="paso-titulo">El Estudio</h2>
+      <span class="paso-subtitulo">스튜디오</span>
+    </div>
+
+    <!-- Polaroid del Abuelo -->
+    <div class="polaroid mt-lg" style="max-width: 280px; margin: 0 auto;">
+      <img class="polaroid-imagen"
+           src="https://images.pexels.com/photos/3814446/pexels-photo-3814446.jpeg?auto=compress&cs=tinysrgb&w=400"
+           alt="호야당 아저씨"
+           loading="lazy">
+      <p class="polaroid-caption">호야당 아저씨 — Mr. Hoyadang</p>
+    </div>
+
+    <p class="voz mt-xl" style="text-align: center;">
+      Un fotógrafo que cocina.<br>
+      Un cocinero que fotografía.
+    </p>
+    <span class="ko" style="text-align: center; display: block;">요리하는 사진작가. 사진 찍는 요리사.</span>
+
+    <!-- Contacto -->
+    <div class="contacto mt-xl">
+      <div class="contacto-item">
+        <span class="contacto-icono">📍</span>
+        <div class="contacto-texto">
+          <p class="contacto-label">Ubicación</p>
+          <p class="contacto-valor">안양시 만안구 와룡로 12-1</p>
         </div>
       </div>
 
-      <div class="text-center mt-lg revelar">
-        <p class="camara-deco">
-          📷 KODAK PORTRA 400
-        </p>
+      <div class="contacto-item">
+        <span class="contacto-icono">🕐</span>
+        <div class="contacto-texto">
+          <p class="contacto-label">Horario</p>
+          <p class="contacto-valor">월-토 08:00-20:00</p>
+        </div>
+      </div>
+
+      <div class="contacto-item">
+        <span class="contacto-icono">📞</span>
+        <div class="contacto-texto">
+          <p class="contacto-label">Teléfono</p>
+          <p class="contacto-valor">070-8886-3300</p>
+        </div>
       </div>
     </div>
   </section>
 
 
-  <!-- ═══ SCENE 4: RECETAS — 레시피 ═══ -->
-  <section class="seccion" id="recetas">
-    <div class="contenedor">
-      <p class="susurro revelar text-center">ÁLBUM DE RECETAS</p>
-      <h2 class="titulo-seccion revelar mt-md">
-        레시피 앨범
-      </h2>
+  <!-- ═══ Ending ═══ -->
+  <section class="ending revelar" aria-label="Ending">
+    <img class="ending-mano"
+         src="https://images.pexels.com/photos/6287495/pexels-photo-6287495.jpeg?auto=compress&cs=tinysrgb&w=200"
+         alt="Clean hands"
+         loading="lazy">
 
-      <div class="recetas-grid mt-lg">
-        <!-- Croqueta 고로케 -->
-        <article class="receta-card revelar">
-          <div class="receta-imagen-wrap">
-            <!-- TODO: 교체 - 고로케 만드는 손 사진 -->
-            <img class="receta-imagen"
-              src="https://images.pexels.com/photos/6941028/pexels-photo-6941028.jpeg?auto=compress&cs=tinysrgb&w=400"
-              alt="Croqueta coreana">
-          </div>
-          <div class="receta-info">
-            <h3 class="receta-nombre">Croqueta</h3>
-            <p class="receta-nombre-ko">고로케</p>
-            <div class="receta-meta">
-              <span>⏱ 15min</span>
-              <span>🍳 Sartén</span>
-            </div>
-            <p class="receta-fecha">'26.01.27</p>
-          </div>
-        </article>
+    <p class="ending-firma">Con las manos.</p>
+    <p class="ending-firma-ko">손으로.</p>
 
-        <!-- K-Donut 케이도넛 -->
-        <article class="receta-card revelar">
-          <div class="receta-imagen-wrap">
-            <!-- TODO: 교체 - 도넛 만드는 손 사진 -->
-            <img class="receta-imagen"
-              src="https://images.pexels.com/photos/4686818/pexels-photo-4686818.jpeg?auto=compress&cs=tinysrgb&w=400"
-              alt="K-Donut">
-          </div>
-          <div class="receta-info">
-            <h3 class="receta-nombre">K-Donut</h3>
-            <p class="receta-nombre-ko">케이도넛</p>
-            <div class="receta-meta">
-              <span>⏱ 20min</span>
-              <span>🌀 Airfryer</span>
-            </div>
-            <p class="receta-fecha">'26.01.20</p>
-          </div>
-        </article>
+    <div class="linea mt-lg"></div>
 
-        <!-- Hotteok 호떡 -->
-        <article class="receta-card revelar">
-          <div class="receta-imagen-wrap">
-            <!-- TODO: 교체 - 호떡 만드는 손 사진 -->
-            <img class="receta-imagen"
-              src="https://images.pexels.com/photos/5792329/pexels-photo-5792329.jpeg?auto=compress&cs=tinysrgb&w=400"
-              alt="Hotteok">
-          </div>
-          <div class="receta-info">
-            <h3 class="receta-nombre">Hotteok</h3>
-            <p class="receta-nombre-ko">호떡</p>
-            <div class="receta-meta">
-              <span>⏱ 10min</span>
-              <span>🍳 Sartén</span>
-            </div>
-            <p class="receta-fecha">'26.01.15</p>
-          </div>
-        </article>
-
-        <!-- Pan de ajo 마늘빵 -->
-        <article class="receta-card revelar">
-          <div class="receta-imagen-wrap">
-            <!-- TODO: 교체 - 마늘빵 만드는 손 사진 -->
-            <img class="receta-imagen"
-              src="https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=400"
-              alt="Pan de ajo coreano">
-          </div>
-          <div class="receta-info">
-            <h3 class="receta-nombre">Pan de Ajo</h3>
-            <p class="receta-nombre-ko">마늘빵</p>
-            <div class="receta-meta">
-              <span>⏱ 8min</span>
-              <span>🌀 Airfryer</span>
-            </div>
-            <p class="receta-fecha">'26.01.10</p>
-          </div>
-        </article>
-      </div>
-
-      <div class="text-center mt-xl revelar">
-        <a href="recetas/" class="boton">
-          Ver todas las recetas
-          <span class="ko--inline">모든 레시피 보기</span>
-        </a>
-      </div>
-    </div>
+    <p class="susurro mt-lg">好爺堂</p>
   </section>
 
 
-  <!-- ═══ SCENE 5: ESTUDIO — 스튜디오 ═══ -->
-  <section class="seccion seccion--oscuro" id="estudio">
-    <div class="contenedor">
-      <p class="susurro revelar text-center" style="color: rgba(255,250,245,0.5);">NUESTRO ESTUDIO</p>
-      <h2 class="titulo-seccion revelar mt-md" style="color: var(--harina);">
-        우리의 스튜디오
-      </h2>
-
-      <!-- 아저씨 포트레이트 -->
-      <div class="polaroid revelar mt-lg" style="max-width: 280px; margin: 0 auto;">
-        <!-- TODO: 교체 - 호야당 아저씨 포트레이트 (카메라 들고) -->
-        <img class="polaroid-imagen"
-          src="https://images.pexels.com/photos/3814446/pexels-photo-3814446.jpeg?auto=compress&cs=tinysrgb&w=400"
-          alt="好爺堂 아저씨">
-        <p class="polaroid-caption">
-          好爺堂 아저씨<br>
-          <span style="font-size: var(--t-xs); opacity: 0.6;">Desde 2016</span>
-        </p>
-      </div>
-
-      <div class="bilingue revelar mt-lg text-center">
-        <p class="bilingue-es" style="color: var(--harina); font-style: italic; max-width: 300px; margin: 0 auto;">
-          "Soy cocinero y fotógrafo.<br>
-          Cocino con las manos,<br>
-          fotografío con las manos."
-        </p>
-        <p class="bilingue-ko" style="color: rgba(255,250,245,0.6);">
-          "저는 요리사이자 사진작가입니다.<br>
-          손으로 요리하고, 손으로 찍습니다."
-        </p>
-      </div>
-
-      <div class="linea" style="background: linear-gradient(90deg, transparent, var(--dorado), transparent);"></div>
-
-      <!-- 매장 정보 -->
-      <div class="revelar text-center" style="color: rgba(255,250,245,0.8);">
-        <p style="margin-bottom: var(--s-xs);">
-          <span style="color: var(--dorado);">📍</span>
-          경기도 안양시 만안구 와룡로 12-1
-        </p>
-        <p style="margin-bottom: var(--s-xs);">
-          <span style="color: var(--dorado);">☎️</span>
-          070-8886-3300
-        </p>
-        <p style="margin-bottom: var(--s-xs);">
-          <span style="color: var(--dorado);">🕐</span>
-          월-토 08:00 - 20:00
-        </p>
-        <p style="font-size: var(--t-xs); opacity: 0.5; margin-top: var(--s-md);">
-          Delivery: 10:00 - 18:00 (사전 예약)
-        </p>
-      </div>
-
-      <div class="text-center mt-lg revelar">
-        <a href="https://map.naver.com/v5/search/호야당" target="_blank" rel="noopener" class="boton" style="border-color: var(--dorado); color: var(--harina);">
-          Ver en el mapa
-          <span class="ko--inline">지도 보기</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══ SCENE 6: COMUNIDAD ═══ -->
-  <section class="seccion" id="comunidad">
-    <div class="contenedor">
-      <p class="susurro revelar text-center">MANOS DEL MUNDO</p>
-      <h2 class="titulo-seccion revelar mt-md">
-        세계의 손들
-      </h2>
-
-      <div class="bilingue revelar text-center mt-sm">
-        <p class="bilingue-es texto">
-          Mostranos lo que hiciste con tus manos.
-        </p>
-        <p class="bilingue-ko">
-          당신의 손으로 만든 요리를 보여주세요.
-        </p>
-      </div>
-
-      <!-- 커뮤니티 그리드 플레이스홀더 -->
-      <div class="recetas-grid mt-lg">
-        <div class="tarjeta revelar text-center" style="padding: var(--s-xl);">
-          <span style="font-size: 2rem;">🇦🇷</span>
-          <p class="mt-sm" style="font-size: var(--t-sm);">María</p>
-          <p class="ko" style="font-size: var(--t-xs);">"완벽해요!"</p>
-        </div>
-        <div class="tarjeta revelar text-center" style="padding: var(--s-xl);">
-          <span style="font-size: 2rem;">🇲🇽</span>
-          <p class="mt-sm" style="font-size: var(--t-sm);">Juan</p>
-          <p class="ko" style="font-size: var(--t-xs);">"맛있어요!"</p>
-        </div>
-        <div class="tarjeta revelar text-center" style="padding: var(--s-xl);">
-          <span style="font-size: 2rem;">🇰🇷</span>
-          <p class="mt-sm" style="font-size: var(--t-sm);">민수</p>
-          <p class="ko" style="font-size: var(--t-xs);">"집에서도 됩니다"</p>
-        </div>
-        <div class="tarjeta revelar text-center" style="padding: var(--s-xl);">
-          <span style="font-size: 2rem;">🇨🇱</span>
-          <p class="mt-sm" style="font-size: var(--t-sm);">Sofía</p>
-          <p class="ko" style="font-size: var(--t-xs);">"쉬웠어요!"</p>
-        </div>
-      </div>
-
-      <div class="text-center mt-lg revelar">
-        <p class="susurro">#好爺堂 #ManosCoreanas #호야당홈쿡</p>
-      </div>
-
-      <div class="text-center mt-md revelar">
-        <a href="https://www.instagram.com/hoyadangbakery" target="_blank" rel="noopener" class="boton">
-          📷 사진 보내기
-        </a>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══ SCENE 7: ENDING ═══ -->
-  <section class="seccion seccion--crema text-center" id="ending">
-    <div class="contenedor">
-      <div class="revelar">
-        <!-- TODO: 교체 - 손 닦는 영상/이미지 -->
-        <img src="https://images.pexels.com/photos/6287495/pexels-photo-6287495.jpeg?auto=compress&cs=tinysrgb&w=400"
-          alt="Manos limpias"
-          style="width: 120px; height: 120px; object-fit: cover; border-radius: 50%; margin: 0 auto var(--s-lg);">
-      </div>
-
-      <p class="titulo-seccion revelar" style="font-style: italic;">
-        Gracias.
-      </p>
-      <p class="ko revelar" style="font-size: var(--t-md);">
-        감사합니다.
-      </p>
-
-      <div class="linea"></div>
-
-      <p class="susurro revelar">好爺堂 · Desde 2016</p>
-      <p class="ko revelar mt-xs" style="opacity: 0.5;">빵으로 동네를 만든다</p>
-    </div>
-  </section>
-
-
-  <!-- ═══ FOOTER ═══ -->
-  <footer class="pie" role="contentinfo">
+  <!-- ═══ Footer ═══ -->
+  <footer class="pie">
     <p class="pie-logo">好爺堂</p>
-    <p class="pie-tagline">Con las manos. 손으로.</p>
-
-    <!-- Language Toggle -->
-    <nav class="idiomas" aria-label="Idioma">
-      <button class="idioma activo" data-lang="es">한국어</button>
-      <button class="idioma" data-lang="ko">스페인어</button>
-      <button class="idioma" data-lang="zh">中文</button>
-    </nav>
-
-    <div class="pie-links">
-      <a href="https://www.instagram.com/hoyadangbakery" target="_blank" rel="noopener" class="pie-link">Instagram</a>
-      <a href="mailto:mrhoya80@hanmail.net" class="pie-link">Email</a>
-    </div>
-
-    <p class="pie-copy">© 好爺堂 2016-2026 · Fotografía & Cocina</p>
+    <p class="pie-direccion">
+      경기도 안양시 만안구 와룡로 12-1<br>
+      Anyang, Gyeonggi-do, South Korea
+    </p>
+    <p class="pie-copy">© 2026 好爺堂. All rights reserved.</p>
   </footer>
 
 
-  <!-- ═══ AUDIO PLAYER — Aranjuez ═══ -->
-  <div class="reproductor" id="reproductor">
-    <div class="reproductor-progreso" id="reproductoProgreso"></div>
-    <div class="reproductor-info">
-      <p class="reproductor-titulo">Concierto de Aranjuez — II. Adagio</p>
-      <p class="reproductor-artista">Joaquín Rodrigo</p>
-    </div>
-    <button class="reproductor-control" id="reproductoControl" aria-label="Play/Pause">
-      ▶
+  <!-- ═══ Audio Player ═══ -->
+  <div class="reproductor" role="region" aria-label="Audio Player">
+    <button class="reproductor-btn" id="audioBtn" aria-label="Play/Pause">
+      <svg id="audioIcon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
     </button>
-    <!-- Hidden YouTube Player -->
-    <div id="yt-player" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;"></div>
+    <div class="reproductor-info">
+      <span class="reproductor-titulo">Concierto de Aranjuez</span> — Joaquín Rodrigo
+    </div>
   </div>
 
 
-  <!-- ═══ SCRIPTS ═══ -->
-  <script>
-  // ─── Intro Skip ───
-  (function() {
-    const intro = document.getElementById('intro');
-    const skipBtn = document.getElementById('introSkip');
-
-    function hideIntro() {
-      intro.classList.add('oculto');
-      sessionStorage.setItem('hoyadang_intro', '1');
-    }
-
-    // Auto hide after 4 seconds
-    const autoHide = setTimeout(hideIntro, 4000);
-
-    // Skip button
-    if (skipBtn) {
-      skipBtn.addEventListener('click', function() {
-        clearTimeout(autoHide);
-        hideIntro();
-      });
-    }
-
-    // Check if already seen
-    if (sessionStorage.getItem('hoyadang_intro')) {
-      intro.style.display = 'none';
-    }
-  })();
+  <!-- YouTube Player (Hidden) -->
+  <div id="ytPlayer" style="position:absolute;left:-9999px;"></div>
 
 
-  // ─── Scroll Reveal ───
-  (function() {
-    const reveals = document.querySelectorAll('.revelar');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    });
-
-    reveals.forEach(el => observer.observe(el));
-  })();
-
-
-  // ─── YouTube Audio — Concierto de Aranjuez ───
-  (function() {
-    'use strict';
-    // Aranjuez 2악장 Adagio
-    var VIDEO_ID = 'RxWa8tXu8y4';
-    var playBtn = document.getElementById('reproductoControl');
-    var progressBar = document.getElementById('reproductoProgreso');
-    var player;
-    var started = false;
-
-    var tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(tag);
-
-    window.onYouTubeIframeAPIReady = function() {
-      player = new YT.Player('yt-player', {
-        videoId: VIDEO_ID,
-        playerVars: {
-          loop: 1,
-          playlist: VIDEO_ID,
-          controls: 0,
-          disablekb: 1,
-          fs: 0,
-          modestbranding: 1,
-          playsinline: 1,
-          rel: 0,
-          start: 0
-        },
-        events: {
-          onStateChange: function(e) {
-            if (e.data === YT.PlayerState.PLAYING) {
-              playBtn.textContent = '❚❚';
-              playBtn.classList.add('playing');
-              updateProgress();
-            } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
-              playBtn.textContent = '▶';
-              playBtn.classList.remove('playing');
-            }
-          }
-        }
-      });
-    };
-
-    function updateProgress() {
-      if (!player || !player.getCurrentTime) return;
-      var current = player.getCurrentTime();
-      var duration = player.getDuration();
-      if (duration > 0) {
-        var pct = (current / duration) * 100;
-        progressBar.style.width = pct + '%';
-      }
-      if (player.getPlayerState() === YT.PlayerState.PLAYING) {
-        requestAnimationFrame(updateProgress);
-      }
-    }
-
-    function togglePlay() {
-      if (!player) return;
-      if (!started) {
-        started = true;
-        player.setVolume(60);
-        player.unMute();
-        player.playVideo();
-        return;
-      }
-      var state = player.getPlayerState();
-      if (state === YT.PlayerState.PLAYING) {
-        player.pauseVideo();
-      } else {
-        player.playVideo();
-      }
-    }
-
-    if (playBtn) {
-      playBtn.addEventListener('click', togglePlay);
-    }
-  })();
-
-
-  // ─── Tool Selection ───
-  document.querySelectorAll('.herramienta').forEach(function(el) {
-    el.addEventListener('click', function() {
-      document.querySelectorAll('.herramienta').forEach(function(h) {
-        h.classList.remove('activo');
-      });
-      this.classList.add('activo');
-    });
-  });
-
-
-  // ─── Language Toggle (placeholder) ───
-  document.querySelectorAll('.idioma').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.idioma').forEach(function(b) {
-        b.classList.remove('activo');
-      });
-      this.classList.add('activo');
-      // TODO: Implement actual language switching
-      console.log('Language:', this.dataset.lang);
-    });
-  });
-  </script>
+  <!-- Scripts -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="design/entrada.js"></script>
 
 </body>
 </html>

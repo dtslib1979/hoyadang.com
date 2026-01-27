@@ -1,18 +1,13 @@
 /**
- * Entrada — Ritual de Ingreso v4.0 (120-Point Edition)
+ * Entrada — Ritual de Ingreso v2.0 (HOYADANG Edition)
  *
- * The entrance is not a click. It's a ceremony.
- * Extended with motion permission and body calibration.
+ * "손을 펴세요." — Open your hands.
  *
- * Timeline (New):
- *   0.0s  — Absolute darkness
- *   2.0s  — Motion permission button appears (iOS)
- *   [permission granted]
- *   3.0s  — "폰을 가슴에 대세요" (Calibration prompt)
- *   [device horizontal detected OR timeout]
- *   4.5s  — "천천히 숨을 쉬세요" (Breath prompt)
- *   [two taps OR timeout]
- *   6.0s  — Ritual fades out, system awakens
+ * Timeline:
+ *   0.0s  — Kitchen darkness (film black)
+ *   1.5s  — "Abrí las manos." (Open your hands)
+ *   3.0s  — "손을 펴세요." (Korean)
+ *   5.0s  — Shutter opens, system awakens
  *
  * Skip: Button available for returning users.
  * Session: Once entered, ritual is instant on revisit.
@@ -21,218 +16,326 @@
 (function() {
   'use strict';
 
-  const BEAT = 857;
-  const BREATH = 2571;
-  const DARKNESS_DURATION = 2000;
-  const STEP_TIMEOUT = 5000;
-
-  let currentStage = 0;
+  const BEAT = 1000;      // 60 BPM
+  const BREATH = 3000;
+  const INTRO_DURATION = 5000;
 
   function init() {
-    const ritual = document.querySelector('.ritual');
-    if (!ritual) return;
+    const intro = document.getElementById('intro');
+    if (!intro) return;
 
     // Skip for returning visitors
-    if (sessionStorage.getItem('tango_entered') === 'true') {
-      ritual.classList.add('despierta');
-      requestMotionPermission();  // Still request permission silently
+    if (sessionStorage.getItem('hoyadang_entered') === 'true') {
+      intro.classList.add('abierto');
+      setTimeout(() => {
+        intro.style.display = 'none';
+        initMasaRibbon();
+        initScrollEffects();
+      }, 100);
       return;
     }
 
     // Skip button
-    const skipBtn = ritual.querySelector('.ritual-saltar');
+    const skipBtn = intro.querySelector('.intro-skip');
     if (skipBtn) {
-      skipBtn.addEventListener('click', () => awaken(ritual), { once: true });
+      skipBtn.addEventListener('click', () => openShutter(intro), { once: true });
     }
 
-    // Start the ritual stages
-    startRitual(ritual);
-  }
-
-  async function startRitual(ritual) {
-    const texto = ritual.querySelector('.ritual-texto');
-    const instruction = ritual.querySelector('.ritual-instruction') ||
-                        createInstruction(ritual);
-    const motionBtn = ritual.querySelector('.ritual-motion-btn') ||
-                      createMotionButton(ritual);
-
-    // Stage 1: Darkness
-    await wait(DARKNESS_DURATION);
-    if (ritual.classList.contains('despierta')) return;
-
-    // Stage 2: Motion Permission (iOS only)
-    if (needsMotionPermission()) {
-      texto.textContent = '';
-      instruction.textContent = '움직임 감지를 활성화하세요';
-      instruction.style.opacity = '1';
-      motionBtn.style.opacity = '1';
-
-      const permissionGranted = await waitForMotionPermission(motionBtn);
-      if (!permissionGranted) {
-        // Continue anyway, but without motion features
-        console.log('Motion permission denied, continuing without motion');
+    // Auto open after intro duration
+    setTimeout(() => {
+      if (!intro.classList.contains('abierto')) {
+        openShutter(intro);
       }
+    }, INTRO_DURATION);
 
-      motionBtn.style.opacity = '0';
-      await wait(500);
-    } else {
-      // Request permission silently for non-iOS
-      await requestMotionPermission();
-    }
-
-    if (ritual.classList.contains('despierta')) return;
-
-    // Stage 3: Calibration
-    texto.textContent = '폰을 가슴에 대세요.';
-    texto.style.opacity = '1';
-    instruction.textContent = '';
-    instruction.style.opacity = '0';
-
-    const calibrated = await waitForCalibration();
-    if (calibrated && navigator.vibrate) {
-      navigator.vibrate(100);
-    }
-
-    if (ritual.classList.contains('despierta')) return;
-    await wait(800);
-
-    // Stage 4: Breath
-    texto.textContent = '천천히 숨을 쉬세요.';
-    instruction.textContent = '화면을 두 번 터치하세요';
-    instruction.style.opacity = '0.5';
-
-    await waitForBreath();
-    if (navigator.vibrate) {
-      navigator.vibrate([50, 100, 50]);
-    }
-
-    if (ritual.classList.contains('despierta')) return;
-    await wait(500);
-
-    // Stage 5: Awaken
-    awaken(ritual);
-  }
-
-  function createInstruction(ritual) {
-    const instruction = document.createElement('p');
-    instruction.className = 'ritual-instruction';
-    ritual.insertBefore(instruction, ritual.querySelector('.ritual-saltar'));
-    return instruction;
-  }
-
-  function createMotionButton(ritual) {
-    const btn = document.createElement('button');
-    btn.className = 'ritual-motion-btn';
-    btn.textContent = '시작하기';
-    btn.style.opacity = '0';
-    ritual.insertBefore(btn, ritual.querySelector('.ritual-saltar'));
-    return btn;
-  }
-
-  function needsMotionPermission() {
-    return typeof DeviceOrientationEvent !== 'undefined' &&
-           typeof DeviceOrientationEvent.requestPermission === 'function';
-  }
-
-  async function requestMotionPermission() {
-    if (needsMotionPermission()) {
-      try {
-        const permission = await DeviceOrientationEvent.requestPermission();
-        return permission === 'granted';
-      } catch (e) {
-        return false;
+    // Touch/click to skip
+    intro.addEventListener('click', (e) => {
+      if (e.target !== skipBtn) {
+        openShutter(intro);
       }
-    }
-    return true;
-  }
-
-  function waitForMotionPermission(btn) {
-    return new Promise((resolve) => {
-      const timeout = setTimeout(() => {
-        resolve(false);
-      }, STEP_TIMEOUT);
-
-      btn.addEventListener('click', async () => {
-        clearTimeout(timeout);
-        const granted = await requestMotionPermission();
-        resolve(granted);
-      }, { once: true });
-    });
-  }
-
-  function waitForCalibration() {
-    return new Promise((resolve) => {
-      const timeout = setTimeout(() => {
-        resolve(false);
-      }, STEP_TIMEOUT);
-
-      // Check if device is roughly horizontal (held to chest)
-      const handler = (e) => {
-        const beta = e.beta || 0;
-        const gamma = e.gamma || 0;
-
-        // Beta around 90 = horizontal, gamma near 0 = straight
-        if (Math.abs(beta - 90) < 25 && Math.abs(gamma) < 20) {
-          window.removeEventListener('deviceorientation', handler);
-          clearTimeout(timeout);
-
-          // Calibrate the partner system
-          if (window.tangoPartner) {
-            window.tangoPartner.calibration = { gamma: gamma, beta: beta };
-          }
-
-          resolve(true);
-        }
-      };
-
-      window.addEventListener('deviceorientation', handler);
-    });
-  }
-
-  function waitForBreath() {
-    return new Promise((resolve) => {
-      const timeout = setTimeout(resolve, STEP_TIMEOUT);
-
-      let tapCount = 0;
-      const handler = () => {
-        tapCount++;
-        if (tapCount >= 2) {
-          document.removeEventListener('touchstart', handler);
-          clearTimeout(timeout);
-          resolve();
-        }
-      };
-
-      document.addEventListener('touchstart', handler);
-    });
-  }
-
-  function wait(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
-  function awaken(ritual) {
-    if (ritual.classList.contains('despierta')) return;
-
-    ritual.classList.add('despierta');
-    sessionStorage.setItem('tango_entered', 'true');
-
-    // Start motion tracking
-    if (window.tangoPartner) {
-      window.tangoPartner.permission = true;
-      window.tangoPartner.start();
-    }
-
-    // Clean up after transition
-    ritual.addEventListener('transitionend', () => {
-      ritual.setAttribute('aria-hidden', 'true');
     }, { once: true });
   }
 
-  // Execute immediately
+  function openShutter(intro) {
+    sessionStorage.setItem('hoyadang_entered', 'true');
+    intro.classList.add('abierto');
+
+    // Vibrate on supported devices
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+
+    setTimeout(() => {
+      intro.style.display = 'none';
+      initMasaRibbon();
+      initScrollEffects();
+    }, 1500);
+  }
+
+  // Masa Ribbon — Dough thread animation
+  function initMasaRibbon() {
+    const container = document.getElementById('masaContainer');
+    const mainPath = document.getElementById('masaMain');
+    const ambient = document.getElementById('masaAmbient');
+    const thread1 = document.getElementById('masaThread1');
+    const thread2 = document.getElementById('masaThread2');
+
+    if (!container || !mainPath) return;
+
+    const paths = [
+      { el: mainPath, lag: 0 },
+      { el: ambient, lag: 0 },
+      { el: thread1, lag: 0.02 },
+      { el: thread2, lag: 0.04 }
+    ];
+
+    // Initialize path lengths
+    paths.forEach(p => {
+      if (!p.el) return;
+      p.len = p.el.getTotalLength();
+      p.el.style.strokeDasharray = p.len;
+      p.el.style.strokeDashoffset = p.len;
+    });
+
+    const INITIAL_DRAW = 0.2;
+
+    // Show ribbon
+    setTimeout(() => {
+      container.classList.add('visible');
+
+      // Staggered initial draw
+      paths.forEach((p, i) => {
+        if (!p.el) return;
+        const delay = i * 150;
+        const drawAmount = INITIAL_DRAW * Math.max(0.5, 1 - p.lag * 2);
+        setTimeout(() => {
+          p.el.style.transition = 'stroke-dashoffset 2s cubic-bezier(0.16, 1, 0.3, 1)';
+          p.el.style.strokeDashoffset = p.len * (1 - drawAmount);
+        }, delay);
+      });
+
+      // Reset to fast transitions
+      setTimeout(() => {
+        paths.forEach(p => {
+          if (p.el) p.el.style.transition = 'stroke-dashoffset 0.1s linear';
+        });
+      }, 3000);
+    }, 500);
+
+    // Scroll-linked reveal
+    let ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollProgress = Math.min(scrollTop / docHeight, 1);
+
+        paths.forEach(p => {
+          if (!p.el) return;
+          const progress = Math.max(INITIAL_DRAW,
+            INITIAL_DRAW + Math.max(0, scrollProgress - p.lag) * (1 - INITIAL_DRAW));
+          p.el.style.strokeDashoffset = p.len * (1 - progress);
+        });
+
+        // Add alive class when scrolled
+        if (scrollProgress > 0.05) {
+          mainPath.classList.add('alive');
+          if (thread1) thread1.classList.add('alive');
+          if (thread2) thread2.classList.add('alive');
+        } else {
+          mainPath.classList.remove('alive');
+          if (thread1) thread1.classList.remove('alive');
+          if (thread2) thread2.classList.remove('alive');
+        }
+
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // Scroll Effects
+  function initScrollEffects() {
+    // Reveal elements on scroll
+    const revealElements = document.querySelectorAll('.revelar');
+    const pisoIndicator = document.querySelector('.piso-indicator');
+    const pisoDots = document.querySelectorAll('.piso-dot');
+    const pasos = document.querySelectorAll('.paso, .espacio, .danza-section, .ending');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // Body scrolled state
+    let scrolled = false;
+    window.addEventListener('scroll', () => {
+      const isScrolled = window.pageYOffset > 100;
+      if (isScrolled !== scrolled) {
+        scrolled = isScrolled;
+        document.body.classList.toggle('scrolled', scrolled);
+      }
+
+      // Update piso indicator
+      if (pisoDots.length && pasos.length) {
+        let activeIndex = 0;
+        pasos.forEach((paso, i) => {
+          const rect = paso.getBoundingClientRect();
+          if (rect.top < window.innerHeight / 2) {
+            activeIndex = i;
+          }
+        });
+        pisoDots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === activeIndex);
+        });
+      }
+    }, { passive: true });
+  }
+
+  // Hand motion tracking (device orientation)
+  function initHandMotion() {
+    if (!window.DeviceOrientationEvent) return;
+
+    function handleOrientation(event) {
+      const x = event.gamma || 0; // -90 to 90
+      const y = event.beta || 0;  // -180 to 180
+
+      document.documentElement.style.setProperty('--hand-x', `${x * 0.5}px`);
+      document.documentElement.style.setProperty('--hand-y', `${y * 0.3}px`);
+    }
+
+    // Request permission on iOS 13+
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      document.body.addEventListener('click', () => {
+        DeviceOrientationEvent.requestPermission()
+          .then(response => {
+            if (response === 'granted') {
+              window.addEventListener('deviceorientation', handleOrientation);
+            }
+          })
+          .catch(console.error);
+      }, { once: true });
+    } else {
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
+  }
+
+  // Initialize on DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', () => {
+      init();
+      initHandMotion();
+    });
   } else {
     init();
+    initHandMotion();
   }
+})();
+
+
+/**
+ * Film Strip Carousel
+ */
+(function() {
+  'use strict';
+
+  function initFilmStrip() {
+    const strip = document.querySelector('.film-strip');
+    if (!strip) return;
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    strip.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - strip.offsetLeft;
+      scrollLeft = strip.scrollLeft;
+    });
+
+    strip.addEventListener('mouseleave', () => {
+      isDown = false;
+    });
+
+    strip.addEventListener('mouseup', () => {
+      isDown = false;
+    });
+
+    strip.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - strip.offsetLeft;
+      const walk = (x - startX) * 2;
+      strip.scrollLeft = scrollLeft - walk;
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFilmStrip);
+  } else {
+    initFilmStrip();
+  }
+})();
+
+
+/**
+ * Audio Player (Aranjuez)
+ */
+(function() {
+  'use strict';
+
+  window.onYouTubeIframeAPIReady = function() {
+    const playerEl = document.getElementById('ytPlayer');
+    if (!playerEl) return;
+
+    const VIDEO_ID = 'RxWa8tXu8y4';
+
+    const player = new YT.Player('ytPlayer', {
+      height: '0',
+      width: '0',
+      videoId: VIDEO_ID,
+      playerVars: {
+        autoplay: 0,
+        loop: 1,
+        playlist: VIDEO_ID,
+        controls: 0,
+        disablekb: 1,
+        fs: 0,
+        modestbranding: 1,
+        rel: 0
+      },
+      events: {
+        onReady: function(event) {
+          event.target.setVolume(30);
+
+          const btn = document.getElementById('audioBtn');
+          const icon = document.getElementById('audioIcon');
+
+          if (btn) {
+            btn.addEventListener('click', function() {
+              const state = player.getPlayerState();
+              if (state === YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+                if (icon) icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+              } else {
+                player.playVideo();
+                if (icon) icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+              }
+            });
+          }
+        }
+      }
+    });
+  };
 })();

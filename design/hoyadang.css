@@ -1,65 +1,72 @@
 /* ═══════════════════════════════════════════════════════════
-   好爺堂 — Design System v1.0
+   好爺堂 HOYADANG — Design System v2.0
    "Con las manos. 손으로."
 
    Architecture:
-     I.   Tokens (Color, Typography, Space, Motion)
-     II.  Reset & Base
-     III. Typography (Bilingual: es + ko)
-     IV.  Layout
-     V.   Hero & Scenes
-     VI.  Components (Cards, Buttons, Tools)
-     VII. Recipe System
-     VIII.Film & Photography Effects
-     IX.  Audio Layer (Aranjuez)
-     X.   Animations
-     XI.  Utilities & Responsive
+     I.    Tokens
+     II.   Reset & Base
+     III.  Typography (Bilingual: es + ko)
+     IV.   Film Effects (Kodak Aesthetic)
+     V.    Layout
+     VI.   Components
+     VII.  5 Pasos (Cooking Layers)
+     VIII. Interactive
+     IX.   Animation System (BPM-Synchronized)
+     X.    Ritual de Entrada
+     XI.   Masa Ribbon
+     XII.  Audio Layer
+     XIII. Recipe Cards
+     XIV.  Tools Section
+     XV.   Studio & Contact
+     XVI.  Utilities & Queries
    ═══════════════════════════════════════════════════════════ */
 
 /* ─── I. Tokens ─── */
 :root {
-  /* Palette — Kitchen Warmth */
+  /* Palette — Kitchen Warmth (Kodak Portra 400 Inspiration) */
   --harina: #FFFAF5;        /* 밀가루 — 메인 배경 */
   --masa: #F5E6D3;          /* 반죽 — 섹션 배경 */
+  --trigo: #E8D5B7;         /* 밀 — 보조 배경 */
   --dorado: #D4A853;        /* 튀김 황금색 — 액센트 */
+  --miel: #C4956A;          /* 꿀 — 따뜻한 중간톤 */
   --carbon: #1A1A1A;        /* 숯/철판 — 텍스트 */
   --aceite: #8B7355;        /* 기름 — 보조 텍스트 */
+  --humo: #6B5B4F;          /* 연기 — 음영 */
   --tomate: #C44536;        /* 토마토 — 강조 */
+  --hierba: #4A7C59;        /* 허브 — 보조 강조 */
 
-  /* Film Photography Tones */
-  --kodak-red: #E23D28;
-  --kodak-yellow: #FDD835;
-  --portra-skin: #E8C4A2;
-  --film-cream: #FFF8E7;
-  --light-leak: rgba(255, 107, 53, 0.15);
+  /* Film tones */
+  --film-black: #0D0A07;
+  --film-shadow: #2A2420;
+  --film-highlight: #FFF8E7;
+  --film-grain: rgba(139, 115, 85, 0.03);
 
-  /* Semantic */
-  --bg-primary: var(--harina);
-  --bg-secondary: var(--masa);
-  --text-primary: var(--carbon);
-  --text-secondary: var(--aceite);
-  --accent: var(--dorado);
-  --accent-hot: var(--tomate);
+  /* Transparency layers */
+  --veil: rgba(255, 250, 245, 0.95);
+  --smoke: rgba(26, 26, 26, 0.6);
+  --ghost: rgba(212, 168, 83, 0.08);
+  --breath-bg: rgba(212, 168, 83, 0.03);
 
-  /* Transparency Layers */
-  --overlay-light: rgba(255, 250, 245, 0.95);
-  --overlay-warm: rgba(245, 230, 211, 0.8);
-  --shadow-warm: rgba(139, 115, 85, 0.15);
-  --shadow-deep: rgba(26, 26, 26, 0.2);
+  /* Sync State — Set by JS */
+  --sync: 0;
+  --hand-x: 0px;
+  --hand-y: 0px;
 
-  /* Motion — Cooking Rhythm */
-  --beat: 800ms;
-  --half: 400ms;
-  --slow: 1200ms;
-  --breath: 2400ms;
+  /* BPM 60 — Cooking Rhythm (Slower, meditative) */
+  --beat: 1000ms;
+  --half: 500ms;
+  --double: 2000ms;
+  --breath: 3000ms;
+  --phrase: 4000ms;
 
-  /* Easing */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
-  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-smooth: cubic-bezier(0.25, 0, 0.5, 1);
+  /* Motion curves */
+  --approach: cubic-bezier(0.16, 1, 0.3, 1);
+  --retreat: cubic-bezier(0.7, 0, 0.84, 0);
+  --knead: cubic-bezier(0.34, 1.56, 0.64, 1);    /* 반죽 치대기 */
+  --release: cubic-bezier(0.25, 0, 0.5, 1);
+  --simmer: cubic-bezier(0.4, 0, 0.2, 1);        /* 끓이기 */
 
-  /* Type Scale (modular 1.25) */
+  /* Type Scale (modular, ratio 1.25) */
   --t-xs: 0.64rem;
   --t-sm: 0.8rem;
   --t-base: 1rem;
@@ -67,11 +74,10 @@
   --t-lg: 1.563rem;
   --t-xl: 1.953rem;
   --t-2xl: 2.441rem;
-  --t-3xl: clamp(2.8rem, 10vw, 4rem);
-  --t-hero: clamp(3.5rem, 15vw, 6rem);
+  --t-3xl: clamp(2.5rem, 12vw, 4.5rem);
+  --t-hero: clamp(3.5rem, 18vw, 7rem);
 
-  /* Space (fibonacci) */
-  --s-3xs: 2px;
+  /* Space (fibonacci-inspired) */
   --s-2xs: 4px;
   --s-xs: 8px;
   --s-sm: 13px;
@@ -82,16 +88,15 @@
   --s-3xl: 144px;
 
   /* Layout */
-  --max-w: 480px;
-  --radius: 8px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --player-h: 48px;
+  --max-w: 430px;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --player-h: 28px;
 
   /* Font Stacks */
-  --f-display: 'Cormorant Garamond', 'Noto Serif KR', Georgia, serif;
-  --f-body: 'DM Sans', 'Pretendard', -apple-system, sans-serif;
-  --f-mono: 'JetBrains Mono', 'D2Coding', monospace;
+  --f-monument: 'Cormorant Garamond', 'Noto Serif KR', Georgia, serif;
+  --f-voice: 'DM Sans', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  --f-code: 'JetBrains Mono', 'D2Coding', monospace;
   --f-ko: 'Noto Sans KR', 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
   --f-ko-serif: 'Noto Serif KR', 'Batang', serif;
 }
@@ -112,21 +117,149 @@ html {
 }
 
 body {
-  font-family: var(--f-body);
+  font-family: var(--f-voice);
   font-weight: 400;
   font-size: var(--t-base);
-  line-height: 1.7;
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  line-height: 1.6;
+  background: var(--harina);
+  color: var(--carbon);
   max-width: var(--max-w);
   margin: 0 auto;
   min-height: 100dvh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   position: relative;
 }
 
-/* Subtle film grain overlay */
+/* Audio player active state */
+body.con-reproductor {
+  padding-bottom: calc(var(--player-h) + env(safe-area-inset-bottom, 0px) + 20px);
+}
+
+::selection {
+  background: rgba(212, 168, 83, 0.3);
+  color: var(--carbon);
+}
+
+
+/* ─── III. Typography ─── */
+h1, h2, h3, h4 {
+  font-family: var(--f-monument);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+p { margin-bottom: 0; }
+
+a {
+  color: var(--dorado);
+  text-decoration: none;
+  transition: opacity var(--half) var(--approach);
+}
+a:active { opacity: 0.7; }
+
+/* Monument — The main title */
+.monumento {
+  font-family: var(--f-monument);
+  font-size: var(--t-hero);
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: -0.04em;
+  text-align: center;
+  line-height: 0.9;
+  color: var(--carbon);
+  text-shadow:
+    2px 2px 0 rgba(255, 250, 245, 0.8),
+    4px 4px 20px rgba(139, 115, 85, 0.2);
+  transform: translate(
+    calc(var(--hand-x, 0px) * 0.2),
+    calc(var(--hand-y, 0px) * 0.2)
+  );
+  transition: transform 0.15s ease-out;
+}
+
+/* Monumento Chinese characters variant */
+.monumento--hanzi {
+  font-family: 'Noto Serif KR', serif;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+/* Susurro — Whisper labels */
+.susurro {
+  font-size: var(--t-xs);
+  color: var(--aceite);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-family: var(--f-code);
+}
+
+/* Voz — Body copy */
+.voz {
+  font-size: var(--t-md);
+  color: var(--humo);
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+/* Hero voice — refined serif italic */
+.espacio-centro .voz {
+  font-family: var(--f-monument);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--t-lg);
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+  color: var(--carbon);
+  opacity: 0.85;
+}
+
+/* Korean subtitle layer */
+.ko {
+  display: block;
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  color: var(--aceite);
+  font-weight: 400;
+  margin-top: var(--s-xs);
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1.6;
+  opacity: 0.7;
+}
+
+.ko--inline {
+  display: inline;
+  margin-top: 0;
+  margin-left: var(--s-xs);
+}
+
+.ko--serif {
+  font-family: var(--f-ko-serif);
+}
+
+/* Dorado accent — Golden highlight */
+.dorado {
+  color: var(--dorado);
+  transition: color var(--half) var(--approach),
+              text-shadow var(--half) var(--approach);
+}
+
+/* Event: touch activates glow */
+section:active .dorado,
+.tarjeta:active .dorado,
+.dorado:active {
+  text-shadow: 0 0 20px rgba(212, 168, 83, 0.5);
+}
+
+
+/* ─── IV. Film Effects (Kodak Aesthetic) ─── */
+
+/* Film grain texture overlay */
 body::before {
   content: '';
   position: fixed;
@@ -136,203 +269,1081 @@ body::before {
   z-index: 9000;
   opacity: 0.4;
   mix-blend-mode: multiply;
+  animation: grain-shift 0.4s steps(1) infinite;
 }
 
-::selection {
-  background: rgba(212, 168, 83, 0.3);
-  color: var(--carbon);
+/* Film grain micro-jitter */
+@keyframes grain-shift {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-1px, 1px); }
+  50% { transform: translate(1px, -1px); }
+  75% { transform: translate(-1px, -1px); }
 }
 
-img, video {
-  max-width: 100%;
-  height: auto;
-  display: block;
+/* Light leak overlay — warm Kodak feel */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse at 20% 0%,
+      rgba(212, 168, 83, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 100%,
+      rgba(196, 69, 54, 0.05) 0%,
+      transparent 40%
+    );
+  pointer-events: none;
+  z-index: 9001;
+  opacity: 0;
+  animation: light-leak 12s ease-in-out infinite;
 }
 
-a {
-  color: var(--accent);
-  text-decoration: none;
-  transition: color var(--half) var(--ease-out);
+@keyframes light-leak {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
 }
 
-a:hover, a:active {
-  color: var(--accent-hot);
+/* Vignette effect — soft edges */
+.vignette {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      transparent 60%,
+      rgba(139, 115, 85, 0.15) 100%
+    );
+  pointer-events: none;
+  z-index: 8999;
+}
+
+/* Film date stamp */
+.film-date {
+  position: fixed;
+  bottom: calc(var(--player-h) + 40px);
+  right: 12px;
+  font-family: var(--f-code);
+  font-size: 10px;
+  color: var(--dorado);
+  opacity: 0.4;
+  letter-spacing: 0.05em;
+  writing-mode: vertical-rl;
+  z-index: 100;
 }
 
 
-/* ─── III. Typography ─── */
-h1, h2, h3, h4 {
-  font-family: var(--f-display);
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-}
+/* ─── V. Layout ─── */
 
-/* Hero Title — 好爺堂 */
-.titulo-hero {
-  font-family: var(--f-display);
-  font-size: var(--t-hero);
-  font-weight: 400;
-  font-style: italic;
-  letter-spacing: -0.03em;
-  line-height: 0.95;
-  color: var(--carbon);
-}
-
-/* Section Title */
-.titulo-seccion {
-  font-family: var(--f-display);
-  font-size: var(--t-2xl);
-  font-weight: 400;
-  text-align: center;
-  margin-bottom: var(--s-md);
-}
-
-/* Whisper Label */
-.susurro {
-  font-family: var(--f-mono);
-  font-size: var(--t-xs);
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  opacity: 0.7;
-}
-
-/* Body Text */
-.texto {
-  font-size: var(--t-base);
-  color: var(--text-secondary);
-  line-height: 1.8;
-}
-
-/* Korean Text Layer */
-.ko {
-  display: block;
-  font-family: var(--f-ko);
-  font-size: var(--t-sm);
-  color: var(--text-secondary);
-  opacity: 0.6;
-  margin-top: var(--s-xs);
-  line-height: 1.6;
-}
-
-.ko--inline {
-  display: inline;
-  margin-left: var(--s-xs);
-}
-
-.ko--serif {
-  font-family: var(--f-ko-serif);
-}
-
-/* Spanish Text */
-.es {
-  font-family: var(--f-body);
-  font-style: normal;
-}
-
-/* Bilingual Block */
-.bilingue {
+/* Espacio — Full viewport section */
+.espacio {
+  min-height: 100dvh;
+  padding: var(--s-2xl) var(--s-md);
   display: flex;
   flex-direction: column;
-  gap: var(--s-2xs);
-}
-
-.bilingue-es {
-  font-size: var(--t-md);
-  color: var(--text-primary);
-}
-
-.bilingue-ko {
-  font-family: var(--f-ko);
-  font-size: var(--t-sm);
-  color: var(--text-secondary);
-  opacity: 0.7;
-}
-
-/* Accent Color */
-.dorado {
-  color: var(--dorado);
-}
-
-.tomate {
-  color: var(--tomate);
-}
-
-
-/* ─── IV. Layout ─── */
-.seccion {
-  padding: var(--s-2xl) var(--s-lg);
   position: relative;
 }
 
-.seccion--hero {
+.espacio-centro {
   min-height: 100dvh;
+  padding: var(--s-2xl) var(--s-md);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: var(--s-xl) var(--s-lg);
+  position: relative;
 }
 
-.seccion--centrado {
-  text-align: center;
-}
+/* Spacing utilities */
+.mt-xs { margin-top: var(--s-xs); }
+.mt-sm { margin-top: var(--s-sm); }
+.mt-md { margin-top: var(--s-md); }
+.mt-lg { margin-top: var(--s-lg); }
+.mt-xl { margin-top: var(--s-xl); }
+.mt-2xl { margin-top: var(--s-2xl); }
 
-.seccion--oscuro {
-  background: var(--carbon);
-  color: var(--harina);
-}
+.mb-xs { margin-bottom: var(--s-xs); }
+.mb-sm { margin-bottom: var(--s-sm); }
+.mb-md { margin-bottom: var(--s-md); }
+.mb-lg { margin-bottom: var(--s-lg); }
+.mb-xl { margin-bottom: var(--s-xl); }
 
-.seccion--crema {
-  background: var(--masa);
-}
+.px-md { padding-left: var(--s-md); padding-right: var(--s-md); }
 
-.contenedor {
-  width: 100%;
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 0 var(--s-lg);
-}
-
+/* Linea — Decorative line */
 .linea {
-  width: 60px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--dorado), transparent);
-  margin: var(--s-xl) auto;
+  width: 1px;
+  height: var(--s-xl);
+  background: linear-gradient(to bottom, var(--dorado), transparent);
+  margin: var(--s-lg) auto;
   opacity: 0.5;
 }
 
-.linea--larga {
-  width: 100%;
+.linea--horizontal {
+  width: var(--s-xl);
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--dorado), transparent);
 }
 
-.espacio-v {
-  height: var(--s-2xl);
+
+/* ─── VI. Components ─── */
+
+/* Puerta — Entry button */
+.puerta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-xs);
+  padding: var(--s-sm) var(--s-lg);
+  font-family: var(--f-monument);
+  font-size: var(--t-md);
+  font-style: italic;
+  color: var(--carbon);
+  background: transparent;
+  border: 1px solid var(--dorado);
+  border-radius: 0;
+  cursor: pointer;
+  transition:
+    background var(--half) var(--approach),
+    color var(--half) var(--approach),
+    transform var(--half) var(--knead);
+  position: relative;
+  overflow: hidden;
+}
+
+.puerta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--dorado);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--half) var(--approach);
+  z-index: -1;
+}
+
+.puerta:hover::before,
+.puerta:active::before {
+  transform: scaleX(1);
+}
+
+.puerta:hover,
+.puerta:active {
+  color: var(--harina);
+}
+
+.puerta--principal {
+  font-size: var(--t-lg);
+  padding: var(--s-md) var(--s-xl);
+  border-width: 2px;
+}
+
+/* Tarjeta — Card component */
+.tarjeta {
+  background: var(--harina);
+  border: 1px solid var(--trigo);
+  padding: var(--s-lg);
+  position: relative;
+  transition: transform var(--half) var(--approach),
+              box-shadow var(--half) var(--approach);
+}
+
+.tarjeta:active {
+  transform: scale(0.98);
+}
+
+/* Film frame variant */
+.tarjeta.film-frame {
+  background: var(--film-black);
+  border: none;
+  padding: var(--s-xl) var(--s-lg);
+  position: relative;
+}
+
+/* Film sprocket holes */
+.film-sprockets {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: var(--s-md) 0;
+}
+
+.film-sprockets--left { left: 4px; }
+.film-sprockets--right { right: 4px; }
+
+.film-sprockets span {
+  width: 10px;
+  height: 14px;
+  background: var(--film-shadow);
+  border-radius: 2px;
+}
+
+/* Film code (frame number) */
+.film-code {
+  position: absolute;
+  top: var(--s-xs);
+  right: var(--s-lg);
+  font-family: var(--f-code);
+  font-size: var(--t-xs);
+  color: var(--dorado);
+  opacity: 0.6;
+  display: flex;
+  gap: var(--s-xs);
+}
+
+.film-code-num {
+  font-weight: 600;
 }
 
 
-/* ─── V. Hero & Scenes ─── */
+/* ─── VII. 5 Pasos (Cooking Layers) ─── */
 
-/* Intro Scene — Dark with Video */
-.intro {
+/* Paso section header */
+.paso-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-sm);
+  margin-bottom: var(--s-lg);
+}
+
+.paso-numero {
+  font-family: var(--f-code);
+  font-size: var(--t-3xl);
+  font-weight: 300;
+  color: var(--dorado);
+  opacity: 0.3;
+  line-height: 1;
+}
+
+.paso-titulo {
+  font-family: var(--f-monument);
+  font-size: var(--t-xl);
+  font-style: italic;
+  color: var(--carbon);
+}
+
+.paso-subtitulo {
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  color: var(--aceite);
+  margin-left: auto;
+}
+
+/* Paso content layers */
+.paso {
+  min-height: 100dvh;
+  padding: var(--s-2xl) var(--s-md);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.paso--preparar { background: var(--harina); }
+.paso--mezclar { background: var(--masa); }
+.paso--formar { background: var(--trigo); }
+.paso--cocinar {
+  background: var(--film-black);
+  color: var(--harina);
+}
+.paso--cocinar .paso-titulo,
+.paso--cocinar .voz { color: var(--harina); }
+.paso--cocinar .ko { color: var(--dorado); opacity: 0.6; }
+
+.paso--servir { background: var(--harina); }
+
+/* Floor indicator */
+.piso-indicator {
+  position: fixed;
+  left: var(--s-md);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-xs);
+  z-index: 100;
+  opacity: 0;
+  transition: opacity var(--beat) var(--approach);
+}
+
+body.scrolled .piso-indicator {
+  opacity: 1;
+}
+
+.piso-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--trigo);
+  transition: all var(--half) var(--approach);
+}
+
+.piso-dot.active {
+  background: var(--dorado);
+  transform: scale(1.5);
+}
+
+
+/* ─── VIII. Interactive ─── */
+
+/* Reveal on scroll */
+.revelar {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity var(--breath) var(--approach),
+    transform var(--breath) var(--approach);
+}
+
+.revelar.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Latido — Breathing animation */
+.latido {
+  animation: latido var(--breath) var(--simmer) infinite;
+}
+
+@keyframes latido {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+/* Floating animation */
+.flotar {
+  animation: flotar var(--phrase) ease-in-out infinite;
+}
+
+@keyframes flotar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+
+/* ─── IX. Animation System (BPM-Synchronized) ─── */
+
+/* Steam effect */
+@keyframes steam {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(1.5);
+  }
+}
+
+.steam {
+  animation: steam var(--double) ease-out infinite;
+}
+
+.steam:nth-child(2) { animation-delay: calc(var(--beat) * 0.3); }
+.steam:nth-child(3) { animation-delay: calc(var(--beat) * 0.6); }
+
+/* Knead effect */
+@keyframes knead {
+  0%, 100% { transform: scaleY(1) scaleX(1); }
+  25% { transform: scaleY(0.9) scaleX(1.1); }
+  50% { transform: scaleY(1.1) scaleX(0.9); }
+  75% { transform: scaleY(0.95) scaleX(1.05); }
+}
+
+.amasar {
+  animation: knead var(--double) var(--knead) infinite;
+}
+
+/* Sizzle effect (for frying) */
+@keyframes sizzle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+.chisporrotear {
+  animation: sizzle 150ms ease-in-out infinite;
+}
+
+
+/* ─── X. Ritual de Entrada ─── */
+
+.ritual {
   position: fixed;
   inset: 0;
-  background: var(--carbon);
-  z-index: 100;
+  background: var(--harina);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: opacity 1.5s var(--ease-out);
+  z-index: 10000;
+  transition: opacity var(--breath) var(--retreat);
 }
 
-.intro.oculto {
+.ritual.despierta {
   opacity: 0;
   pointer-events: none;
+}
+
+.ritual-texto {
+  font-family: var(--f-monument);
+  font-size: var(--t-xl);
+  font-style: italic;
+  color: var(--carbon);
+  text-align: center;
+  opacity: 0;
+  animation: ritual-fade var(--breath) var(--approach) forwards;
+}
+
+@keyframes ritual-fade {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.ritual-mano {
+  width: 120px;
+  height: 120px;
+  margin-top: var(--s-xl);
+  opacity: 0;
+  animation: ritual-fade var(--breath) var(--approach) 1s forwards;
+}
+
+.ritual-instruccion {
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  color: var(--aceite);
+  margin-top: var(--s-lg);
+  opacity: 0;
+  animation: ritual-fade var(--double) var(--approach) 2s forwards;
+}
+
+.ritual-saltar {
+  position: absolute;
+  bottom: var(--s-2xl);
+  font-family: var(--f-code);
+  font-size: var(--t-xs);
+  color: var(--aceite);
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  animation: ritual-fade var(--beat) var(--approach) 3s forwards;
+}
+
+.ritual-saltar:hover {
+  color: var(--dorado);
+}
+
+
+/* ─── XI. Masa Ribbon ─── */
+
+.masa-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0;
+  transition: opacity var(--breath) var(--approach);
+}
+
+.masa-container.visible {
+  opacity: 1;
+}
+
+.masa-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.masa-path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.masa-path--main {
+  stroke: var(--dorado);
+  stroke-width: 3;
+  filter: drop-shadow(0 2px 8px rgba(212, 168, 83, 0.3));
+}
+
+.masa-path--ambient {
+  stroke: var(--dorado);
+  stroke-width: 20;
+  opacity: 0.1;
+  filter: blur(10px);
+}
+
+.masa-path--thread {
+  stroke: var(--miel);
+  stroke-width: 1.5;
+  opacity: 0.5;
+}
+
+/* Ribbon alive state */
+.masa-path.alive {
+  animation: masa-pulse var(--double) ease-in-out infinite;
+}
+
+@keyframes masa-pulse {
+  0%, 100% { stroke-opacity: 0.8; }
+  50% { stroke-opacity: 1; }
+}
+
+
+/* ─── XII. Audio Layer ─── */
+
+.reproductor {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-w);
+  height: var(--player-h);
+  background: linear-gradient(to top, var(--masa), transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-sm);
+  padding: 0 var(--s-md);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  z-index: 9999;
+  border-top: 1px solid var(--trigo);
+}
+
+.reproductor-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--dorado);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--half) var(--knead);
+}
+
+.reproductor-btn:active {
+  transform: scale(0.9);
+}
+
+.reproductor-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--harina);
+}
+
+.reproductor-info {
+  font-family: var(--f-code);
+  font-size: var(--t-xs);
+  color: var(--aceite);
+  flex: 1;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reproductor-titulo {
+  color: var(--carbon);
+  font-weight: 500;
+}
+
+
+/* ─── XIII. Recipe Cards ─── */
+
+.recetas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-md);
+  padding: var(--s-md);
+}
+
+.receta-card {
+  background: var(--harina);
+  border: 1px solid var(--trigo);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 3/4;
+  display: flex;
+  flex-direction: column;
+}
+
+.receta-imagen {
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
+  filter: saturate(0.9) contrast(1.05);
+}
+
+.receta-contenido {
+  padding: var(--s-sm);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.receta-nombre {
+  font-family: var(--f-monument);
+  font-size: var(--t-md);
+  font-style: italic;
+  color: var(--carbon);
+}
+
+.receta-nombre-ko {
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  color: var(--aceite);
+}
+
+.receta-meta {
+  display: flex;
+  gap: var(--s-xs);
+  margin-top: var(--s-xs);
+}
+
+.receta-tag {
+  font-family: var(--f-code);
+  font-size: 9px;
+  color: var(--aceite);
+  background: var(--masa);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.receta-tag--tool {
+  background: var(--ghost);
+  color: var(--dorado);
+}
+
+
+/* ─── XIV. Tools Section ─── */
+
+.herramientas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-lg);
+  padding: var(--s-lg);
+}
+
+.herramienta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-md);
+  padding: var(--s-md);
+  background: var(--harina);
+  border: 1px solid var(--trigo);
+}
+
+.herramienta-icono {
+  width: 60px;
+  height: 60px;
+  background: var(--masa);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.herramienta-info {
+  flex: 1;
+}
+
+.herramienta-nombre {
+  font-family: var(--f-monument);
+  font-size: var(--t-md);
+  font-style: italic;
+  color: var(--carbon);
+}
+
+.herramienta-desc {
+  font-size: var(--t-sm);
+  color: var(--aceite);
+  margin-top: var(--s-2xs);
+}
+
+
+/* ─── XV. Studio & Contact ─── */
+
+/* Polaroid style photo */
+.polaroid {
+  background: var(--harina);
+  padding: var(--s-sm);
+  padding-bottom: var(--s-xl);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.1),
+    0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: rotate(-2deg);
+  transition: transform var(--half) var(--knead);
+}
+
+.polaroid:active {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.polaroid-imagen {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  filter: saturate(0.85) contrast(1.1) sepia(0.1);
+}
+
+.polaroid-caption {
+  margin-top: var(--s-sm);
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  color: var(--aceite);
+  text-align: center;
+}
+
+/* Contact info */
+.contacto {
+  background: var(--masa);
+  padding: var(--s-xl) var(--s-md);
+}
+
+.contacto-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-sm);
+  padding: var(--s-sm) 0;
+  border-bottom: 1px solid var(--trigo);
+}
+
+.contacto-item:last-child {
+  border-bottom: none;
+}
+
+.contacto-icono {
+  font-size: 20px;
+  width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.contacto-texto {
+  flex: 1;
+}
+
+.contacto-label {
+  font-family: var(--f-code);
+  font-size: var(--t-xs);
+  color: var(--aceite);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.contacto-valor {
+  font-size: var(--t-base);
+  color: var(--carbon);
+  margin-top: var(--s-2xs);
+}
+
+
+/* ─── XVI. Utilities & Queries ─── */
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  body::before,
+  body::after {
+    animation: none;
+    opacity: 0.3;
+  }
+}
+
+/* High contrast */
+@media (prefers-contrast: more) {
+  :root {
+    --aceite: #4A4A4A;
+    --humo: #333333;
+  }
+
+  .ko {
+    opacity: 1;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --harina: #1A1815;
+    --masa: #242019;
+    --trigo: #2E2A22;
+    --carbon: #F5F0E8;
+    --aceite: #A89A88;
+    --humo: #C4B8A8;
+  }
+
+  body {
+    color-scheme: dark;
+  }
+
+  .tarjeta {
+    background: var(--masa);
+    border-color: var(--trigo);
+  }
+
+  .polaroid {
+    background: var(--masa);
+  }
+}
+
+/* Landscape warning */
+@media (orientation: landscape) and (max-height: 500px) {
+  body::before {
+    content: '세로 모드로 봐주세요';
+    position: fixed;
+    inset: 0;
+    background: var(--carbon);
+    color: var(--harina);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--f-ko);
+    font-size: var(--t-lg);
+    z-index: 99999;
+  }
+}
+
+/* Safe area for notch devices */
+@supports (padding: env(safe-area-inset-top)) {
+  .espacio-centro:first-of-type {
+    padding-top: calc(var(--s-2xl) + env(safe-area-inset-top));
+  }
+
+  .reproductor {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Print styles */
+@media print {
+  body::before,
+  body::after,
+  .vignette,
+  .masa-container,
+  .reproductor,
+  .ritual {
+    display: none !important;
+  }
+
+  .espacio,
+  .espacio-centro,
+  .paso {
+    min-height: auto;
+    page-break-inside: avoid;
+  }
+}
+
+
+/* ═══ DANZA VIDEO SECTION ═══ */
+
+.danza-section {
+  position: relative;
+  width: 100%;
+  min-height: 80vh;
+  overflow: hidden;
+  background: var(--film-black);
+}
+
+.danza-video-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.danza-video {
+  width: 100%;
+  height: 80vh;
+  object-fit: cover;
+  filter: saturate(0.8) contrast(1.1);
+}
+
+.danza-caption {
+  position: absolute;
+  bottom: var(--s-xl);
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.danza-caption .susurro {
+  color: var(--dorado);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+
+/* ═══ ENDING SECTION ═══ */
+
+.ending {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--s-2xl) var(--s-md);
+  background: var(--masa);
+}
+
+.ending-mano {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--dorado);
+  margin-bottom: var(--s-lg);
+  filter: sepia(0.2) saturate(0.9);
+}
+
+.ending-firma {
+  font-family: var(--f-monument);
+  font-size: var(--t-2xl);
+  font-style: italic;
+  color: var(--carbon);
+}
+
+.ending-firma-ko {
+  font-family: var(--f-ko-serif);
+  font-size: var(--t-lg);
+  color: var(--aceite);
+  margin-top: var(--s-xs);
+}
+
+
+/* ═══ FOOTER ═══ */
+
+.pie {
+  background: var(--film-black);
+  color: var(--harina);
+  padding: var(--s-xl) var(--s-md);
+  text-align: center;
+}
+
+.pie-logo {
+  font-family: var(--f-monument);
+  font-size: var(--t-xl);
+  font-style: italic;
+  color: var(--dorado);
+  margin-bottom: var(--s-md);
+}
+
+.pie-direccion {
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  color: var(--aceite);
+  line-height: 1.8;
+}
+
+.pie-copy {
+  font-family: var(--f-code);
+  font-size: var(--t-xs);
+  color: var(--humo);
+  margin-top: var(--s-lg);
+  opacity: 0.5;
+}
+
+
+/* ═══ HERO VIDEO SECTION ═══ */
+
+.hero-video-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 250, 245, 0.3) 0%,
+    transparent 30%,
+    transparent 70%,
+    rgba(255, 250, 245, 0.8) 100%
+  );
+}
+
+.hero-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--s-md);
+}
+
+
+/* ═══ INTRO SECTION (Shutter Opening) ═══ */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  background: var(--film-black);
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.intro.abierto {
+  animation: shutter-open 1.5s var(--approach) forwards;
+}
+
+@keyframes shutter-open {
+  0% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+  100% {
+    clip-path: inset(50% 0 50% 0);
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 .intro-video {
@@ -341,7 +1352,7 @@ h1, h2, h3, h4 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.7;
+  opacity: 0.4;
 }
 
 .intro-contenido {
@@ -352,799 +1363,111 @@ h1, h2, h3, h4 {
 }
 
 .intro-titulo {
-  font-family: var(--f-display);
+  font-family: var(--f-monument);
   font-size: var(--t-3xl);
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   opacity: 0;
-  animation: aparecer 1.5s var(--ease-out) 0.5s forwards;
+  animation: intro-text-fade 2s var(--approach) 0.5s forwards;
 }
 
 .intro-subtitulo {
-  font-size: var(--t-md);
+  font-family: var(--f-ko-serif);
+  font-size: var(--t-xl);
   opacity: 0;
-  animation: aparecer 1.5s var(--ease-out) 1.2s forwards;
   margin-top: var(--s-md);
+  animation: intro-text-fade 2s var(--approach) 1s forwards;
+}
+
+@keyframes intro-text-fade {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .intro-skip {
   position: absolute;
-  bottom: var(--s-xl);
-  font-family: var(--f-ko);
+  bottom: var(--s-2xl);
+  font-family: var(--f-code);
   font-size: var(--t-xs);
-  color: rgba(255, 250, 245, 0.3);
+  color: var(--dorado);
   background: none;
   border: none;
   cursor: pointer;
   opacity: 0;
-  animation: aparecer 0.5s ease 2s forwards;
-}
-
-/* Hero Section */
-.hero {
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: var(--s-xl) var(--s-lg);
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-video-wrap {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.hero-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.85;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 250, 245, 0.3) 0%,
-    rgba(255, 250, 245, 0.7) 50%,
-    rgba(255, 250, 245, 0.95) 100%
-  );
-  z-index: 1;
-}
-
-.hero-contenido {
-  position: relative;
-  z-index: 2;
-}
-
-.hero-logo {
-  font-family: var(--f-display);
-  font-size: var(--t-hero);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.03em;
-  line-height: 0.9;
-  color: var(--carbon);
-  margin-bottom: var(--s-lg);
-}
-
-.hero-tagline {
-  font-family: var(--f-display);
-  font-size: var(--t-xl);
-  font-style: italic;
-  color: var(--text-secondary);
-  margin-bottom: var(--s-xs);
-}
-
-.hero-tagline-ko {
-  font-family: var(--f-ko-serif);
-  font-size: var(--t-md);
-  color: var(--text-secondary);
-  opacity: 0.7;
-}
-
-.hero-scroll {
-  position: absolute;
-  bottom: var(--s-xl);
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--s-xs);
-  color: var(--text-secondary);
-  opacity: 0.5;
-  animation: scroll-hint 2s ease-in-out infinite;
-}
-
-.hero-scroll-icon {
-  width: 24px;
-  height: 36px;
-  border: 2px solid var(--text-secondary);
-  border-radius: 12px;
-  position: relative;
-}
-
-.hero-scroll-icon::after {
-  content: '';
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 8px;
-  background: var(--dorado);
-  border-radius: 2px;
-  animation: scroll-dot 2s ease-in-out infinite;
-}
-
-@keyframes scroll-hint {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(8px); }
-}
-
-@keyframes scroll-dot {
-  0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
-  50% { opacity: 0.3; transform: translateX(-50%) translateY(6px); }
+  animation: intro-text-fade 1s var(--approach) 3s forwards;
+  z-index: 3;
 }
 
 
-/* ─── VI. Components ─── */
+/* ═══ FILM STRIP (4 STEPS) ═══ */
 
-/* Cards */
-.tarjeta {
-  background: var(--overlay-light);
-  border: 1px solid rgba(139, 115, 85, 0.1);
-  border-radius: var(--radius-lg);
-  padding: var(--s-lg);
-  transition: transform var(--half) var(--ease-out),
-              box-shadow var(--half) var(--ease-out);
-}
-
-.tarjeta:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px var(--shadow-warm);
-}
-
-.tarjeta-imagen {
-  width: 100%;
-  aspect-ratio: 4/3;
-  object-fit: cover;
-  border-radius: var(--radius);
-  margin-bottom: var(--s-md);
-}
-
-.tarjeta-titulo {
-  font-family: var(--f-display);
-  font-size: var(--t-lg);
-  margin-bottom: var(--s-xs);
-}
-
-.tarjeta-texto {
-  font-size: var(--t-sm);
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
-/* Buttons */
-.boton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--s-xs);
-  padding: var(--s-sm) var(--s-lg);
-  font-family: var(--f-body);
-  font-size: var(--t-base);
-  font-weight: 500;
-  color: var(--carbon);
-  background: transparent;
-  border: 1.5px solid var(--dorado);
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: all var(--half) var(--ease-out);
-  -webkit-tap-highlight-color: transparent;
-}
-
-.boton:hover, .boton:active {
-  background: var(--dorado);
-  color: var(--harina);
-}
-
-.boton--primario {
-  background: var(--dorado);
-  color: var(--harina);
-  border-color: var(--dorado);
-}
-
-.boton--primario:hover {
-  background: var(--accent-hot);
-  border-color: var(--accent-hot);
-}
-
-.boton--grande {
-  padding: var(--s-md) var(--s-xl);
-  font-size: var(--t-md);
-}
-
-.boton--pequeno {
-  padding: var(--s-xs) var(--s-md);
-  font-size: var(--t-sm);
-}
-
-/* Tool Cards — 3가지 도구 */
-.herramientas {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--s-md);
-  padding: var(--s-lg) 0;
-}
-
-.herramienta {
-  text-align: center;
-  padding: var(--s-lg) var(--s-sm);
-  background: var(--overlay-light);
-  border-radius: var(--radius-lg);
-  border: 1px solid transparent;
-  transition: all var(--half) var(--ease-out);
-  cursor: pointer;
-}
-
-.herramienta:hover, .herramienta.activo {
-  border-color: var(--dorado);
-  box-shadow: 0 8px 30px var(--shadow-warm);
-}
-
-.herramienta-icono {
-  font-size: 2.5rem;
-  margin-bottom: var(--s-sm);
-  display: block;
-}
-
-.herramienta-nombre {
-  font-family: var(--f-display);
-  font-size: var(--t-md);
-  color: var(--carbon);
-  margin-bottom: var(--s-2xs);
-}
-
-.herramienta-nombre-ko {
-  font-family: var(--f-ko);
-  font-size: var(--t-xs);
-  color: var(--text-secondary);
-  opacity: 0.7;
-}
-
-
-/* ─── VII. Recipe System ─── */
-
-/* Recipe Grid */
-.recetas-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--s-md);
-  padding: var(--s-lg) 0;
-}
-
-/* Recipe Card — Polaroid Style */
-.receta-card {
-  background: var(--harina);
-  border-radius: var(--radius);
-  padding: var(--s-xs);
-  box-shadow: 0 4px 20px var(--shadow-warm);
-  transition: transform var(--half) var(--ease-bounce),
-              box-shadow var(--half) var(--ease-out);
-  cursor: pointer;
-}
-
-.receta-card:hover {
-  transform: translateY(-8px) rotate(-1deg);
-  box-shadow: 0 16px 40px var(--shadow-deep);
-}
-
-.receta-card:nth-child(even):hover {
-  transform: translateY(-8px) rotate(1deg);
-}
-
-.receta-imagen-wrap {
-  position: relative;
-  aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: var(--radius-sm);
-  margin-bottom: var(--s-sm);
-}
-
-.receta-imagen {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--slow) var(--ease-out);
-}
-
-.receta-card:hover .receta-imagen {
-  transform: scale(1.05);
-}
-
-/* Film grain on recipe images */
-.receta-imagen-wrap::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, transparent 70%, rgba(0,0,0,0.1) 100%),
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-  pointer-events: none;
-}
-
-.receta-info {
-  padding: var(--s-xs) var(--s-2xs);
-  text-align: center;
-}
-
-.receta-nombre {
-  font-family: var(--f-display);
-  font-size: var(--t-md);
-  color: var(--carbon);
-  margin-bottom: var(--s-3xs);
-}
-
-.receta-nombre-ko {
-  font-family: var(--f-ko);
-  font-size: var(--t-xs);
-  color: var(--text-secondary);
-  opacity: 0.7;
-  margin-bottom: var(--s-xs);
-}
-
-.receta-meta {
-  display: flex;
-  justify-content: center;
-  gap: var(--s-sm);
-  font-family: var(--f-mono);
-  font-size: var(--t-xs);
-  color: var(--text-secondary);
-}
-
-.receta-fecha {
-  font-family: var(--f-mono);
-  font-size: 0.65rem;
-  color: var(--dorado);
-  opacity: 0.8;
-  margin-top: var(--s-xs);
-}
-
-
-/* ─── VIII. Film & Photography Effects ─── */
-
-/* Film Strip */
 .film-strip {
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding: var(--s-md) 0;
-  gap: var(--s-sm);
+  scrollbar-width: none;
+  gap: 0;
+  background: var(--film-black);
+  padding: var(--s-lg) 0;
 }
 
 .film-strip::-webkit-scrollbar {
   display: none;
 }
 
-.film-frame {
-  flex: 0 0 auto;
-  width: 75vw;
-  max-width: 300px;
+.film-frame-item {
+  flex: 0 0 85%;
   scroll-snap-align: center;
+  background: var(--film-black);
   position: relative;
-  background: var(--carbon);
-  padding: var(--s-md) var(--s-sm);
-  border-radius: 2px;
+  padding: var(--s-md);
 }
 
-/* Sprocket holes */
-.film-frame::before,
-.film-frame::after {
+.film-frame-item::before,
+.film-frame-item::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
-  height: 12px;
-  background: var(--carbon);
-  background-image: repeating-linear-gradient(
-    90deg,
-    var(--carbon) 0px,
-    var(--carbon) 8px,
-    #333 8px,
-    #333 12px,
-    var(--carbon) 12px,
-    var(--carbon) 20px
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--film-shadow) 0px,
+    var(--film-shadow) 12px,
+    transparent 12px,
+    transparent 20px
   );
 }
 
-.film-frame::before {
-  top: 0;
-  border-bottom: 1px solid #333;
-}
-
-.film-frame::after {
-  bottom: 0;
-  border-top: 1px solid #333;
-}
+.film-frame-item::before { left: 0; }
+.film-frame-item::after { right: 0; }
 
 .film-imagen {
   width: 100%;
-  aspect-ratio: 3/2;
+  aspect-ratio: 4/3;
   object-fit: cover;
-  margin: var(--s-sm) 0;
+  filter: saturate(0.85) contrast(1.1);
+  border: 3px solid var(--film-shadow);
 }
 
-.film-numero {
+.film-label {
   position: absolute;
-  bottom: 16px;
-  right: 8px;
-  font-family: var(--f-mono);
-  font-size: 0.6rem;
-  color: rgba(255, 200, 100, 0.6);
-}
-
-.film-caption {
-  text-align: center;
-  color: var(--harina);
-  font-size: var(--t-sm);
-  padding-top: var(--s-xs);
-}
-
-/* Polaroid */
-.polaroid {
-  background: var(--harina);
-  padding: var(--s-sm) var(--s-sm) var(--s-lg);
-  box-shadow: 0 4px 20px var(--shadow-deep);
-  transform: rotate(-2deg);
-  transition: transform var(--half) var(--ease-bounce);
-}
-
-.polaroid:hover {
-  transform: rotate(0deg) scale(1.02);
-}
-
-.polaroid-imagen {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  margin-bottom: var(--s-sm);
-}
-
-.polaroid-caption {
-  font-family: var(--f-display);
-  font-size: var(--t-sm);
-  color: var(--carbon);
-  text-align: center;
-}
-
-/* Light Leak Effect */
-.light-leak {
-  position: relative;
-}
-
-.light-leak::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    transparent 60%,
-    var(--light-leak) 100%
-  );
-  pointer-events: none;
-  opacity: 0.6;
-}
-
-/* Date Stamp */
-.fecha-stamp {
-  font-family: var(--f-mono);
-  font-size: 0.7rem;
-  color: #FF6B35;
-  letter-spacing: 0.05em;
-  opacity: 0.9;
-}
-
-/* Vintage Camera Decoration */
-.camara-deco {
-  display: inline-block;
-  padding: var(--s-xs) var(--s-sm);
-  background: var(--masa);
-  border-radius: var(--radius);
-  font-family: var(--f-mono);
-  font-size: var(--t-xs);
-  color: var(--text-secondary);
-}
-
-
-/* ─── IX. Audio Layer (Aranjuez) ─── */
-
-.reproductor {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: var(--max-w);
-  height: var(--player-h);
-  background: var(--carbon);
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  border-top: 1px solid rgba(255, 250, 245, 0.1);
-}
-
-.reproductor-info {
-  flex: 1;
-  padding: 0 var(--s-md);
-  overflow: hidden;
-}
-
-.reproductor-titulo {
-  font-family: var(--f-display);
-  font-size: var(--t-sm);
-  color: var(--harina);
-  font-style: italic;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.reproductor-artista {
-  font-family: var(--f-mono);
-  font-size: var(--t-xs);
-  color: rgba(255, 250, 245, 0.5);
-}
-
-.reproductor-control {
-  width: var(--player-h);
-  height: var(--player-h);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  border-left: 1px solid rgba(255, 250, 245, 0.1);
+  bottom: calc(var(--s-md) + 8px);
+  right: calc(var(--s-md) + 28px);
+  font-family: var(--f-code);
+  font-size: 10px;
   color: var(--dorado);
-  font-size: var(--t-md);
-  cursor: pointer;
-  transition: background var(--half) var(--ease-out);
+  opacity: 0.7;
 }
 
-.reproductor-control:hover {
-  background: rgba(212, 168, 83, 0.1);
-}
-
-.reproductor-control.playing {
-  color: var(--tomate);
-}
-
-/* Progress bar */
-.reproductor-progreso {
+.film-number {
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 2px;
-  background: var(--dorado);
-  width: 0%;
-  transition: width 0.3s linear;
-}
-
-body.con-reproductor {
-  padding-bottom: var(--player-h);
-}
-
-
-/* ─── X. Animations ─── */
-
-@keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes aparecer-escala {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes flotar {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes respirar {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
-}
-
-@keyframes pulso {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
-/* Scroll Reveal */
-.revelar {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity var(--beat) var(--ease-out),
-              transform var(--beat) var(--ease-out);
-}
-
-.revelar.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.revelar--escala {
-  transform: scale(0.95);
-}
-
-.revelar--escala.visible {
-  transform: scale(1);
-}
-
-/* Stagger */
-.revelar:nth-child(1) { transition-delay: 0ms; }
-.revelar:nth-child(2) { transition-delay: 100ms; }
-.revelar:nth-child(3) { transition-delay: 200ms; }
-.revelar:nth-child(4) { transition-delay: 300ms; }
-
-/* Parallax placeholder */
-[data-parallax] {
-  will-change: transform;
-}
-
-
-/* ─── XI. Utilities & Responsive ─── */
-
-/* Spacing */
-.mt-xs { margin-top: var(--s-xs); }
-.mt-sm { margin-top: var(--s-sm); }
-.mt-md { margin-top: var(--s-md); }
-.mt-lg { margin-top: var(--s-lg); }
-.mt-xl { margin-top: var(--s-xl); }
-.mb-xs { margin-bottom: var(--s-xs); }
-.mb-sm { margin-bottom: var(--s-sm); }
-.mb-md { margin-bottom: var(--s-md); }
-.mb-lg { margin-bottom: var(--s-lg); }
-
-/* Text align */
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-
-/* Display */
-.hidden { display: none; }
-.flex { display: flex; }
-.flex-col { flex-direction: column; }
-.items-center { align-items: center; }
-.justify-center { justify-content: center; }
-.gap-sm { gap: var(--s-sm); }
-.gap-md { gap: var(--s-md); }
-
-/* Language Toggle */
-.idiomas {
-  display: flex;
-  gap: var(--s-xs);
-  justify-content: center;
-  padding: var(--s-md) 0;
-}
-
-.idioma {
-  font-family: var(--f-ko);
-  font-size: var(--t-xs);
-  padding: var(--s-xs) var(--s-sm);
-  background: transparent;
-  border: 1px solid rgba(139, 115, 85, 0.2);
-  border-radius: var(--radius);
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all var(--half) var(--ease-out);
-}
-
-.idioma:hover, .idioma.activo {
-  background: var(--dorado);
-  border-color: var(--dorado);
-  color: var(--harina);
-}
-
-/* Footer */
-.pie {
-  padding: var(--s-2xl) var(--s-lg);
-  text-align: center;
-  background: var(--masa);
-}
-
-.pie-logo {
-  font-family: var(--f-display);
-  font-size: var(--t-xl);
-  font-style: italic;
-  color: var(--carbon);
-  margin-bottom: var(--s-xs);
-}
-
-.pie-tagline {
-  font-family: var(--f-ko-serif);
-  font-size: var(--t-sm);
-  color: var(--text-secondary);
-  margin-bottom: var(--s-md);
-}
-
-.pie-links {
-  display: flex;
-  justify-content: center;
-  gap: var(--s-md);
-  margin-bottom: var(--s-lg);
-}
-
-.pie-link {
-  font-size: var(--t-sm);
-  color: var(--text-secondary);
-}
-
-.pie-copy {
-  font-family: var(--f-mono);
-  font-size: var(--t-xs);
-  color: var(--text-secondary);
-  opacity: 0.5;
-}
-
-/* Desktop frame */
-@media (min-width: 481px) {
-  body {
-    border-left: 1px solid var(--masa);
-    border-right: 1px solid var(--masa);
-    box-shadow: 0 0 60px var(--shadow-warm);
-  }
-}
-
-/* Safe areas */
-@supports (padding-top: env(safe-area-inset-top)) {
-  .hero {
-    padding-top: calc(var(--s-xl) + env(safe-area-inset-top));
-  }
-  body.con-reproductor {
-    padding-bottom: calc(var(--player-h) + env(safe-area-inset-bottom));
-  }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  .intro { display: none; }
-  .revelar { opacity: 1; transform: none; }
-}
-
-/* Print */
-@media print {
-  body {
-    background: #fff;
-    color: #000;
-    max-width: 100%;
-  }
-  body::before, .reproductor, .intro { display: none; }
-  .tarjeta { border: 1px solid #ddd; break-inside: avoid; }
+  top: calc(var(--s-md) + 8px);
+  left: calc(var(--s-md) + 28px);
+  font-family: var(--f-code);
+  font-size: var(--t-lg);
+  font-weight: 700;
+  color: var(--dorado);
+  opacity: 0.4;
 }
