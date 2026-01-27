@@ -267,20 +267,12 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 9000;
-  opacity: 0.4;
+  opacity: 0.3;
   mix-blend-mode: multiply;
-  animation: grain-shift 0.4s steps(1) infinite;
+  /* REMOVED: heavy grain animation for better scroll performance */
 }
 
-/* Film grain micro-jitter */
-@keyframes grain-shift {
-  0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(-1px, 1px); }
-  50% { transform: translate(1px, -1px); }
-  75% { transform: translate(-1px, -1px); }
-}
-
-/* Light leak overlay — warm Kodak feel */
+/* Light leak overlay — static for performance */
 body::after {
   content: '';
   position: fixed;
@@ -288,23 +280,18 @@ body::after {
   background:
     radial-gradient(
       ellipse at 20% 0%,
-      rgba(212, 168, 83, 0.08) 0%,
+      rgba(212, 168, 83, 0.06) 0%,
       transparent 50%
     ),
     radial-gradient(
       ellipse at 80% 100%,
-      rgba(196, 69, 54, 0.05) 0%,
+      rgba(196, 69, 54, 0.04) 0%,
       transparent 40%
     );
   pointer-events: none;
   z-index: 9001;
-  opacity: 0;
-  animation: light-leak 12s ease-in-out infinite;
-}
-
-@keyframes light-leak {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 1; }
+  opacity: 0.7;
+  /* REMOVED: heavy animation for better scroll performance */
 }
 
 /* Vignette effect — soft edges */
@@ -521,18 +508,15 @@ body::after {
   overflow: hidden;
 }
 
-/* Ambient glow effect */
+/* Ambient glow effect - static for performance */
 .map-ambient {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 30%, rgba(212, 168, 83, 0.15) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 50% 30%, rgba(212, 168, 83, 0.12) 0%, transparent 60%);
   pointer-events: none;
-  animation: ambientPulse 4s ease-in-out infinite;
-}
-
-@keyframes ambientPulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+  opacity: 0.8;
+  will-change: transform;
+  /* REMOVED: heavy animation for better scroll performance */
 }
 
 /* Grid overlay */
@@ -582,9 +566,9 @@ body::after {
 .map-frame-glow {
   fill: none;
   stroke: var(--dorado);
-  stroke-width: 4;
-  opacity: 0.2;
-  filter: blur(4px);
+  stroke-width: 6;
+  opacity: 0.15;
+  /* REMOVED: blur filter for better scroll performance */
 }
 
 @keyframes drawFrame {
@@ -614,8 +598,8 @@ body::after {
 
 .map-room:hover .room-highlight {
   stroke-width: 2;
-  opacity: 0.6;
-  filter: url(#softGlow);
+  opacity: 0.5;
+  /* REMOVED: SVG filter for better performance */
 }
 
 .map-room:active .room-area {
@@ -671,14 +655,8 @@ body::after {
 
 .room-indicator {
   fill: var(--tomate);
-  opacity: 0;
-  animation: indicatorPulse 2s ease-in-out infinite;
-  animation-delay: 2s;
-}
-
-@keyframes indicatorPulse {
-  0%, 100% { opacity: 0.3; r: 3; }
-  50% { opacity: 0.8; r: 5; }
+  opacity: 0.5;
+  /* REMOVED: infinite animation for better scroll performance */
 }
 
 /* Counter and bread items */
@@ -781,28 +759,19 @@ body::after {
 .entrance-pulse-ring {
   fill: none;
   stroke: var(--tomate);
-  stroke-width: 2;
-  opacity: 0;
-  animation: pulseRing 2s ease-out infinite;
+  stroke-width: 1;
+  opacity: 0.3;
+  /* REMOVED: infinite animation for better scroll performance */
 }
 
 .entrance-pulse-ring--2 {
-  animation-delay: 1s;
-}
-
-@keyframes pulseRing {
-  0% { r: 6; opacity: 0.6; stroke-width: 2; }
-  100% { r: 20; opacity: 0; stroke-width: 0.5; }
+  opacity: 0.15;
+  r: 12;
 }
 
 .entrance-arrow {
   fill: var(--tomate);
-  animation: bounceArrow 1.5s ease-in-out infinite;
-}
-
-@keyframes bounceArrow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
+  /* REMOVED: infinite animation for better scroll performance */
 }
 
 .entrance-label {
@@ -1025,44 +994,31 @@ body.scrolled .piso-indicator {
 
 /* ─── VIII. Interactive ─── */
 
-/* Reveal on scroll */
+/* Reveal on scroll - GPU accelerated */
 .revelar {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(20px) translateZ(0);
   transition:
-    opacity var(--breath) var(--approach),
-    transform var(--breath) var(--approach);
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+  will-change: opacity, transform;
 }
 
 .revelar.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
+  will-change: auto;
 }
 
-/* Latido — Breathing animation */
+/* Latido — Static (was breathing animation) */
 .latido {
-  animation: latido var(--breath) var(--simmer) infinite;
+  opacity: 0.8;
+  /* REMOVED: infinite animation for better scroll performance */
 }
 
-@keyframes latido {
-  0%, 100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.02);
-  }
-}
-
-/* Floating animation */
+/* Floating — Static (was floating animation) */
 .flotar {
-  animation: flotar var(--phrase) ease-in-out infinite;
-}
-
-@keyframes flotar {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  /* REMOVED: infinite animation for better scroll performance */
 }
 
 
@@ -1182,26 +1138,16 @@ body.scrolled .piso-indicator {
 }
 
 
-/* ─── XI. Steam — 김/증기 ─── */
+/* ─── XI. Particles — DISABLED for performance ─── */
 
-.steam-container {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 50;
-  opacity: 0;
-  transition: opacity 2s var(--approach);
-}
-
-.steam-container.visible {
-  opacity: 1;
-}
-
+/* Canvas particles disabled for scroll performance */
+.flour-dust,
+#dustCanvas,
+.flour-particle,
+.steam-container,
 #steamCanvas {
-  width: 100%;
-  height: 100%;
+  display: none !important;
 }
-
 
 /* ─── XII. Audio Layer ─── */
 
