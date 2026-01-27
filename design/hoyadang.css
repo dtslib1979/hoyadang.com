@@ -63,16 +63,16 @@
   --release: cubic-bezier(0.25, 0, 0.5, 1);
   --simmer: cubic-bezier(0.4, 0, 0.2, 1);        /* 끓이기 */
 
-  /* Type Scale (modular, ratio 1.25) */
-  --t-xs: 0.64rem;
-  --t-sm: 0.8rem;
-  --t-base: 1rem;
-  --t-md: 1.25rem;
-  --t-lg: 1.563rem;
-  --t-xl: 1.953rem;
-  --t-2xl: 2.441rem;
-  --t-3xl: clamp(2.5rem, 12vw, 4.5rem);
-  --t-hero: clamp(3.5rem, 18vw, 7rem);
+  /* Type Scale — Mobile optimized for readability */
+  --t-xs: 0.75rem;      /* 12px - 최소 가독성 */
+  --t-sm: 0.875rem;     /* 14px - 보조 텍스트 */
+  --t-base: 1rem;       /* 16px - 본문 */
+  --t-md: 1.125rem;     /* 18px - 강조 본문 */
+  --t-lg: 1.25rem;      /* 20px - 소제목 */
+  --t-xl: 1.5rem;       /* 24px - 제목 */
+  --t-2xl: 2rem;        /* 32px - 큰 제목 */
+  --t-3xl: clamp(2rem, 8vw, 3rem);
+  --t-hero: clamp(2.5rem, 12vw, 5rem);
 
   /* Space (fibonacci-inspired) */
   --s-2xs: 4px;
@@ -88,7 +88,7 @@
   --max-w: 430px;
   --radius: 12px;
   --radius-lg: 20px;
-  --player-h: 28px;
+  --player-h: 56px;     /* 터치 타겟 최소 44px 이상 */
 
   /* Font Stacks */
   --f-monument: 'Cormorant Garamond', 'Noto Serif KR', Georgia, serif;
@@ -117,7 +117,9 @@ body {
   font-family: var(--f-voice);
   font-weight: 400;
   font-size: var(--t-base);
-  line-height: 1.6;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  word-break: keep-all;      /* 한글 단어 단위 줄바꿈 */
   background: var(--harina);
   color: var(--carbon);
   max-width: var(--max-w);
@@ -126,6 +128,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
   position: relative;
 }
 
@@ -193,10 +196,11 @@ a:active { opacity: 0.7; }
 
 /* Voz — Body copy */
 .voz {
-  font-size: var(--t-md);
+  font-size: var(--t-base);
   color: var(--humo);
   font-weight: 400;
   line-height: 1.8;
+  word-break: keep-all;
 }
 
 /* Hero voice — refined serif italic */
@@ -219,10 +223,11 @@ a:active { opacity: 0.7; }
   color: var(--aceite);
   font-weight: 400;
   margin-top: var(--s-xs);
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
   text-transform: none;
-  line-height: 1.6;
-  opacity: 0.7;
+  line-height: 1.8;
+  opacity: 0.85;
+  word-break: keep-all;
 }
 
 .ko--inline {
@@ -345,9 +350,10 @@ body::after {
   align-items: center;
   justify-content: center;
   gap: var(--s-xs);
-  padding: var(--s-sm) var(--s-lg);
+  padding: var(--s-md) var(--s-lg);
+  min-height: 48px;       /* 터치 타겟 최소 크기 */
   font-family: var(--f-monument);
-  font-size: var(--t-md);
+  font-size: var(--t-base);
   font-style: italic;
   color: var(--carbon);
   background: transparent;
@@ -356,10 +362,10 @@ body::after {
   cursor: pointer;
   transition:
     background var(--half) var(--approach),
-    color var(--half) var(--approach),
-    transform var(--half) var(--knead);
+    color var(--half) var(--approach);
   position: relative;
   overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .puerta::before {
@@ -1095,8 +1101,8 @@ body.scrolled .piso-indicator {
 }
 
 .reproductor-btn {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--dorado);
   border: none;
@@ -1104,22 +1110,23 @@ body.scrolled .piso-indicator {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform var(--half) var(--knead);
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .reproductor-btn:active {
-  transform: scale(0.9);
+  opacity: 0.8;
 }
 
 .reproductor-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   fill: var(--harina);
 }
 
 .reproductor-info {
   font-family: var(--f-code);
-  font-size: var(--t-xs);
+  font-size: var(--t-sm);
   color: var(--aceite);
   flex: 1;
   text-align: center;
