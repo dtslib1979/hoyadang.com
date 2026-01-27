@@ -7,19 +7,22 @@
   </defs>
 
   <!-- Background -->
-  <rect width="180" height="180" fill="url(#appleGold)" rx="40"/>
-  <rect x="10" y="10" width="160" height="160" fill="#FFFAF5" rx="32"/>
+  <rect width="180" height="180" fill="#FFFAF5" rx="40"/>
 
-  <!-- Hand Symbol -->
-  <g fill="#1A1A1A" transform="translate(90, 80)">
-    <ellipse cx="0" cy="15" rx="28" ry="32"/>
-    <rect x="-24" y="-42" width="10" height="42" rx="5"/>
-    <rect x="-10" y="-54" width="10" height="54" rx="5"/>
-    <rect x="4" y="-56" width="10" height="56" rx="5"/>
-    <rect x="18" y="-48" width="10" height="48" rx="5"/>
-    <rect x="-40" y="-14" width="9" height="30" rx="4.5" transform="rotate(-30 -35.5 1)"/>
-  </g>
+  <!-- Abstract concentric circles -->
+  <circle cx="90" cy="70" r="45" fill="none" stroke="url(#appleGold)" stroke-width="1.5" opacity="0.3"/>
+  <circle cx="90" cy="70" r="33" fill="none" stroke="url(#appleGold)" stroke-width="1.5" opacity="0.5"/>
+  <circle cx="90" cy="70" r="21" fill="none" stroke="url(#appleGold)" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="90" cy="70" r="9" fill="none" stroke="url(#appleGold)" stroke-width="1.5" opacity="0.9"/>
 
-  <!-- Text -->
-  <text x="90" y="155" font-family="serif" font-size="24" font-weight="500" fill="#D4A853" text-anchor="middle">好爺堂</text>
+  <!-- Center dot -->
+  <circle cx="90" cy="70" r="3" fill="#D4A853"/>
+
+  <!-- 好爺堂 Text -->
+  <text x="90" y="145"
+        font-family="Noto Serif KR, serif"
+        font-size="24"
+        font-weight="600"
+        fill="#1A1A1A"
+        text-anchor="middle">好爺堂</text>
 </svg>
