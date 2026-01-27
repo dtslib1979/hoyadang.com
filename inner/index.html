@@ -1,68 +1,107 @@
 <!DOCTYPE html>
-<html lang="es-AR">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#0a0008">
-  <title>Inner Portal — HOYADANG</title>
-  <meta name="description" content="Acceso restringido. Protocol Architect only.">
+  <meta name="theme-color" content="#1A1A1A">
+  <title>스튜디오 — 好爺堂</title>
+  <meta name="description" content="호야당 빵집 스튜디오. 손으로 만드는 K-Food.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../design/tango.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../design/hoyadang.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .puerta-secreta {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--s-md);
+    }
+    .clave-input {
+      display: flex;
+      gap: var(--s-sm);
+      justify-content: center;
+      margin-top: var(--s-lg);
+    }
+    .clave-digito {
+      width: 48px;
+      height: 56px;
+      font-family: var(--f-code);
+      font-size: var(--t-xl);
+      text-align: center;
+      background: var(--masa);
+      border: 1px solid var(--trigo);
+      color: var(--carbon);
+      border-radius: 4px;
+    }
+    .clave-digito:focus {
+      outline: none;
+      border-color: var(--dorado);
+      box-shadow: 0 0 0 2px rgba(212, 168, 83, 0.2);
+    }
+    .clave-digito.error {
+      border-color: var(--tomate);
+    }
+  </style>
 </head>
 <body>
 
   <!-- ═══ Gate ═══ -->
   <div class="puerta-secreta" data-gate-code="1126" id="gate">
     <div style="text-align: center;">
-      <h1 class="monumento" style="font-size: 2rem;">Inner Portal</h1>
-      <p class="susurro mt-md">Ingresá la clave</p>
+      <h1 class="monumento monumento--hanzi" style="font-size: 2.5rem;">好爺堂</h1>
+      <p class="susurro mt-md">비밀번호를 입력하세요</p>
+      <p class="ko mt-xs" style="font-size: 0.75rem;">Ingresá la clave</p>
 
-      <div class="clave-input" role="group" aria-label="Código de acceso">
-        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="Dígito 1">
-        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="Dígito 2">
-        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="Dígito 3">
-        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="Dígito 4">
+      <div class="clave-input" role="group" aria-label="비밀번호 입력">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="1번째 숫자">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="2번째 숫자">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="3번째 숫자">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="4번째 숫자">
       </div>
 
-      <p class="susurro mt-lg" style="opacity: 0.3;">Protocol Architect only</p>
+      <p class="susurro mt-lg" style="opacity: 0.3;">아저씨 전용</p>
     </div>
   </div>
 
   <!-- ═══ Inner World ═══ -->
-  <section class="espacio-centro" id="innerWorld" style="display: none;" aria-label="Protocol OS">
-    <p class="susurro latido">PROTOCOL OS</p>
-    <h1 class="monumento mt-md" style="font-size: clamp(2rem, 10vw, 4rem);">Bienvenido.</h1>
-    <p class="voz mt-lg">5-Layer Performance OS</p>
-    <span lang="ko" class="ko mt-sm">작전 중심부에 도착.</span>
+  <section class="espacio-centro" id="innerWorld" style="display: none;" aria-label="Studio OS">
+    <p class="susurro">MANOS OS</p>
+    <h1 class="monumento monumento--hanzi mt-md" style="font-size: clamp(2rem, 10vw, 3.5rem);">어서오세요.</h1>
+    <p class="voz mt-md" style="font-family: var(--f-monument); font-style: italic;">Bienvenido al estudio.</p>
+    <span class="ko mt-sm">손으로 만드는 K-Food</span>
 
     <nav class="mt-xl" style="width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: var(--s-sm);">
-      <a href="../emisión/" class="puerta">L1 — Emission</a>
-      <a href="../cuerpo/" class="puerta">L2 — Body Grammar</a>
-      <a href="../laboratorio/" class="puerta">L3 — Gesture Lab</a>
-      <a href="../control/" class="puerta">L4 — Control Room</a>
-      <a href="../legado/" class="puerta">L5 — Legacy</a>
+      <a href="../recetas/" class="puerta">L1 — Recetas <span class="ko--inline">레시피</span></a>
+      <a href="../herramientas/" class="puerta">L2 — Herramientas <span class="ko--inline">도구</span></a>
+      <a href="../estudio/" class="puerta">L3 — Estudio <span class="ko--inline">스튜디오</span></a>
+      <a href="../comunidad/" class="puerta">L4 — Comunidad <span class="ko--inline">커뮤니티</span></a>
+      <a href="../legado/" class="puerta">L5 — Legado <span class="ko--inline">유산</span></a>
     </nav>
 
     <div class="linea mt-xl"></div>
 
     <nav class="mt-lg" style="width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: var(--s-sm);">
-      <a href="../control/console/" class="puerta puerta--principal">Console →</a>
-      <a href="../" class="puerta">← Protocol</a>
+      <a href="../" class="puerta" style="opacity: 0.6;">← Volver a inicio</a>
     </nav>
   </section>
 
   <script>
     (function() {
       'use strict';
-      const BEAT = 857;
+      const BEAT = 1000;
       const gate = document.getElementById('gate');
       const code = gate.getAttribute('data-gate-code');
       const inputs = gate.querySelectorAll('.clave-digito');
       const inner = document.getElementById('innerWorld');
 
-      if (sessionStorage.getItem('espiritu_auth') === 'true') {
+      if (sessionStorage.getItem('hoyadang_auth') === 'true') {
         gate.style.display = 'none';
         inner.style.display = 'flex';
       } else {
@@ -83,22 +122,21 @@
         const entered = Array.from(inputs).map(i => i.value).join('');
         if (entered.length === 4) {
           if (entered === code) {
-            sessionStorage.setItem('espiritu_auth', 'true');
-            gate.style.transition = `opacity ${BEAT}ms var(--retreat)`;
+            sessionStorage.setItem('hoyadang_auth', 'true');
+            gate.style.transition = `opacity ${BEAT}ms ease-out`;
             gate.style.opacity = '0';
             setTimeout(() => {
               gate.style.display = 'none';
               inner.style.display = 'flex';
             }, BEAT);
           } else {
-            inputs.forEach(i => { i.value = ''; i.style.borderColor = 'var(--magenta)'; });
+            inputs.forEach(i => { i.value = ''; i.classList.add('error'); });
             inputs[0].focus();
-            setTimeout(() => inputs.forEach(i => { i.style.borderColor = ''; }), BEAT);
+            setTimeout(() => inputs.forEach(i => { i.classList.remove('error'); }), BEAT);
           }
         }
       }
     })();
   </script>
-  <script src="https://dtslib1979.github.io/dtslib-branch/hq/sdk/dtslib-bridge.js"></script>
 </body>
 </html>
