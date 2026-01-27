@@ -16,6 +16,12 @@
   const INTRO_DURATION = 5000;
 
   function init() {
+    // Force scroll to top on page load
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
     const intro = document.getElementById('intro');
     if (!intro) return;
 
