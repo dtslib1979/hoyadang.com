@@ -751,59 +751,83 @@ body.scrolled .piso-indicator {
 }
 
 
-/* ─── XI. Masa Ribbon ─── */
+/* ─── XI. Flour Dust — 밀가루 먼지 ─── */
 
-.masa-container {
+.flour-dust {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 50;
   opacity: 0;
-  transition: opacity var(--breath) var(--approach);
+  transition: opacity 2s var(--approach);
 }
 
-.masa-container.visible {
+.flour-dust.visible {
   opacity: 1;
 }
 
-.masa-svg {
+#dustCanvas {
   width: 100%;
   height: 100%;
 }
 
-.masa-path {
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+/* CSS-only flour particles fallback */
+.flour-particle {
+  position: absolute;
+  width: var(--size, 4px);
+  height: var(--size, 4px);
+  background: radial-gradient(
+    circle,
+    rgba(255, 250, 245, 0.8) 0%,
+    rgba(245, 230, 211, 0.4) 50%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  animation: flour-float var(--duration, 8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: var(--opacity, 0.6);
+  filter: blur(0.5px);
 }
 
-.masa-path--main {
-  stroke: var(--dorado);
-  stroke-width: 3;
-  filter: drop-shadow(0 2px 8px rgba(212, 168, 83, 0.3));
+@keyframes flour-float {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: var(--opacity, 0.6);
+  }
+  25% {
+    transform: translate(10px, -20px) rotate(90deg);
+    opacity: calc(var(--opacity, 0.6) * 0.8);
+  }
+  50% {
+    transform: translate(-5px, -40px) rotate(180deg);
+    opacity: var(--opacity, 0.6);
+  }
+  75% {
+    transform: translate(15px, -20px) rotate(270deg);
+    opacity: calc(var(--opacity, 0.6) * 0.9);
+  }
 }
 
-.masa-path--ambient {
-  stroke: var(--dorado);
-  stroke-width: 20;
-  opacity: 0.1;
-  filter: blur(10px);
+/* Larger flour chunks */
+.flour-particle--large {
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(212, 168, 83, 0.2) 60%,
+    transparent 100%
+  );
+  animation-duration: 12s;
+  filter: blur(1px);
 }
 
-.masa-path--thread {
-  stroke: var(--miel);
-  stroke-width: 1.5;
-  opacity: 0.5;
-}
-
-/* Ribbon alive state */
-.masa-path.alive {
-  animation: masa-pulse var(--double) ease-in-out infinite;
-}
-
-@keyframes masa-pulse {
-  0%, 100% { stroke-opacity: 0.8; }
-  50% { stroke-opacity: 1; }
+/* Tiny specks */
+.flour-particle--tiny {
+  width: 2px;
+  height: 2px;
+  animation-duration: 6s;
+  filter: blur(0.3px);
 }
 
 
