@@ -1813,3 +1813,87 @@ body.scrolled .piso-indicator {
   color: var(--dorado);
   opacity: 0.4;
 }
+
+
+/* ═══ PORTAL — 손도장/지문 ═══ */
+
+.huella-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-sm);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--half) var(--approach);
+}
+
+.huella-link:active {
+  transform: scale(0.94);
+}
+
+.huella-svg {
+  width: 100px;
+  height: 117px;
+  filter: drop-shadow(0 0 20px rgba(212, 168, 83, 0.2))
+          grayscale(0.5) contrast(1.1);
+  transition: filter var(--beat) var(--approach);
+}
+
+.huella-link:active .huella-svg {
+  filter: drop-shadow(0 0 30px rgba(212, 168, 83, 0.6))
+          drop-shadow(0 0 80px rgba(212, 168, 83, 0.2))
+          grayscale(0);
+}
+
+.huella-ridge {
+  fill: none;
+  stroke: var(--aceite);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: huella-draw var(--double) var(--approach) forwards;
+  transition: stroke var(--half) var(--approach);
+}
+
+.huella-link:active .huella-ridge {
+  stroke: var(--dorado);
+}
+
+.huella-ridge--1 { opacity: 0.35; animation-delay: 0ms; }
+.huella-ridge--2 { opacity: 0.5; animation-delay: 120ms; }
+.huella-ridge--3 { opacity: 0.65; animation-delay: 240ms; }
+.huella-ridge--4 { opacity: 0.8; animation-delay: 360ms; }
+.huella-ridge--5 { opacity: 0.95; animation-delay: 480ms; }
+
+@keyframes huella-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+.huella-core {
+  fill: var(--aceite);
+  opacity: 0;
+  animation: huella-core-pulse var(--breath) ease-in-out infinite;
+  animation-delay: 600ms;
+  transition: fill var(--half) var(--approach);
+}
+
+.huella-link:active .huella-core {
+  fill: var(--dorado);
+}
+
+@keyframes huella-core-pulse {
+  0%, 100% { opacity: 0.5; r: 4; }
+  50% { opacity: 1; r: 6; }
+}
+
+.huella-label {
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  color: var(--aceite);
+  transition: color var(--half) var(--approach);
+}
+
+.huella-link:active .huella-label {
+  color: var(--dorado);
+}
