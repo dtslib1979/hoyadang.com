@@ -1231,12 +1231,18 @@ body::after {
 
 /* Individual Film Frame Card */
 .film-frame-card {
-  width: 240px;
+  width: 200px;
   flex-shrink: 0;
-  padding: 12px;
+  padding: 8px;
   position: relative;
   cursor: pointer;
   transition: transform 0.3s ease;
+}
+@media (max-width: 480px) {
+  .film-frame-card {
+    width: 160px;
+    padding: 6px;
+  }
 }
 .film-frame-card:hover {
   transform: scale(1.02);
@@ -1244,24 +1250,31 @@ body::after {
 
 .frame-number {
   position: absolute;
-  top: 4px;
-  right: 16px;
+  top: 2px;
+  right: 10px;
   font-family: var(--f-mono);
-  font-size: 0.7rem;
+  font-size: 0.55rem;
   color: #FF4500;
   text-shadow: 0 0 4px rgba(255, 69, 0, 0.8);
+  z-index: 2;
+}
+@media (max-width: 480px) {
+  .frame-number {
+    font-size: 0.5rem;
+    right: 8px;
+  }
 }
 
 /* Frame Window (Video/Image Container) */
 .frame-window {
   position: relative;
-  aspect-ratio: 2/3;
+  aspect-ratio: 3/4;
   background: #000;
-  border: 3px solid #222;
+  border: 2px solid #222;
   border-radius: 2px;
   overflow: hidden;
   box-shadow:
-    inset 0 0 20px rgba(0, 0, 0, 0.8),
+    inset 0 0 10px rgba(0, 0, 0, 0.8),
     0 0 0 1px #333;
   display: block;
   text-decoration: none;
@@ -1316,8 +1329,13 @@ body::after {
 
 /* Frame Data */
 .frame-data {
-  padding: 12px 4px 8px;
+  padding: 8px 2px 4px;
   text-align: center;
+}
+@media (max-width: 480px) {
+  .frame-data {
+    padding: 6px 2px 2px;
+  }
 }
 
 .frame-code {
@@ -1329,11 +1347,16 @@ body::after {
 }
 
 .frame-title {
-  font-family: var(--f-monument);
-  font-style: italic;
-  font-size: var(--t-lg);
+  font-family: var(--f-ko);
+  font-weight: 500;
+  font-size: 0.85rem;
   color: #FFFAF5;
   margin: 0;
+}
+@media (max-width: 480px) {
+  .frame-title {
+    font-size: 0.75rem;
+  }
 }
 
 .frame-title-ko {
@@ -1347,8 +1370,15 @@ body::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin-top: 8px;
+  gap: 6px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+@media (max-width: 480px) {
+  .frame-meta {
+    gap: 4px;
+    margin-top: 4px;
+  }
 }
 
 .frame-duration {
@@ -1362,11 +1392,17 @@ body::after {
 
 .frame-tool {
   font-family: var(--f-mono);
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  padding: 4px 10px;
+  padding: 3px 6px;
   border-radius: 2px;
+}
+@media (max-width: 480px) {
+  .frame-tool {
+    font-size: 0.55rem;
+    padding: 2px 5px;
+  }
 }
 .frame-tool--pan {
   background: linear-gradient(135deg, #FF6B35 0%, #D4380D 100%);
@@ -1403,35 +1439,56 @@ body::after {
 /* Scene Card Text */
 .frame-tagline {
   font-family: var(--f-ko);
-  font-size: var(--t-sm);
+  font-size: 0.7rem;
   color: #D4A853;
-  margin-top: 4px;
-  letter-spacing: 0.05em;
+  margin-top: 2px;
+  letter-spacing: 0.02em;
+}
+@media (max-width: 480px) {
+  .frame-tagline {
+    font-size: 0.65rem;
+  }
 }
 
 .frame-vibe {
   font-family: var(--f-ko);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: #888;
-  margin-top: 4px;
+  margin-top: 2px;
   font-style: italic;
+  display: none;
+}
+@media (min-width: 481px) {
+  .frame-vibe {
+    display: block;
+  }
 }
 
 /* Scene Video Embed */
 .scene-video {
   position: relative;
-  aspect-ratio: 9/16;
+  aspect-ratio: 3/4;
   background: #000;
 }
 
 .scene-iframe {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180%;
+  height: 180%;
   border: none;
-  border-radius: 2px;
+  pointer-events: auto;
+}
+
+/* Click overlay to control video */
+.scene-video::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: none;
 }
 
 /* THE SHORTCUT Section */
