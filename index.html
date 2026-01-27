@@ -668,11 +668,11 @@
   <script>
   (function() {
     'use strict';
-    var VIDEO_ID = 'e9RS4biqyAc';  // Aranjuez - Adagio (embeddable version)
+    var VIDEO_ID = 'e9RS4biqyAc';  // Aranjuez - Adagio
     var playBtn = document.getElementById('audioBtn');
     var playIcon = document.getElementById('audioIcon');
     var player;
-    var isPlaying = false;
+    var started = false;
 
     // Load YouTube API
     var tag = document.createElement('script');
@@ -683,7 +683,6 @@
       player = new YT.Player('ytPlayer', {
         videoId: VIDEO_ID,
         playerVars: {
-          autoplay: 0,
           loop: 1,
           playlist: VIDEO_ID,
           controls: 0,
@@ -695,15 +694,12 @@
         },
         events: {
           onReady: function(e) {
-            e.target.setVolume(50);
             console.log('YouTube Player Ready');
           },
           onStateChange: function(e) {
             if (e.data === YT.PlayerState.PLAYING) {
-              isPlaying = true;
               playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-            } else {
-              isPlaying = false;
+            } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
               playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
             }
           },
@@ -714,14 +710,39 @@
       });
     };
 
-    // Button click
+    // Start audio (first play)
+    function startAudio() {
+      if (started || !player) return;
+      started = true;
+      player.setVolume(60);
+      player.unMute();
+      player.playVideo();
+    }
+
+    // Double tap to play (mobile)
+    var tapCount = 0;
+    var tapTimer;
+    document.addEventListener('touchend', function() {
+      tapCount++;
+      if (tapCount === 1) {
+        tapTimer = setTimeout(function() { tapCount = 0; }, 400);
+      } else if (tapCount === 2) {
+        clearTimeout(tapTimer);
+        tapCount = 0;
+        startAudio();
+      }
+    }, { passive: true });
+
+    // Play button click
     if (playBtn) {
-      playBtn.addEventListener('click', function() {
+      playBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
         if (!player) return;
-        if (isPlaying) {
+        if (!started) { startAudio(); return; }
+        var state = player.getPlayerState();
+        if (state === YT.PlayerState.PLAYING) {
           player.pauseVideo();
         } else {
-          player.unMute();
           player.playVideo();
         }
       });
