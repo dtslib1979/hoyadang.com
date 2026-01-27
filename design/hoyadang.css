@@ -504,23 +504,399 @@ body::after {
   font-weight: 600;
 }
 
-/* CAD Floor Plan */
-.cad-plano {
-  padding: var(--s-xl) var(--s-sm) !important;
+/* ═══ AWARD-LEVEL INTERACTIVE MAP ═══ */
+
+.map-container {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  margin: var(--s-xl) auto;
+  padding: var(--s-lg);
+  background: linear-gradient(145deg, #FFFAF5 0%, #F5E6D3 50%, #EDE0D0 100%);
+  border-radius: 8px;
+  box-shadow:
+    0 25px 50px -12px rgba(139, 115, 85, 0.25),
+    0 0 0 1px rgba(139, 115, 85, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  overflow: hidden;
 }
 
-.cad-svg {
+/* Ambient glow effect */
+.map-ambient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(212, 168, 83, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+  animation: ambientPulse 4s ease-in-out infinite;
+}
+
+@keyframes ambientPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Grid overlay */
+.map-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(139, 115, 85, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 115, 85, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+
+/* Corner decorations */
+.map-corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--dorado);
+  opacity: 0.4;
+}
+
+.map-corner--tl { top: 8px; left: 8px; border-right: none; border-bottom: none; }
+.map-corner--tr { top: 8px; right: 8px; border-left: none; border-bottom: none; }
+.map-corner--bl { bottom: 8px; left: 8px; border-right: none; border-top: none; }
+.map-corner--br { bottom: 8px; right: 8px; border-left: none; border-top: none; }
+
+/* Main SVG */
+.map-svg {
+  position: relative;
   width: 100%;
-  max-width: 320px;
   height: auto;
   display: block;
-  margin: var(--s-md) auto;
-  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.15));
+  z-index: 2;
 }
 
-.cad-plano .susurro {
-  text-align: center;
+/* Frame with animated border */
+.map-frame {
+  fill: rgba(255, 250, 245, 0.9);
+  stroke: var(--aceite);
+  stroke-width: 2;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: drawFrame 2s ease-out forwards;
+}
+
+.map-frame-glow {
+  fill: none;
+  stroke: var(--dorado);
+  stroke-width: 4;
+  opacity: 0.2;
+  filter: blur(4px);
+}
+
+@keyframes drawFrame {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Room styles */
+.room-area {
+  fill: transparent;
+  stroke: none;
+  cursor: pointer;
+  transition: fill 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.room-highlight {
+  fill: transparent;
+  stroke: var(--dorado);
+  stroke-width: 0;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.map-room:hover .room-area {
+  fill: rgba(212, 168, 83, 0.08);
+}
+
+.map-room:hover .room-highlight {
+  stroke-width: 2;
+  opacity: 0.6;
+  filter: url(#softGlow);
+}
+
+.map-room:active .room-area {
+  fill: rgba(212, 168, 83, 0.15);
+}
+
+/* Room labels */
+.room-label-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  fill: var(--aceite);
+  letter-spacing: 1px;
+  opacity: 0.6;
+}
+
+.room-label-main {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  fill: var(--carbon);
+  font-weight: 500;
+}
+
+.room-label-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  fill: var(--aceite);
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Room content animation */
+.room-content {
+  opacity: 0;
+  transform: translateY(5px);
+  animation: fadeInContent 0.6s ease-out forwards;
+  animation-delay: 1.5s;
+}
+
+@keyframes fadeInContent {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Room icons */
+.room-icon {
+  fill: none;
+  stroke: var(--aceite);
+  stroke-width: 1;
+  opacity: 0.3;
+}
+
+.room-indicator {
+  fill: var(--tomate);
+  opacity: 0;
+  animation: indicatorPulse 2s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+@keyframes indicatorPulse {
+  0%, 100% { opacity: 0.3; r: 3; }
+  50% { opacity: 0.8; r: 5; }
+}
+
+/* Counter and bread items */
+.counter-line {
+  stroke: var(--dorado);
+  stroke-width: 1.5;
+  opacity: 0.3;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: drawLine 1s ease-out forwards;
+  animation-delay: 1.8s;
+}
+
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+
+.bread-item {
+  fill: var(--dorado);
+  opacity: 0;
+  animation: popIn 0.3s ease-out forwards;
+}
+
+.bread-item:nth-child(1) { animation-delay: 2.0s; }
+.bread-item:nth-child(2) { animation-delay: 2.1s; }
+.bread-item:nth-child(3) { animation-delay: 2.2s; }
+.bread-item:nth-child(4) { animation-delay: 2.3s; }
+.bread-item:nth-child(5) { animation-delay: 2.4s; }
+
+@keyframes popIn {
+  0% { opacity: 0; r: 0; }
+  70% { r: 8; }
+  100% { opacity: 0.5; r: 6; }
+}
+
+/* Tables and chairs */
+.table-icon {
+  fill: none;
+  stroke: var(--aceite);
+  stroke-width: 1;
+  opacity: 0.25;
+}
+
+.chair-icon {
+  fill: var(--aceite);
+  opacity: 0.2;
+}
+
+.table-group {
+  opacity: 0;
+  animation: fadeInContent 0.5s ease-out forwards;
+}
+
+.table-group:nth-child(1) { animation-delay: 2.2s; }
+.table-group:nth-child(2) { animation-delay: 2.4s; }
+.table-group:nth-child(3) { animation-delay: 2.6s; }
+
+/* Pickup counter */
+.pickup-counter {
+  fill: var(--dorado);
+  opacity: 0.2;
+}
+
+/* Divider lines */
+.map-divider {
+  stroke: var(--aceite);
+  stroke-width: 1;
+  opacity: 0.3;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: drawLine 0.8s ease-out forwards;
+  animation-delay: 1.2s;
+}
+
+.map-door {
+  stroke: var(--harina);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+/* Entrance with pulse effect */
+.entrance-line {
+  stroke: var(--masa);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.entrance-door {
+  stroke: var(--aceite);
+  stroke-width: 1;
+  fill: none;
+  opacity: 0.4;
+}
+
+.entrance-pulse {
+  fill: var(--tomate);
+  opacity: 0.8;
+}
+
+.entrance-pulse-ring {
+  fill: none;
+  stroke: var(--tomate);
+  stroke-width: 2;
+  opacity: 0;
+  animation: pulseRing 2s ease-out infinite;
+}
+
+.entrance-pulse-ring--2 {
+  animation-delay: 1s;
+}
+
+@keyframes pulseRing {
+  0% { r: 6; opacity: 0.6; stroke-width: 2; }
+  100% { r: 20; opacity: 0; stroke-width: 0.5; }
+}
+
+.entrance-arrow {
+  fill: var(--tomate);
+  animation: bounceArrow 1.5s ease-in-out infinite;
+}
+
+@keyframes bounceArrow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.entrance-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  fill: var(--tomate);
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+.entrance-label-ko {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 8px;
+  fill: var(--aceite);
+  opacity: 0.6;
+}
+
+/* Map title */
+.map-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 20px;
+  fill: var(--carbon);
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeInContent 0.8s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+.map-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  fill: var(--aceite);
+  opacity: 0;
+  letter-spacing: 0.5px;
+  animation: fadeInContent 0.8s ease-out forwards;
+  animation-delay: 0.8s;
+}
+
+/* Tooltip */
+.map-tooltip {
+  position: absolute;
+  background: var(--carbon);
   color: var(--harina);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 0.2s ease-out;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.map-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tooltip-title {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.tooltip-desc {
+  display: block;
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+/* Compass animation */
+.map-compass {
+  opacity: 0;
+  animation: fadeInContent 0.6s ease-out forwards;
+  animation-delay: 2.5s;
+}
+
+/* Scale bar */
+.map-scale {
+  opacity: 0;
+  animation: fadeInContent 0.6s ease-out forwards;
+  animation-delay: 2.7s;
+}
+
+/* Hover state for entire map */
+.map-container:hover .map-ambient {
+  animation: none;
+  opacity: 0.8;
+}
+
+/* Scroll reveal enhancement */
+.map-container.revealed .map-frame {
+  animation: drawFrame 2s ease-out forwards;
 }
 
 /* Contacto grid for floor plan section */
