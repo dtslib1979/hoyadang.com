@@ -29,7 +29,7 @@
       intro.classList.add('abierto');
       setTimeout(() => {
         intro.style.display = 'none';
-        initFlourDust();
+        initSteam();
         initScrollEffects();
       }, 100);
       return;
@@ -67,77 +67,101 @@
 
     setTimeout(() => {
       intro.style.display = 'none';
-      initFlourDust();
+      initSteam();
       initScrollEffects();
     }, 1500);
   }
 
-  // Flour Dust — 밀가루 먼지 파티클 애니메이션
-  function initFlourDust() {
-    const container = document.getElementById('flourDust');
-    const canvas = document.getElementById('dustCanvas');
+  // Steam — 김/증기 애니메이션
+  function initSteam() {
+    const container = document.getElementById('steamContainer');
+    const canvas = document.getElementById('steamCanvas');
     if (!container || !canvas) return;
 
     const ctx = canvas.getContext('2d');
     let particles = [];
     let animationId;
     let width, height;
+    let scrollIntensity = 0;
 
-    // Particle class
-    class Particle {
+    // Steam particle class
+    class SteamParticle {
       constructor() {
         this.reset();
       }
 
       reset() {
+        // Start from bottom area
         this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = (Math.random() - 0.5) * 0.3;
-        this.speedY = -Math.random() * 0.5 - 0.1;
-        this.opacity = Math.random() * 0.5 + 0.2;
-        this.fadeSpeed = Math.random() * 0.005 + 0.002;
-        this.wobble = Math.random() * Math.PI * 2;
-        this.wobbleSpeed = Math.random() * 0.02 + 0.01;
+        this.y = height + Math.random() * 50;
+
+        // Size grows as it rises
+        this.size = Math.random() * 20 + 10;
+        this.maxSize = this.size * 3;
+
+        // Slow upward movement
+        this.speedY = -Math.random() * 1.5 - 0.5;
+
+        // Gentle horizontal drift
+        this.drift = (Math.random() - 0.5) * 0.5;
+        this.driftSpeed = Math.random() * 0.02 + 0.01;
+        this.driftAngle = Math.random() * Math.PI * 2;
+
+        // Opacity
+        this.opacity = 0;
+        this.maxOpacity = Math.random() * 0.15 + 0.05;
+
+        // Life
+        this.life = 0;
+        this.maxLife = Math.random() * 200 + 150;
       }
 
       update() {
-        this.wobble += this.wobbleSpeed;
-        this.x += this.speedX + Math.sin(this.wobble) * 0.3;
-        this.y += this.speedY;
+        this.life++;
 
-        // Fade in and out
-        if (this.y < height * 0.3) {
-          this.opacity -= this.fadeSpeed;
+        // Organic drift movement
+        this.driftAngle += this.driftSpeed;
+        this.x += this.drift + Math.sin(this.driftAngle) * 0.5;
+        this.y += this.speedY * (1 + scrollIntensity * 0.5);
+
+        // Grow size as it rises
+        const lifeRatio = this.life / this.maxLife;
+        this.size = this.size + (this.maxSize - this.size) * 0.01;
+
+        // Fade in then out
+        if (lifeRatio < 0.2) {
+          this.opacity = (lifeRatio / 0.2) * this.maxOpacity;
+        } else if (lifeRatio > 0.6) {
+          this.opacity = ((1 - lifeRatio) / 0.4) * this.maxOpacity;
+        } else {
+          this.opacity = this.maxOpacity;
         }
 
-        // Reset if out of bounds or faded
-        if (this.y < -10 || this.opacity <= 0) {
+        // Reset when life ends or off screen
+        if (this.life >= this.maxLife || this.y < -this.size) {
           this.reset();
-          this.y = height + 10;
-          this.opacity = 0;
-        }
-
-        // Fade in from bottom
-        if (this.y > height * 0.7 && this.opacity < 0.6) {
-          this.opacity += this.fadeSpeed * 2;
         }
       }
 
       draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        if (this.opacity <= 0) return;
 
-        // Gradient fill for soft look
+        ctx.beginPath();
+
+        // Soft gradient for steam wisp
         const gradient = ctx.createRadialGradient(
           this.x, this.y, 0,
           this.x, this.y, this.size
         );
-        gradient.addColorStop(0, `rgba(255, 250, 245, ${this.opacity})`);
-        gradient.addColorStop(0.5, `rgba(245, 230, 211, ${this.opacity * 0.6})`);
-        gradient.addColorStop(1, `rgba(212, 168, 83, 0)`);
+
+        // Warm white steam color
+        gradient.addColorStop(0, `rgba(255, 252, 248, ${this.opacity})`);
+        gradient.addColorStop(0.4, `rgba(250, 245, 235, ${this.opacity * 0.6})`);
+        gradient.addColorStop(0.7, `rgba(245, 238, 225, ${this.opacity * 0.3})`);
+        gradient.addColorStop(1, `rgba(240, 230, 215, 0)`);
 
         ctx.fillStyle = gradient;
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       }
     }
@@ -148,11 +172,13 @@
       canvas.width = width;
       canvas.height = height;
 
-      // Recreate particles on resize
-      const particleCount = Math.floor((width * height) / 15000);
+      // Create steam particles
+      const particleCount = Math.floor((width * height) / 25000);
       particles = [];
-      for (let i = 0; i < Math.min(particleCount, 50); i++) {
-        particles.push(new Particle());
+      for (let i = 0; i < Math.min(particleCount, 30); i++) {
+        const p = new SteamParticle();
+        p.life = Math.random() * p.maxLife; // Stagger initial states
+        particles.push(p);
       }
     }
 
@@ -166,6 +192,13 @@
 
       animationId = requestAnimationFrame(animate);
     }
+
+    // Scroll intensity affects steam speed
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      scrollIntensity = Math.min(scrollTop / docHeight, 1);
+    }, { passive: true });
 
     // Initialize
     resize();
