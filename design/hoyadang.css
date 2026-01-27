@@ -1231,7 +1231,7 @@ body::after {
 
 /* Individual Film Frame Card */
 .film-frame-card {
-  width: 280px;
+  width: 240px;
   flex-shrink: 0;
   padding: 12px;
   position: relative;
@@ -1252,10 +1252,10 @@ body::after {
   text-shadow: 0 0 4px rgba(255, 69, 0, 0.8);
 }
 
-/* Frame Window (Video Container) */
+/* Frame Window (Video/Image Container) */
 .frame-window {
   position: relative;
-  aspect-ratio: 4/3;
+  aspect-ratio: 2/3;
   background: #000;
   border: 3px solid #222;
   border-radius: 2px;
@@ -1263,6 +1263,8 @@ body::after {
   box-shadow:
     inset 0 0 20px rgba(0, 0, 0, 0.8),
     0 0 0 1px #333;
+  display: block;
+  text-decoration: none;
 }
 
 .frame-video {
@@ -1359,7 +1361,102 @@ body::after {
 }
 
 .frame-tool {
-  font-size: 1rem;
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+.frame-tool--pan {
+  background: linear-gradient(135deg, #FF6B35 0%, #D4380D 100%);
+  color: #fff;
+}
+.frame-tool--air {
+  background: linear-gradient(135deg, #40A9FF 0%, #096DD9 100%);
+  color: #fff;
+}
+
+.frame-recreate {
+  font-family: var(--f-mono);
+  font-size: 0.6rem;
+  color: #666;
+  letter-spacing: 0.15em;
+  border: 1px solid #333;
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+/* Scene Card Poster */
+.frame-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.1) contrast(1.05);
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+.film-frame-card:hover .frame-poster {
+  filter: saturate(1.2) contrast(1.1);
+  transform: scale(1.05);
+}
+
+/* Scene Card Text */
+.frame-tagline {
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  color: #D4A853;
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+
+.frame-vibe {
+  font-family: var(--f-ko);
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* THE SHORTCUT Section */
+.shortcut-section {
+  text-align: center;
+  padding: var(--s-xl) var(--s-lg);
+  border-top: 1px solid #333;
+  margin-top: var(--s-lg);
+}
+
+.shortcut-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto var(--s-md);
+  color: #888;
+}
+.shortcut-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.shortcut-title {
+  font-family: var(--f-mono);
+  font-size: var(--t-lg);
+  font-weight: 700;
+  color: #D4A853;
+  letter-spacing: 0.2em;
+  margin: 0;
+}
+
+.shortcut-subtitle {
+  font-family: var(--f-ko);
+  font-size: var(--t-base);
+  color: #FFFAF5;
+  margin-top: 4px;
+}
+
+.shortcut-desc {
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  color: #666;
+  margin-top: 8px;
 }
 
 /* Frame Edge Markings */
