@@ -685,17 +685,16 @@
   <!-- Scripts -->
   <script src="design/entrada.js"></script>
 
-  <!-- YouTube Audio Player -->
+  <!-- YouTube Audio — espiritu-tango 방식 그대로 -->
   <script>
   (function() {
     'use strict';
-    var VIDEO_ID = 'e9RS4biqyAc';  // Aranjuez - Adagio
+    var VIDEO_ID = 'e9RS4biqyAc';
     var playBtn = document.getElementById('audioBtn');
     var playIcon = document.getElementById('audioIcon');
     var player;
     var started = false;
 
-    // Load YouTube API
     var tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
     document.head.appendChild(tag);
@@ -714,33 +713,26 @@
           rel: 0
         },
         events: {
-          onReady: function(e) {
-            console.log('YouTube Player Ready');
-          },
           onStateChange: function(e) {
             if (e.data === YT.PlayerState.PLAYING) {
               playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
             } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
               playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
             }
-          },
-          onError: function(e) {
-            console.error('YouTube Error:', e.data);
           }
         }
       });
     };
 
-    // Start audio (first play)
     function startAudio() {
       if (started || !player) return;
       started = true;
-      player.setVolume(60);
+      player.setVolume(80);
       player.unMute();
       player.playVideo();
     }
 
-    // Double tap to play (mobile)
+    // Double tap to play
     var tapCount = 0;
     var tapTimer;
     document.addEventListener('touchend', function() {
