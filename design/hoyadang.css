@@ -292,16 +292,16 @@ body::after {
 
 /* Espacio — Full viewport section */
 .espacio {
-  min-height: 100dvh;
-  padding: var(--s-2xl) var(--s-md);
+  min-height: auto;
+  padding: var(--s-xl) var(--s-md);
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
 .espacio-centro {
-  min-height: 100dvh;
-  padding: var(--s-2xl) var(--s-md);
+  min-height: 80dvh;
+  padding: var(--s-xl) var(--s-md);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -905,8 +905,8 @@ body::after {
 
 /* Paso content layers */
 .paso {
-  min-height: 100dvh;
-  padding: var(--s-2xl) var(--s-md);
+  min-height: auto;
+  padding: var(--s-xl) var(--s-md);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1010,9 +1010,63 @@ body::after {
    XII. FILM ARCHIVE — Kodak 필름 아카이브
    ───────────────────────────────────────────────────────── */
 
+/* MAKING FILM Banner */
+.making-film-banner {
+  background: linear-gradient(180deg, #1A1A1A 0%, #0D0D0D 100%);
+  padding: var(--s-lg) var(--s-md);
+  border-bottom: 3px solid #FFD700;
+}
+
+.making-film-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-md);
+}
+
+.youtube-icon {
+  width: 40px;
+  height: 40px;
+  color: #FF0000;
+  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.5));
+}
+
+.making-film-text {
+  text-align: center;
+}
+
+.making-label {
+  font-family: var(--f-mono);
+  font-size: var(--t-xl);
+  font-weight: 700;
+  color: #FFD700;
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.making-label-ko {
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  color: #8B7355;
+  margin-top: 2px;
+}
+
+.film-sprocket-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.film-sprocket-mini span {
+  width: 16px;
+  height: 10px;
+  background: #333;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
 .film-archive {
   background: #0D0D0D;
-  padding: var(--s-xxl) 0;
+  padding: var(--s-xl) 0;
   position: relative;
   overflow: hidden;
 }
