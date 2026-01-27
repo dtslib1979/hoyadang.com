@@ -2187,7 +2187,7 @@ body.scrolled .piso-indicator {
 }
 
 .film-frame-item {
-  flex: 0 0 85%;
+  flex: 0 0 55%;
   scroll-snap-align: center;
   background: var(--film-black);
   position: relative;
@@ -2215,7 +2215,7 @@ body.scrolled .piso-indicator {
 
 .film-imagen {
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 2/3;
   object-fit: cover;
   filter: saturate(0.85) contrast(1.1);
   border: 3px solid var(--film-shadow);
