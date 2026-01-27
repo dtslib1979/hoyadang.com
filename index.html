@@ -256,79 +256,163 @@
   </section>
 
 
-  <!-- ═══ PASO 4: Recetas ═══ -->
-  <section class="paso paso--servir revelar" id="recetas" aria-label="Recetas">
-    <div class="paso-header">
-      <span class="paso-numero">4</span>
-      <h2 class="paso-titulo">Recetas</h2>
-      <span class="paso-subtitulo">레시피</span>
+  <!-- ═══ PASO 4: Film Archive — 필름 아카이브 ═══ -->
+  <section class="film-archive revelar" id="recetas" aria-label="Film Archive">
+
+    <!-- Kodak-style Header -->
+    <div class="film-archive-header">
+      <div class="kodak-band kodak-band--top"></div>
+      <div class="kodak-logo">
+        <span class="kodak-k">K</span>
+        <div class="kodak-stripes">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="film-archive-title">
+        <p class="film-stock">PORTRA 400</p>
+        <h2 class="archive-titulo">RECETAS</h2>
+        <p class="archive-subtitulo">레시피 아카이브</p>
+      </div>
+      <div class="film-counter">
+        <span class="counter-label">EXP</span>
+        <span class="counter-num">04</span>
+      </div>
     </div>
 
-    <div class="recetas-grid">
-      <!-- Croqueta -->
-      <article class="receta-card">
-        <img class="receta-imagen"
-             src="https://images.pexels.com/photos/6941028/pexels-photo-6941028.jpeg?auto=compress&cs=tinysrgb&w=400"
-             alt="Croqueta Coreana"
-             loading="lazy">
-        <div class="receta-contenido">
-          <h3 class="receta-nombre">Croqueta</h3>
-          <p class="receta-nombre-ko">고로케</p>
-          <div class="receta-meta">
-            <span class="receta-tag">15min</span>
-            <span class="receta-tag receta-tag--tool">🍳</span>
-          </div>
-        </div>
-      </article>
+    <!-- Film Strip Container -->
+    <div class="film-strip-archive">
 
-      <!-- K-Donut -->
-      <article class="receta-card">
-        <img class="receta-imagen"
-             src="https://images.pexels.com/photos/4686818/pexels-photo-4686818.jpeg?auto=compress&cs=tinysrgb&w=400"
-             alt="K-Donut"
-             loading="lazy">
-        <div class="receta-contenido">
-          <h3 class="receta-nombre">K-Donut</h3>
-          <p class="receta-nombre-ko">케이도넛</p>
-          <div class="receta-meta">
-            <span class="receta-tag">20min</span>
-            <span class="receta-tag receta-tag--tool">🌀</span>
-          </div>
-        </div>
-      </article>
+      <!-- Sprocket holes - left -->
+      <div class="sprocket-column sprocket-column--left">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
 
-      <!-- Hotteok -->
-      <article class="receta-card">
-        <img class="receta-imagen"
-             src="https://images.pexels.com/photos/5792329/pexels-photo-5792329.jpeg?auto=compress&cs=tinysrgb&w=400"
-             alt="Hotteok"
-             loading="lazy">
-        <div class="receta-contenido">
-          <h3 class="receta-nombre">Hotteok</h3>
-          <p class="receta-nombre-ko">호떡</p>
-          <div class="receta-meta">
-            <span class="receta-tag">25min</span>
-            <span class="receta-tag receta-tag--tool">🍳</span>
-          </div>
-        </div>
-      </article>
+      <!-- Film Frames -->
+      <div class="film-frames">
 
-      <!-- Pan de Ajo -->
-      <article class="receta-card">
-        <img class="receta-imagen"
-             src="https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=400"
-             alt="Pan de Ajo Coreano"
-             loading="lazy">
-        <div class="receta-contenido">
-          <h3 class="receta-nombre">Pan de Ajo</h3>
-          <p class="receta-nombre-ko">마늘빵</p>
-          <div class="receta-meta">
-            <span class="receta-tag">10min</span>
-            <span class="receta-tag receta-tag--tool">🌀</span>
+        <!-- Frame 1: Croqueta -->
+        <article class="film-frame-card" data-frame="01">
+          <div class="frame-number">01</div>
+          <div class="frame-window">
+            <video class="frame-video" poster="https://images.pexels.com/photos/6941028/pexels-photo-6941028.jpeg?auto=compress&cs=tinysrgb&w=600" muted loop playsinline preload="metadata">
+              <source src="https://videos.pexels.com/video-files/5512036/5512036-sd_640_360_25fps.mp4" type="video/mp4">
+            </video>
+            <div class="frame-play-btn">▶</div>
+            <div class="frame-grain"></div>
           </div>
-        </div>
-      </article>
+          <div class="frame-data">
+            <div class="frame-code">KR-001</div>
+            <h3 class="frame-title">Croqueta</h3>
+            <p class="frame-title-ko">고로케</p>
+            <div class="frame-meta">
+              <span class="frame-duration">15'</span>
+              <span class="frame-tool">🍳</span>
+            </div>
+          </div>
+          <div class="frame-edge">
+            <span>→01</span>
+            <span>好爺堂</span>
+            <span>→01A</span>
+          </div>
+        </article>
+
+        <!-- Frame 2: K-Donut -->
+        <article class="film-frame-card" data-frame="02">
+          <div class="frame-number">02</div>
+          <div class="frame-window">
+            <video class="frame-video" poster="https://images.pexels.com/photos/4686818/pexels-photo-4686818.jpeg?auto=compress&cs=tinysrgb&w=600" muted loop playsinline preload="metadata">
+              <source src="https://videos.pexels.com/video-files/4812203/4812203-sd_640_360_25fps.mp4" type="video/mp4">
+            </video>
+            <div class="frame-play-btn">▶</div>
+            <div class="frame-grain"></div>
+          </div>
+          <div class="frame-data">
+            <div class="frame-code">KR-002</div>
+            <h3 class="frame-title">K-Donut</h3>
+            <p class="frame-title-ko">케이도넛</p>
+            <div class="frame-meta">
+              <span class="frame-duration">20'</span>
+              <span class="frame-tool">🌀</span>
+            </div>
+          </div>
+          <div class="frame-edge">
+            <span>→02</span>
+            <span>好爺堂</span>
+            <span>→02A</span>
+          </div>
+        </article>
+
+        <!-- Frame 3: Hotteok -->
+        <article class="film-frame-card" data-frame="03">
+          <div class="frame-number">03</div>
+          <div class="frame-window">
+            <video class="frame-video" poster="https://images.pexels.com/photos/5792329/pexels-photo-5792329.jpeg?auto=compress&cs=tinysrgb&w=600" muted loop playsinline preload="metadata">
+              <source src="https://videos.pexels.com/video-files/5528060/5528060-sd_640_360_25fps.mp4" type="video/mp4">
+            </video>
+            <div class="frame-play-btn">▶</div>
+            <div class="frame-grain"></div>
+          </div>
+          <div class="frame-data">
+            <div class="frame-code">KR-003</div>
+            <h3 class="frame-title">Hotteok</h3>
+            <p class="frame-title-ko">호떡</p>
+            <div class="frame-meta">
+              <span class="frame-duration">25'</span>
+              <span class="frame-tool">🍳</span>
+            </div>
+          </div>
+          <div class="frame-edge">
+            <span>→03</span>
+            <span>好爺堂</span>
+            <span>→03A</span>
+          </div>
+        </article>
+
+        <!-- Frame 4: Pan de Ajo -->
+        <article class="film-frame-card" data-frame="04">
+          <div class="frame-number">04</div>
+          <div class="frame-window">
+            <video class="frame-video" poster="https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=600" muted loop playsinline preload="metadata">
+              <source src="https://videos.pexels.com/video-files/5658582/5658582-sd_640_360_25fps.mp4" type="video/mp4">
+            </video>
+            <div class="frame-play-btn">▶</div>
+            <div class="frame-grain"></div>
+          </div>
+          <div class="frame-data">
+            <div class="frame-code">KR-004</div>
+            <h3 class="frame-title">Pan de Ajo</h3>
+            <p class="frame-title-ko">마늘빵</p>
+            <div class="frame-meta">
+              <span class="frame-duration">10'</span>
+              <span class="frame-tool">🌀</span>
+            </div>
+          </div>
+          <div class="frame-edge">
+            <span>→04</span>
+            <span>好爺堂</span>
+            <span>→04A</span>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Sprocket holes - right -->
+      <div class="sprocket-column sprocket-column--right">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+
     </div>
+
+    <!-- Film Archive Footer -->
+    <div class="film-archive-footer">
+      <div class="kodak-band kodak-band--bottom"></div>
+      <p class="film-note">PROCESS C-41 · 현상 완료</p>
+    </div>
+
   </section>
 
 
@@ -696,6 +780,69 @@
         }
       });
     }
+  })();
+  </script>
+
+  <!-- Film Archive Script -->
+  <script>
+  (function() {
+    'use strict';
+
+    var filmCards = document.querySelectorAll('.film-frame-card');
+    var currentlyPlaying = null;
+
+    filmCards.forEach(function(card) {
+      var video = card.querySelector('.frame-video');
+      var playBtn = card.querySelector('.frame-play-btn');
+
+      if (!video || !playBtn) return;
+
+      // Click to play/pause
+      card.addEventListener('click', function() {
+        if (currentlyPlaying && currentlyPlaying !== video) {
+          currentlyPlaying.pause();
+          currentlyPlaying.closest('.film-frame-card').classList.remove('playing');
+        }
+
+        if (video.paused) {
+          video.play();
+          card.classList.add('playing');
+          currentlyPlaying = video;
+        } else {
+          video.pause();
+          card.classList.remove('playing');
+          currentlyPlaying = null;
+        }
+      });
+
+      // Hover preview
+      card.addEventListener('mouseenter', function() {
+        if (video.paused && !card.classList.contains('playing')) {
+          video.currentTime = 0;
+          video.play().catch(function() {});
+        }
+      });
+
+      card.addEventListener('mouseleave', function() {
+        if (!card.classList.contains('playing')) {
+          video.pause();
+          video.currentTime = 0;
+        }
+      });
+    });
+
+    // Horizontal scroll with mouse wheel
+    var filmStrip = document.querySelector('.film-strip-archive');
+    if (filmStrip) {
+      filmStrip.addEventListener('wheel', function(e) {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          e.preventDefault();
+          filmStrip.scrollLeft += e.deltaY;
+        }
+      }, { passive: false });
+    }
+
+    console.log('Film Archive initialized');
   })();
   </script>
 
