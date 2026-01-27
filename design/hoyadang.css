@@ -936,6 +936,75 @@ body::after {
 
 .paso--servir { background: var(--harina); }
 
+/* Estudio Section */
+.paso--estudio {
+  background: var(--masa);
+  text-align: center;
+}
+
+.estudio-polaroid {
+  display: inline-block;
+  background: #fff;
+  padding: 12px 12px 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transform: rotate(-2deg);
+  margin-top: var(--s-lg);
+}
+.estudio-polaroid img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+.polaroid-text {
+  font-family: var(--f-mono);
+  font-size: 0.75rem;
+  color: var(--aceite);
+  margin-top: 12px;
+  text-align: center;
+}
+
+.estudio-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-md);
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-sm);
+  text-align: left;
+  padding: var(--s-sm);
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+}
+
+.info-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.info-text {
+  flex: 1;
+}
+
+.info-label {
+  font-family: var(--f-mono);
+  font-size: 0.65rem;
+  color: var(--aceite);
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+
+.info-value {
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  color: var(--carbon);
+}
+
 
 /* ─────────────────────────────────────────────────────────
    XII. FILM ARCHIVE — Kodak 필름 아카이브

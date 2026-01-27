@@ -417,223 +417,49 @@
 
 
   <!-- ═══ PASO 5: El Estudio ═══ -->
-  <section class="espacio" id="estudio" aria-label="El Estudio">
-
-    <!-- Floor Plan — Award-Level Interactive Map -->
-    <div class="map-container revelar" id="floorMap">
-      <!-- Ambient Background -->
-      <div class="map-ambient"></div>
-
-      <!-- Grid Pattern Overlay -->
-      <div class="map-grid"></div>
-
-      <!-- Main SVG -->
-      <svg class="map-svg" viewBox="0 0 340 360" xmlns="http://www.w3.org/2000/svg" aria-label="好爺堂 Floor Plan">
-        <defs>
-          <!-- Gradient for glow effects -->
-          <linearGradient id="goldGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#D4A853;stop-opacity:0.8"/>
-            <stop offset="100%" style="stop-color:#8B7355;stop-opacity:0.4"/>
-          </linearGradient>
-
-          <linearGradient id="warmGlow" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:#FFFAF5;stop-opacity:0"/>
-            <stop offset="50%" style="stop-color:#D4A853;stop-opacity:0.1"/>
-            <stop offset="100%" style="stop-color:#FFFAF5;stop-opacity:0"/>
-          </linearGradient>
-
-          <!-- Filter for soft glow -->
-          <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
-            <feMerge>
-              <feMergeNode in="blur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-
-          <filter id="strongGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
-            <feFlood flood-color="#D4A853" flood-opacity="0.6"/>
-            <feComposite in2="blur" operator="in"/>
-            <feMerge>
-              <feMergeNode/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-
-          <!-- Pattern for grid -->
-          <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
-            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#8B7355" stroke-width="0.3" opacity="0.15"/>
-          </pattern>
-
-          <pattern id="largeGrid" width="50" height="50" patternUnits="userSpaceOnUse">
-            <rect width="50" height="50" fill="url(#smallGrid)"/>
-            <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#8B7355" stroke-width="0.5" opacity="0.25"/>
-          </pattern>
-
-          <!-- Clip path for rooms -->
-          <clipPath id="mapClip">
-            <rect x="20" y="50" width="300" height="260" rx="2"/>
-          </clipPath>
-        </defs>
-
-        <!-- Background grid -->
-        <rect x="0" y="0" width="340" height="360" fill="url(#largeGrid)" opacity="0.5"/>
-
-        <!-- Outer frame with glow -->
-        <rect class="map-frame" x="20" y="50" width="300" height="260" rx="2"/>
-        <rect class="map-frame-glow" x="20" y="50" width="300" height="260" rx="2"/>
-
-        <!-- Room areas with interactive hover -->
-        <g class="map-rooms" clip-path="url(#mapClip)">
-
-          <!-- KITCHEN — 주방 -->
-          <g class="map-room" data-room="kitchen">
-            <rect class="room-area" x="20" y="50" width="300" height="90"/>
-            <rect class="room-highlight" x="20" y="50" width="300" height="90"/>
-            <g class="room-content">
-              <text x="170" y="80" text-anchor="middle" class="room-label-code">COCINA</text>
-              <text x="170" y="100" text-anchor="middle" class="room-label-main">주방</text>
-              <text x="170" y="118" text-anchor="middle" class="room-label-sub">Kitchen</text>
-              <!-- Equipment icons -->
-              <rect x="45" y="70" width="30" height="24" rx="3" class="room-icon"/>
-              <rect x="265" y="70" width="30" height="24" rx="3" class="room-icon"/>
-              <!-- Flame indicators -->
-              <circle cx="60" cy="82" r="4" class="room-indicator"/>
-              <circle cx="280" cy="82" r="4" class="room-indicator"/>
-            </g>
-          </g>
-
-          <!-- Divider line (animated) -->
-          <line class="map-divider" x1="20" y1="140" x2="320" y2="140"/>
-          <line class="map-door" x1="145" y1="140" x2="195" y2="140"/>
-
-          <!-- DISPLAY — 판매대 -->
-          <g class="map-room" data-room="display">
-            <rect class="room-area" x="20" y="140" width="300" height="80"/>
-            <rect class="room-highlight" x="20" y="140" width="300" height="80"/>
-            <g class="room-content">
-              <text x="170" y="165" text-anchor="middle" class="room-label-code">VITRINA</text>
-              <text x="170" y="185" text-anchor="middle" class="room-label-main">판매대</text>
-              <text x="170" y="203" text-anchor="middle" class="room-label-sub">Display</text>
-              <!-- Display counter with bread icons -->
-              <line class="counter-line" x1="55" y1="158" x2="285" y2="158"/>
-              <line class="counter-line" x1="55" y1="198" x2="285" y2="198"/>
-              <!-- Bread items -->
-              <circle cx="80" cy="178" r="6" class="bread-item"/>
-              <circle cx="120" cy="178" r="6" class="bread-item"/>
-              <circle cx="160" cy="178" r="6" class="bread-item"/>
-              <circle cx="200" cy="178" r="6" class="bread-item"/>
-              <circle cx="240" cy="178" r="6" class="bread-item"/>
-            </g>
-          </g>
-
-          <!-- Divider line -->
-          <line class="map-divider" x1="20" y1="220" x2="320" y2="220"/>
-
-          <!-- SEATING — 좌석 -->
-          <g class="map-room" data-room="seating">
-            <rect class="room-area" x="20" y="220" width="180" height="90"/>
-            <rect class="room-highlight" x="20" y="220" width="180" height="90"/>
-            <g class="room-content">
-              <text x="110" y="245" text-anchor="middle" class="room-label-code">SALA</text>
-              <text x="110" y="265" text-anchor="middle" class="room-label-main">좌석</text>
-              <text x="110" y="283" text-anchor="middle" class="room-label-sub">Seating</text>
-              <!-- Table icons with chairs -->
-              <g class="table-group">
-                <circle cx="55" cy="265" r="12" class="table-icon"/>
-                <circle cx="55" cy="250" r="4" class="chair-icon"/>
-                <circle cx="55" cy="280" r="4" class="chair-icon"/>
-              </g>
-              <g class="table-group">
-                <circle cx="110" cy="265" r="12" class="table-icon"/>
-                <circle cx="95" cy="265" r="4" class="chair-icon"/>
-                <circle cx="125" cy="265" r="4" class="chair-icon"/>
-              </g>
-              <g class="table-group">
-                <circle cx="165" cy="265" r="12" class="table-icon"/>
-                <circle cx="165" cy="250" r="4" class="chair-icon"/>
-                <circle cx="165" cy="280" r="4" class="chair-icon"/>
-              </g>
-            </g>
-          </g>
-
-          <!-- Vertical divider -->
-          <line class="map-divider" x1="200" y1="220" x2="200" y2="310"/>
-
-          <!-- PICKUP — 픽업 -->
-          <g class="map-room" data-room="pickup">
-            <rect class="room-area" x="200" y="220" width="120" height="90"/>
-            <rect class="room-highlight" x="200" y="220" width="120" height="90"/>
-            <g class="room-content">
-              <text x="260" y="250" text-anchor="middle" class="room-label-code">RECOGER</text>
-              <text x="260" y="270" text-anchor="middle" class="room-label-main">픽업</text>
-              <text x="260" y="288" text-anchor="middle" class="room-label-sub">Pickup</text>
-              <!-- Pickup counter -->
-              <rect x="225" y="255" width="70" height="8" rx="2" class="pickup-counter"/>
-            </g>
-          </g>
-
-        </g>
-
-        <!-- ENTRANCE with pulse animation -->
-        <g class="map-entrance">
-          <line class="entrance-line" x1="55" y1="310" x2="115" y2="310"/>
-          <path class="entrance-door" d="M 55 310 Q 55 328 73 326"/>
-          <!-- Pulse indicator -->
-          <circle class="entrance-pulse" cx="85" cy="325" r="6"/>
-          <circle class="entrance-pulse-ring" cx="85" cy="325" r="6"/>
-          <circle class="entrance-pulse-ring entrance-pulse-ring--2" cx="85" cy="325" r="6"/>
-          <!-- Arrow -->
-          <polygon class="entrance-arrow" points="85,318 90,328 80,328"/>
-          <text x="85" y="345" text-anchor="middle" class="entrance-label">ENTRADA</text>
-          <text x="85" y="355" text-anchor="middle" class="entrance-label-ko">입구</text>
-        </g>
-
-        <!-- Compass -->
-        <g class="map-compass" transform="translate(295, 30)">
-          <circle cx="0" cy="0" r="18" fill="none" stroke="#8B7355" stroke-width="0.5" opacity="0.4"/>
-          <line x1="0" y1="-14" x2="0" y2="-8" stroke="#D4A853" stroke-width="1.5"/>
-          <line x1="0" y1="14" x2="0" y2="8" stroke="#8B7355" stroke-width="1" opacity="0.5"/>
-          <line x1="-14" y1="0" x2="-8" y2="0" stroke="#8B7355" stroke-width="1" opacity="0.5"/>
-          <line x1="14" y1="0" x2="8" y2="0" stroke="#8B7355" stroke-width="1" opacity="0.5"/>
-          <polygon points="0,-14 -4,-6 4,-6" fill="#D4A853"/>
-          <text x="0" y="-20" text-anchor="middle" font-size="7" fill="#D4A853" font-family="JetBrains Mono">N</text>
-        </g>
-
-        <!-- Scale bar -->
-        <g class="map-scale" transform="translate(25, 335)">
-          <line x1="0" y1="0" x2="60" y2="0" stroke="#8B7355" stroke-width="1"/>
-          <line x1="0" y1="-3" x2="0" y2="3" stroke="#8B7355" stroke-width="1"/>
-          <line x1="60" y1="-3" x2="60" y2="3" stroke="#8B7355" stroke-width="1"/>
-          <text x="30" y="12" text-anchor="middle" font-size="6" fill="#8B7355" font-family="JetBrains Mono" opacity="0.7">5m</text>
-        </g>
-
-        <!-- Title -->
-        <text x="170" y="30" text-anchor="middle" class="map-title">好爺堂</text>
-        <text x="170" y="42" text-anchor="middle" class="map-subtitle">와룡로 12-1 · 안양시 만안구</text>
-      </svg>
-
-      <!-- Hover tooltip -->
-      <div class="map-tooltip" id="mapTooltip">
-        <span class="tooltip-title"></span>
-        <span class="tooltip-desc"></span>
-      </div>
-
-      <!-- Corner decorations -->
-      <div class="map-corner map-corner--tl"></div>
-      <div class="map-corner map-corner--tr"></div>
-      <div class="map-corner map-corner--bl"></div>
-      <div class="map-corner map-corner--br"></div>
+  <section class="paso paso--estudio revelar" id="estudio" aria-label="El Estudio">
+    <div class="paso-header">
+      <span class="paso-numero">5</span>
+      <h2 class="paso-titulo">El Estudio</h2>
+      <span class="paso-subtitulo">스튜디오</span>
     </div>
 
-    <div class="linea"></div>
+    <!-- Polaroid -->
+    <div class="estudio-polaroid">
+      <img src="https://images.pexels.com/photos/6287495/pexels-photo-6287495.jpeg?auto=compress&cs=tinysrgb&w=400" alt="好爺堂" loading="lazy">
+      <p class="polaroid-text">好爺堂 · 2026</p>
+    </div>
 
     <p class="voz mt-xl" style="text-align: center;">
       Un fotógrafo que cocina.<br>
       Un cocinero que fotografía.
     </p>
     <span class="ko" style="text-align: center; display: block;">요리하는 사진작가. 사진 찍는 요리사.</span>
+
+    <!-- Contact Info -->
+    <div class="estudio-info mt-xl">
+      <div class="info-item">
+        <span class="info-icon">📍</span>
+        <div class="info-text">
+          <p class="info-label">UBICACIÓN</p>
+          <p class="info-value">경기도 안양시 만안구 와룡로 12-1</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">🕐</span>
+        <div class="info-text">
+          <p class="info-label">HORARIO</p>
+          <p class="info-value">월-토 08:00-20:00</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">📞</span>
+        <div class="info-text">
+          <p class="info-label">TELÉFONO</p>
+          <p class="info-value">070-8886-3300</p>
+        </div>
+      </div>
+    </div>
   </section>
 
 
@@ -843,105 +669,6 @@
     }
 
     console.log('Film Archive initialized');
-  })();
-  </script>
-
-  <!-- Interactive Map Script -->
-  <script>
-  (function() {
-    'use strict';
-
-    var mapContainer = document.getElementById('floorMap');
-    var tooltip = document.getElementById('mapTooltip');
-    var rooms = document.querySelectorAll('.map-room');
-
-    if (!mapContainer || !tooltip) return;
-
-    // Room data
-    var roomData = {
-      kitchen: { title: '주방 Kitchen', desc: '모든 빵이 태어나는 곳' },
-      display: { title: '판매대 Display', desc: '오늘의 신선한 빵들' },
-      seating: { title: '좌석 Seating', desc: '따뜻한 빵과 함께' },
-      pickup: { title: '픽업 Pickup', desc: '포장 주문 수령' }
-    };
-
-    // Tooltip positioning
-    function showTooltip(room, e) {
-      var data = roomData[room];
-      if (!data) return;
-
-      tooltip.querySelector('.tooltip-title').textContent = data.title;
-      tooltip.querySelector('.tooltip-desc').textContent = data.desc;
-
-      var rect = mapContainer.getBoundingClientRect();
-      var x = e.clientX - rect.left;
-      var y = e.clientY - rect.top - 50;
-
-      tooltip.style.left = x + 'px';
-      tooltip.style.top = y + 'px';
-      tooltip.classList.add('visible');
-    }
-
-    function hideTooltip() {
-      tooltip.classList.remove('visible');
-    }
-
-    // Add hover events
-    rooms.forEach(function(room) {
-      var roomName = room.getAttribute('data-room');
-
-      room.addEventListener('mouseenter', function(e) {
-        showTooltip(roomName, e);
-      });
-
-      room.addEventListener('mousemove', function(e) {
-        var rect = mapContainer.getBoundingClientRect();
-        tooltip.style.left = (e.clientX - rect.left) + 'px';
-        tooltip.style.top = (e.clientY - rect.top - 50) + 'px';
-      });
-
-      room.addEventListener('mouseleave', hideTooltip);
-
-      // Touch support
-      room.addEventListener('touchstart', function(e) {
-        var touch = e.touches[0];
-        showTooltip(roomName, touch);
-        setTimeout(hideTooltip, 2000);
-      }, { passive: true });
-    });
-
-    // Scroll reveal animation
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-
-    observer.observe(mapContainer);
-
-    // Parallax on mouse move (subtle)
-    mapContainer.addEventListener('mousemove', function(e) {
-      var rect = mapContainer.getBoundingClientRect();
-      var x = (e.clientX - rect.left) / rect.width - 0.5;
-      var y = (e.clientY - rect.top) / rect.height - 0.5;
-
-      var ambient = mapContainer.querySelector('.map-ambient');
-      if (ambient) {
-        ambient.style.transform = 'translate(' + (x * 10) + 'px, ' + (y * 10) + 'px)';
-      }
-    });
-
-    mapContainer.addEventListener('mouseleave', function() {
-      var ambient = mapContainer.querySelector('.map-ambient');
-      if (ambient) {
-        ambient.style.transform = '';
-      }
-    });
-
-    console.log('Interactive Map initialized');
   })();
   </script>
 
