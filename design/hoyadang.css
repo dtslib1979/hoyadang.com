@@ -1653,15 +1653,28 @@ body.scrolled .piso-indicator {
 }
 
 .herramienta-icono {
-  width: 60px;
-  height: 60px;
-  background: var(--masa);
-  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  background: transparent;
+  border: 1px solid var(--trigo);
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
   flex-shrink: 0;
+  color: var(--dorado);
+  transition: border-color var(--half) var(--approach),
+              color var(--half) var(--approach);
+}
+
+.herramienta-icono svg {
+  width: 40px;
+  height: 40px;
+}
+
+.herramienta:active .herramienta-icono {
+  border-color: var(--dorado);
+  color: var(--carbon);
 }
 
 .herramienta-info {
