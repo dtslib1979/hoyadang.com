@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <defs>
+    <linearGradient id="appleGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4A853"/>
+      <stop offset="100%" style="stop-color:#B8956F"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="180" height="180" fill="url(#appleGold)" rx="40"/>
+  <rect x="10" y="10" width="160" height="160" fill="#FFFAF5" rx="32"/>
+
+  <!-- Hand Symbol -->
+  <g fill="#1A1A1A" transform="translate(90, 80)">
+    <ellipse cx="0" cy="15" rx="28" ry="32"/>
+    <rect x="-24" y="-42" width="10" height="42" rx="5"/>
+    <rect x="-10" y="-54" width="10" height="54" rx="5"/>
+    <rect x="4" y="-56" width="10" height="56" rx="5"/>
+    <rect x="18" y="-48" width="10" height="48" rx="5"/>
+    <rect x="-40" y="-14" width="9" height="30" rx="4.5" transform="rotate(-30 -35.5 1)"/>
+  </g>
+
+  <!-- Text -->
+  <text x="90" y="155" font-family="serif" font-size="24" font-weight="500" fill="#D4A853" text-anchor="middle">好爺堂</text>
+</svg>
