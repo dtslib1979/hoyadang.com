@@ -2200,38 +2200,47 @@ body.scrolled .piso-indicator {
 
 .huella-svg {
   width: 100px;
-  height: 117px;
-  filter: drop-shadow(0 0 20px rgba(212, 168, 83, 0.2))
-          grayscale(0.5) contrast(1.1);
-  transition: filter var(--beat) var(--approach);
+  height: 100px;
+  transition: transform var(--beat) var(--approach);
 }
 
+.huella-link:hover .huella-svg,
 .huella-link:active .huella-svg {
-  filter: drop-shadow(0 0 30px rgba(212, 168, 83, 0.6))
-          drop-shadow(0 0 80px rgba(212, 168, 83, 0.2))
-          grayscale(0);
+  transform: scale(1.05);
 }
 
-.huella-ridge {
+/* Abstract concentric rings */
+.huella-ring {
   fill: none;
   stroke: var(--aceite);
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-dasharray: 400;
-  stroke-dashoffset: 400;
+  stroke-width: 1;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
   animation: huella-draw var(--double) var(--approach) forwards;
   transition: stroke var(--half) var(--approach);
 }
 
-.huella-link:active .huella-ridge {
+.huella-link:active .huella-ring {
   stroke: var(--dorado);
 }
 
-.huella-ridge--1 { opacity: 0.35; animation-delay: 0ms; }
-.huella-ridge--2 { opacity: 0.5; animation-delay: 120ms; }
-.huella-ridge--3 { opacity: 0.65; animation-delay: 240ms; }
-.huella-ridge--4 { opacity: 0.8; animation-delay: 360ms; }
-.huella-ridge--5 { opacity: 0.95; animation-delay: 480ms; }
+.huella-ring--1 { opacity: 0.2; animation-delay: 0ms; }
+.huella-ring--2 { opacity: 0.35; animation-delay: 100ms; }
+.huella-ring--3 { opacity: 0.55; animation-delay: 200ms; }
+.huella-ring--4 { opacity: 0.75; animation-delay: 300ms; }
+
+/* Entry line */
+.huella-entry {
+  stroke: var(--dorado);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0;
+  animation: huella-entry-fade 0.5s var(--approach) 0.8s forwards;
+}
+
+@keyframes huella-entry-fade {
+  to { opacity: 0.6; }
+}
 
 @keyframes huella-draw {
   to { stroke-dashoffset: 0; }
