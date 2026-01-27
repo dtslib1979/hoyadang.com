@@ -295,13 +295,16 @@
 (function() {
   'use strict';
 
-  window.onYouTubeIframeAPIReady = function() {
+  var player = null;
+  var isReady = false;
+
+  function initPlayer() {
     const playerEl = document.getElementById('ytPlayer');
-    if (!playerEl) return;
+    if (!playerEl || player) return;
 
     const VIDEO_ID = 'RxWa8tXu8y4';
 
-    const player = new YT.Player('ytPlayer', {
+    player = new YT.Player('ytPlayer', {
       height: '0',
       width: '0',
       videoId: VIDEO_ID,
@@ -313,29 +316,65 @@
         disablekb: 1,
         fs: 0,
         modestbranding: 1,
-        rel: 0
+        rel: 0,
+        playsinline: 1
       },
       events: {
         onReady: function(event) {
-          event.target.setVolume(30);
-
-          const btn = document.getElementById('audioBtn');
-          const icon = document.getElementById('audioIcon');
-
-          if (btn) {
-            btn.addEventListener('click', function() {
-              const state = player.getPlayerState();
-              if (state === YT.PlayerState.PLAYING) {
-                player.pauseVideo();
-                if (icon) icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
-              } else {
-                player.playVideo();
-                if (icon) icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-              }
-            });
-          }
+          isReady = true;
+          event.target.setVolume(40);
+          console.log('YouTube Player Ready');
+        },
+        onError: function(event) {
+          console.error('YouTube Player Error:', event.data);
         }
       }
     });
+  }
+
+  // Button click handler
+  function setupButton() {
+    const btn = document.getElementById('audioBtn');
+    const icon = document.getElementById('audioIcon');
+
+    if (btn) {
+      btn.addEventListener('click', function() {
+        if (!player || !isReady) {
+          console.log('Player not ready yet');
+          return;
+        }
+
+        try {
+          const state = player.getPlayerState();
+          if (state === YT.PlayerState.PLAYING) {
+            player.pauseVideo();
+            if (icon) icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+          } else {
+            player.playVideo();
+            if (icon) icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+          }
+        } catch (e) {
+          console.error('Player control error:', e);
+        }
+      });
+    }
+  }
+
+  // Global callback for YouTube API
+  window.onYouTubeIframeAPIReady = function() {
+    console.log('YouTube API Ready');
+    initPlayer();
   };
+
+  // Setup button when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupButton);
+  } else {
+    setupButton();
+  }
+
+  // Fallback: if YT is already loaded
+  if (typeof YT !== 'undefined' && YT.loaded) {
+    initPlayer();
+  }
 })();
