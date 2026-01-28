@@ -111,6 +111,257 @@ html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
   color-scheme: light;
+  background: var(--film-black);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   FILM FRAME — PC Desktop Experience
+   "과거 — 현재 — 미래"
+   가운데만 선명, 좌우는 블러 처리된 필름 스트립
+   ═══════════════════════════════════════════════════════════ */
+
+/* Hidden on mobile */
+.film-bar-top,
+.film-bar-bottom,
+.film-side-left,
+.film-side-right {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  html {
+    background: linear-gradient(180deg,
+      #0A0A0A 0%,
+      #1A1A1A 50%,
+      #0A0A0A 100%
+    );
+  }
+
+  /* Film strip container */
+  body {
+    position: relative;
+    box-shadow:
+      0 0 60px rgba(0, 0, 0, 0.8),
+      0 0 0 1px rgba(212, 168, 83, 0.1);
+  }
+
+  /* Left film frame — 과거 */
+  .film-side-left {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: calc(50% + 215px + 40px);
+    width: 200px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(26, 26, 26, 0.95) 100%
+    );
+    z-index: 9998;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 20px;
+  }
+
+  .film-side-left::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 24px;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 20px,
+        #0D0D0D 20px,
+        #0D0D0D 32px
+      );
+    opacity: 0.6;
+  }
+
+  .film-side-left .film-label-side {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: var(--f-code);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--dorado);
+    opacity: 0.3;
+    transform: rotate(180deg);
+  }
+
+  /* Right film frame — 미래 */
+  .film-side-right {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: calc(50% + 215px + 40px);
+    width: 200px;
+    background: linear-gradient(270deg,
+      transparent 0%,
+      rgba(26, 26, 26, 0.95) 100%
+    );
+    z-index: 9998;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 20px;
+  }
+
+  .film-side-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 24px;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 20px,
+        #0D0D0D 20px,
+        #0D0D0D 32px
+      );
+    opacity: 0.6;
+  }
+
+  .film-side-right .film-label-side {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: var(--f-code);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--dorado);
+    opacity: 0.3;
+  }
+
+  /* Film top/bottom bars with sprocket holes */
+  .film-bar-top,
+  .film-bar-bottom {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: #1A1A1A;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .film-bar-top {
+    top: 0;
+    border-bottom: 3px solid;
+    border-image: linear-gradient(90deg,
+      transparent 0%,
+      #FFD700 20%,
+      #FF4500 50%,
+      #FFD700 80%,
+      transparent 100%
+    ) 1;
+  }
+
+  .film-bar-bottom {
+    bottom: 0;
+    border-top: 3px solid;
+    border-image: linear-gradient(90deg,
+      transparent 0%,
+      #FFD700 20%,
+      #FF4500 50%,
+      #FFD700 80%,
+      transparent 100%
+    ) 1;
+  }
+
+  .sprocket-hole {
+    width: 16px;
+    height: 10px;
+    background: #0D0D0D;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Kodak branding on bars */
+  .film-bar-top .kodak-mark,
+  .film-bar-bottom .kodak-mark {
+    position: absolute;
+    font-family: var(--f-code);
+    font-size: 9px;
+    font-weight: 700;
+    color: #FFD700;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+  }
+
+  .film-bar-top .kodak-mark {
+    left: 40px;
+  }
+
+  .film-bar-bottom .kodak-mark {
+    right: 40px;
+  }
+
+  /* Frame counter */
+  .film-bar-top .frame-counter {
+    position: absolute;
+    right: 40px;
+    font-family: var(--f-code);
+    font-size: 11px;
+    color: #FF4500;
+    opacity: 0.6;
+  }
+
+  /* Adjust body for film bars */
+  body {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    min-height: calc(100dvh - 80px);
+  }
+
+  /* Hide mobile piso indicator on desktop */
+  .piso-indicator {
+    display: none;
+  }
+
+  /* Vignette effect for the main frame */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 40px;
+    bottom: 40px;
+    left: calc(50% - 215px);
+    right: calc(50% - 215px);
+    pointer-events: none;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.3);
+    z-index: 9997;
+    display: block !important;
+  }
+}
+
+/* Larger screens — wider side panels */
+@media (min-width: 1200px) {
+  .film-side-left {
+    width: 300px;
+    right: calc(50% + 215px + 60px);
+  }
+
+  .film-side-right {
+    width: 300px;
+    left: calc(50% + 215px + 60px);
+  }
+
+  .film-side-left .film-label-side,
+  .film-side-right .film-label-side {
+    font-size: 11px;
+    opacity: 0.4;
+  }
 }
 
 body {
