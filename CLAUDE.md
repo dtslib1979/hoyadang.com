@@ -177,10 +177,11 @@ hoyadang.com ←→ papafly.kr (아저씨 개인 홈페이지)
 
 ## 8. Audio
 
-**한 여름밤의 꿈 — 권성연**
-- YouTube ID: `my9Ad9Iekcc`
-- 한국-라틴 퓨전 음악
-- K와 라틴의 쌍방향 벡터를 음악으로 표현
+**Feels So Good — Chuck Mangione**
+- YouTube ID: `ZOtxTyJmxVI`
+- 1979년 라이브 퍼포먼스
+- 아저씨가 제일 좋아하는 곡
+- Smooth Jazz, 따뜻한 플뤼겔혼
 
 ---
 
