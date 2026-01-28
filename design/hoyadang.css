@@ -949,6 +949,15 @@ body::after {
   text-align: center;
 }
 
+.estudio-polaroid-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+.estudio-polaroid-link:hover {
+  transform: scale(1.05) rotate(1deg);
+}
+
 .estudio-polaroid {
   display: inline-block;
   background: #fff;
@@ -956,6 +965,10 @@ body::after {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   transform: rotate(-2deg);
   margin-top: var(--s-lg);
+  transition: box-shadow 0.3s ease;
+}
+.estudio-polaroid-link:hover .estudio-polaroid {
+  box-shadow: 0 8px 30px rgba(212, 168, 83, 0.3);
 }
 .estudio-polaroid img {
   width: 200px;
