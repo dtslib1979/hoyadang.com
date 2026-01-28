@@ -2,8 +2,8 @@
   "name": "好爺堂 — Con las manos",
   "short_name": "好爺堂",
   "description": "Tu cocina. Sabor coreano. 당신의 주방. 한국의 맛. K-Food recipes with pan, airfryer & microwave.",
-  "start_url": "/hoyadang.com/",
-  "id": "/hoyadang.com/",
+  "start_url": "/",
+  "id": "/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "browser"],
   "orientation": "portrait",
@@ -36,14 +36,14 @@
       "name": "Recetas",
       "short_name": "Recetas",
       "description": "Ver todas las recetas",
-      "url": "/hoyadang.com/#recetas",
+      "url": "/#recetas",
       "icons": [{ "src": "assets/icons/icon.svg", "sizes": "96x96" }]
     },
     {
       "name": "Herramientas",
       "short_name": "Tools",
       "description": "Guía de herramientas",
-      "url": "/hoyadang.com/#herramientas",
+      "url": "/#herramientas",
       "icons": [{ "src": "assets/icons/icon.svg", "sizes": "96x96" }]
     }
   ],
