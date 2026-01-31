@@ -97,6 +97,8 @@
     commandOutput: document.getElementById('commandOutput'),
     commandBox: document.getElementById('commandBox'),
     copyBtn: document.getElementById('copyBtn'),
+    copyAllBtn: document.getElementById('copyAllBtn'),
+    telegramBtn: document.getElementById('telegramBtn'),
     localNewJobBtn: document.getElementById('localNewJobBtn')
   };
 
@@ -815,7 +817,7 @@
     // Generate commands button
     elements.generateBtn.addEventListener('click', generateAllCommands);
 
-    // Copy button
+    // Copy button (inline)
     elements.copyBtn.addEventListener('click', async () => {
       const text = elements.commandBox.textContent;
       const success = await copyToClipboard(text);
@@ -828,6 +830,51 @@
         }, 2000);
       } else {
         showError('복사 실패. 직접 선택해서 복사하세요.');
+      }
+    });
+
+    // Copy all button
+    elements.copyAllBtn.addEventListener('click', async () => {
+      const text = elements.commandBox.textContent;
+      const success = await copyToClipboard(text);
+      if (success) {
+        elements.copyAllBtn.innerHTML = '✅ 복사됨!';
+        setTimeout(() => {
+          elements.copyAllBtn.innerHTML = '📋 복사';
+        }, 2000);
+      } else {
+        showError('복사 실패. 직접 선택해서 복사하세요.');
+      }
+    });
+
+    // Telegram button
+    elements.telegramBtn.addEventListener('click', () => {
+      const text = elements.commandBox.textContent;
+
+      // Telegram deep link로 메시지 전송
+      // 사용자가 봇을 선택하거나 직접 붙여넣기 가능
+      const encodedText = encodeURIComponent(text);
+
+      // 방법 1: 저장된 봇 username이 있으면 직접 열기
+      const botUsername = localStorage.getItem('msmr_telegram_bot');
+
+      if (botUsername) {
+        // 봇에게 직접 메시지 (모바일 Telegram 앱)
+        window.open(`tg://resolve?domain=${botUsername}&text=${encodedText}`, '_blank');
+      } else {
+        // 봇 설정 안내
+        const username = prompt(
+          'Telegram 봇 username을 입력하세요.\n\n' +
+          '예: msmr_executor_bot\n' +
+          '(@ 없이 입력)\n\n' +
+          '봇이 없으면 remote/README.md 참고'
+        );
+
+        if (username) {
+          const cleanUsername = username.replace('@', '').trim();
+          localStorage.setItem('msmr_telegram_bot', cleanUsername);
+          window.open(`tg://resolve?domain=${cleanUsername}&text=${encodedText}`, '_blank');
+        }
       }
     });
 

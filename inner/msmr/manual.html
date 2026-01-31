@@ -674,6 +674,89 @@
       </div>
     </div>
 
+    <!-- ═══ REMOTE 모드 (v3.0) ═══ -->
+    <div class="section" style="border-color: rgba(0,136,204,0.3); background: linear-gradient(135deg, var(--card), rgba(0,136,204,0.05));">
+      <h2 class="section-title" style="color: #0088cc;">
+        <span class="num" style="background: #0088cc;">✈️</span>
+        Remote 모드 (v3.0)
+      </h2>
+
+      <p>핸드폰에서 명령어 → PC에서 자동 실행!</p>
+
+      <div class="highlight" style="border-color: #0088cc; background: rgba(0,136,204,0.1);">
+        <strong style="color: #0088cc;">어떻게 작동하나?</strong><br>
+        1. PC에서 Telegram 봇 실행 (24시간)<br>
+        2. 핸드폰에서 "Telegram 전송" 클릭<br>
+        3. PC가 자동으로 ffmpeg 실행<br>
+        4. 완료되면 알림 수신
+      </div>
+
+      <h3 style="font-size: 15px; margin: 20px 0 12px; color: var(--cream);">PC 설정 (1회만)</h3>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-title">Telegram에서 @BotFather 검색</div>
+          <div class="step-desc">/newbot으로 봇 생성, 토큰 받기</div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">PC에 Python 설치</div>
+          <div class="step-desc">python.org에서 다운로드</div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">라이브러리 설치</div>
+          <div class="step-desc">터미널에서: pip install python-telegram-bot</div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">봇 스크립트 다운로드</div>
+          <div class="step-desc">hoyadang.com/inner/msmr/remote/telegram_bot.py</div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">토큰 입력</div>
+          <div class="step-desc">telegram_bot.py 열어서 TOKEN = "..." 수정</div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">봇 실행</div>
+          <div class="step-desc">python telegram_bot.py (PC 켜놓는 동안 계속)</div>
+        </div>
+      </div>
+
+      <h3 style="font-size: 15px; margin: 20px 0 12px; color: var(--cream);">사용 방법</h3>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-title">MSMR Local 모드에서 명령어 생성</div>
+          <div class="step-desc">평소처럼 파일명, 컷 입력</div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">"Telegram 전송" 버튼 클릭</div>
+          <div class="step-desc">Telegram 앱이 열림</div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">봇에게 전송</div>
+          <div class="step-desc">명령어가 자동 입력됨, 전송만 누르기</div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">완료 알림 수신</div>
+          <div class="step-desc">PC에서 처리 끝나면 봇이 알려줌</div>
+        </div>
+      </div>
+
+      <div class="warning">
+        <div class="warning-title">필수 조건</div>
+        <p>• PC가 켜져 있어야 함<br>
+        • telegram_bot.py가 실행 중이어야 함<br>
+        • 영상 파일이 설정된 폴더에 있어야 함</p>
+      </div>
+    </div>
+
     <!-- ═══ FAQ ═══ -->
     <div class="section">
       <h2 class="section-title">
@@ -718,7 +801,7 @@
     <a href="./" class="cta">MSMR Cut 사용하기 →</a>
 
     <p style="text-align: center; margin-top: 32px; font-size: 12px; color: var(--muted);">
-      好爺堂 Studio OS · MSMR v2.0 (Cloud + Local)
+      好爺堂 Studio OS · MSMR v3.0 (Cloud + Local + Remote)
     </p>
   </div>
 </body>

@@ -734,19 +734,29 @@
           <div class="msmr-card-icon">📋</div>
           <div>
             <div class="msmr-card-title">FFmpeg 명령어</div>
-            <div class="msmr-card-desc">터미널에 붙여넣어 실행하세요</div>
+            <div class="msmr-card-desc">터미널에 붙여넣거나 Telegram으로 전송</div>
           </div>
         </div>
         <div class="msmr-command-output">
           <button type="button" id="copyBtn" class="msmr-copy-btn">복사</button>
           <div id="commandBox" class="msmr-command-box"></div>
         </div>
+
+        <!-- Action Buttons -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-sm); margin-top: var(--s-md);">
+          <button type="button" id="copyAllBtn" class="msmr-add-btn" style="background: rgba(212,168,83,0.15);">
+            📋 복사
+          </button>
+          <button type="button" id="telegramBtn" class="msmr-add-btn" style="background: rgba(0,136,204,0.15); border-color: rgba(0,136,204,0.3); color: #0088cc;">
+            ✈️ Telegram 전송
+          </button>
+        </div>
+
         <div class="msmr-local-info" style="margin-top: var(--s-md);">
           <div class="msmr-local-info-title">실행 방법</div>
           <div class="msmr-local-info-text">
-            1. 위 명령어 복사<br>
-            2. 영상 파일이 있는 폴더에서 터미널 열기<br>
-            3. 명령어 붙여넣기 후 Enter
+            <strong>방법 1:</strong> 복사 → PC 터미널에서 붙여넣기<br>
+            <strong>방법 2:</strong> Telegram 전송 → PC 봇이 자동 실행
           </div>
         </div>
         <button type="button" id="localNewJobBtn" class="msmr-add-btn" style="margin-top: var(--s-md);">

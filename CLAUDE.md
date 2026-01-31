@@ -233,6 +233,14 @@ Section 6: Portal + Ending
 
 ## 10. Development Log
 
+### 2026-01-31 (v3.3) — MSMR v3.0 Remote 모드
+
+| 작업 | 상태 |
+|------|------|
+| Telegram Bot 원격 실행 | ✓ |
+| "Telegram 전송" 버튼 추가 | ✓ |
+| Remote 모드 매뉴얼 | ✓ |
+
 ### 2026-01-31 (v3.2) — MSMR Cut 시스템
 
 | 작업 | 상태 |
@@ -242,12 +250,13 @@ Section 6: Portal + Ending
 | 사용설명서 (아저씨용) | ✓ |
 | inner/ 시크릿 오피스 L0 메뉴 추가 | ✓ |
 
-#### MSMR Cut 시스템
+#### MSMR Cut 시스템 v3.0
 
 | 모드 | 용도 | 특징 |
 |------|------|------|
 | **Cloud** | YouTube 영상 자르기 | GitHub Actions 백엔드, 토큰 필요 |
 | **Local** | PC 로컬 파일 자르기 | 파일 제한 없음, FFmpeg 명령어 생성 |
+| **Remote** | 핸드폰→PC 원격 실행 | Telegram Bot, 24시간 자동화 |
 
 **경로:** `hoyadang.com/inner/` → 비밀번호 1126 → L0 — MSMR Cut
 
@@ -257,9 +266,12 @@ inner/msmr/
 ├── index.html     # UI (Cloud/Local 탭)
 ├── app.js         # 프론트엔드 로직
 ├── manual.html    # 사용설명서
-└── templates/
-    ├── default.json
-    └── shorts.json
+├── templates/
+│   ├── default.json
+│   └── shorts.json
+└── remote/
+    ├── telegram_bot.py   # PC에서 실행할 봇
+    └── README.md         # 설치 가이드
 
 .github/workflows/
 └── msmr-cut.yml   # GitHub Actions 워크플로우
