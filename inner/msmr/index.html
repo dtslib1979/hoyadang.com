@@ -505,6 +505,46 @@
       color: rgba(255,250,245,0.7);
       line-height: 1.6;
     }
+
+    /* Speed select */
+    .msmr-select {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--msmr-border);
+      border-radius: 8px;
+      font-family: var(--f-body);
+      font-size: var(--t-sm);
+      color: var(--msmr-cream);
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .msmr-select:focus {
+      outline: none;
+      border-color: var(--msmr-gold);
+    }
+
+    .msmr-select option {
+      background: var(--msmr-card);
+      color: var(--msmr-cream);
+    }
+
+    /* Reencode warning */
+    .msmr-reencode-warning {
+      margin-top: 8px;
+      padding: 10px 14px;
+      background: rgba(231,76,60,0.1);
+      border: 1px solid rgba(231,76,60,0.3);
+      border-radius: 8px;
+      font-size: 12px;
+      color: #E74C3C;
+      display: none;
+    }
+
+    .msmr-reencode-warning.visible {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -706,6 +746,21 @@
               <input type="text" id="localCutIn" class="msmr-input" placeholder="00:00:00">
               <span class="msmr-time-arrow">→</span>
               <input type="text" id="localCutOut" class="msmr-input" placeholder="00:00:30">
+            </div>
+          </div>
+          <div class="msmr-input-group">
+            <label class="msmr-label">배속</label>
+            <select id="localSpeed" class="msmr-select">
+              <option value="1.0">1.0x (원본, 빠름)</option>
+              <option value="0.5">0.5x (슬로우)</option>
+              <option value="0.75">0.75x</option>
+              <option value="1.25">1.25x</option>
+              <option value="1.3">1.3x</option>
+              <option value="1.5">1.5x</option>
+              <option value="2.0">2.0x (빠르게)</option>
+            </select>
+            <div id="reencodeWarning" class="msmr-reencode-warning">
+              ⚠️ 리인코딩 필요 — 1GB 파일 기준 5~15분 소요
             </div>
           </div>
           <button type="button" id="localAddCutBtn" class="msmr-add-btn">

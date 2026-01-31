@@ -91,6 +91,8 @@
     localCutName: document.getElementById('localCutName'),
     localCutIn: document.getElementById('localCutIn'),
     localCutOut: document.getElementById('localCutOut'),
+    localSpeed: document.getElementById('localSpeed'),
+    reencodeWarning: document.getElementById('reencodeWarning'),
     localAddCutBtn: document.getElementById('localAddCutBtn'),
     localCutsContainer: document.getElementById('localCutsContainer'),
     generateBtn: document.getElementById('generateBtn'),
@@ -212,10 +214,23 @@
 
   /**
    * Generate FFmpeg command for a single cut
+   * @param {string} filename - Input filename
+   * @param {object} cut - Cut object with name, in, out
+   * @param {number} speed - Speed multiplier (1.0 = normal)
    */
-  function generateFFmpegCommand(filename, cut) {
+  function generateFFmpegCommand(filename, cut, speed = 1.0) {
     const outputName = `${cut.name}.mp4`;
-    return `ffmpeg -ss ${cut.in} -to ${cut.out} -i "${filename}" -c copy -avoid_negative_ts make_zero "${outputName}"`;
+
+    if (speed === 1.0) {
+      // 원본 속도: copy 모드 (빠름, 무손실)
+      return `ffmpeg -ss ${cut.in} -to ${cut.out} -i "${filename}" -c copy -avoid_negative_ts make_zero "${outputName}"`;
+    } else {
+      // 배속 적용: 리인코딩 필요 (느림)
+      const pts = (1 / speed).toFixed(4);
+      // atempo는 0.5~2.0 범위만 지원
+      const atempo = Math.max(0.5, Math.min(2.0, speed));
+      return `ffmpeg -ss ${cut.in} -to ${cut.out} -i "${filename}" -filter:v "setpts=${pts}*PTS" -filter:a "atempo=${atempo}" -preset fast "${outputName}"`;
+    }
   }
 
   /**
@@ -223,6 +238,7 @@
    */
   function generateAllCommands() {
     const filename = elements.localFilename.value.trim();
+    const speed = parseFloat(elements.localSpeed.value);
 
     if (!filename) {
       showError('파일명을 입력하세요');
@@ -234,8 +250,14 @@
       return;
     }
 
-    const commands = state.localCuts.map(cut => generateFFmpegCommand(filename, cut));
-    const fullScript = commands.join('\n\n');
+    const commands = state.localCuts.map(cut => generateFFmpegCommand(filename, cut, speed));
+    let fullScript = commands.join('\n\n');
+
+    // 배속 적용 시 경고 메시지 추가
+    if (speed !== 1.0) {
+      const warning = `# ⚠️ 배속 ${speed}x 적용 — 리인코딩으로 시간이 오래 걸립니다\n\n`;
+      fullScript = warning + fullScript;
+    }
 
     elements.commandBox.textContent = fullScript;
     elements.commandOutput.classList.remove('hidden');
@@ -362,6 +384,8 @@
     elements.localCutName.value = '';
     elements.localCutIn.value = '';
     elements.localCutOut.value = '';
+    elements.localSpeed.value = '1.0';
+    elements.reencodeWarning.classList.remove('visible');
     elements.commandOutput.classList.add('hidden');
     renderLocalCuts();
     updateLocalGenerateButton();
@@ -802,6 +826,16 @@
 
     // Filename input change
     elements.localFilename.addEventListener('input', updateLocalGenerateButton);
+
+    // Speed selection change - show/hide warning
+    elements.localSpeed.addEventListener('change', () => {
+      const speed = parseFloat(elements.localSpeed.value);
+      if (speed !== 1.0) {
+        elements.reencodeWarning.classList.add('visible');
+      } else {
+        elements.reencodeWarning.classList.remove('visible');
+      }
+    });
 
     // Add local cut button
     elements.localAddCutBtn.addEventListener('click', addLocalCut);
