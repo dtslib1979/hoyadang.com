@@ -530,10 +530,10 @@
     <div class="section" style="border-color: rgba(76,175,80,0.3); background: linear-gradient(135deg, var(--card), rgba(76,175,80,0.05));">
       <h2 class="section-title" style="color: #4CAF50;">
         <span class="num" style="background: #4CAF50;">💻</span>
-        Local 모드 (PC 파일용)
+        Local 모드 (카메라 원본용)
       </h2>
 
-      <p>PC에 있는 영상 파일(카메라 원본 등)을 자를 때 사용해요.</p>
+      <p>1GB 넘는 카메라 원본 파일을 자를 때 사용해요.</p>
 
       <div class="highlight" style="border-color: #4CAF50; background: rgba(76,175,80,0.1);">
         <strong style="color: #4CAF50;">왜 Local 모드?</strong><br>
@@ -542,38 +542,105 @@
         • GitHub 토큰 필요 없음
       </div>
 
-      <h3 style="font-size: 15px; margin: 20px 0 12px; color: var(--cream);">사용법</h3>
+      <h3 style="font-size: 15px; margin: 20px 0 12px; color: var(--cream);">핸드폰 vs PC</h3>
+
+      <table>
+        <tr>
+          <th>단계</th>
+          <th>핸드폰</th>
+          <th>PC</th>
+        </tr>
+        <tr>
+          <td>MSMR 접속</td>
+          <td style="color: #4CAF50;">✅</td>
+          <td style="color: #4CAF50;">✅</td>
+        </tr>
+        <tr>
+          <td>파일명 입력</td>
+          <td style="color: #4CAF50;">✅</td>
+          <td style="color: #4CAF50;">✅</td>
+        </tr>
+        <tr>
+          <td>컷 포인트 입력</td>
+          <td style="color: #4CAF50;">✅</td>
+          <td style="color: #4CAF50;">✅</td>
+        </tr>
+        <tr>
+          <td>명령어 생성</td>
+          <td style="color: #4CAF50;">✅</td>
+          <td style="color: #4CAF50;">✅</td>
+        </tr>
+        <tr>
+          <td>명령어 복사</td>
+          <td style="color: #4CAF50;">✅</td>
+          <td style="color: #4CAF50;">✅</td>
+        </tr>
+        <tr>
+          <td><strong>ffmpeg 실행</strong></td>
+          <td style="color: #E74C3C;">❌</td>
+          <td style="color: #4CAF50;">✅</td>
+        </tr>
+      </table>
+
+      <div class="warning" style="margin-top: 16px;">
+        <div class="warning-title">핵심</div>
+        <p><strong>명령어 만드는 건 핸드폰에서.</strong><br>
+        <strong>실행은 PC에서.</strong></p>
+      </div>
+
+      <h3 style="font-size: 15px; margin: 20px 0 12px; color: var(--cream);">아저씨 워크플로우</h3>
 
       <div class="steps">
         <div class="step">
-          <div class="step-title">Local 탭 선택</div>
-          <div class="step-desc">MSMR Cut 화면 상단에서 [Local] 탭 클릭</div>
+          <div class="step-title">핸드폰에서 MSMR 접속</div>
+          <div class="step-desc">hoyadang.com/inner/ → 1126 → MSMR Cut</div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">[Local] 탭 선택</div>
+          <div class="step-desc">상단 탭에서 Local 클릭</div>
         </div>
 
         <div class="step">
           <div class="step-title">파일명 입력</div>
-          <div class="step-desc">자르려는 영상 파일의 이름 입력</div>
+          <div class="step-desc">카메라 원본 파일명 입력</div>
           <div class="example">MVI_0123.MP4</div>
         </div>
 
         <div class="step">
           <div class="step-title">컷 구간 추가</div>
-          <div class="step-desc">Cloud 모드와 동일하게 시간 구간 입력</div>
+          <div class="step-desc">자르고 싶은 시간 입력 후 "+ 컷 추가"</div>
+          <div class="example">00:01:30 → 00:02:00</div>
         </div>
 
         <div class="step">
           <div class="step-title">"명령어 생성" 클릭</div>
-          <div class="step-desc">FFmpeg 명령어가 생성됩니다</div>
+          <div class="step-desc">FFmpeg 명령어가 나타남</div>
         </div>
 
         <div class="step">
-          <div class="step-title">명령어 복사</div>
-          <div class="step-desc">"복사" 버튼 클릭</div>
+          <div class="step-title">"복사" 버튼 클릭</div>
+          <div class="step-desc">명령어가 클립보드에 복사됨</div>
         </div>
 
         <div class="step">
-          <div class="step-title">터미널에서 실행</div>
-          <div class="step-desc">영상 파일이 있는 폴더에서 명령어 붙여넣기</div>
+          <div class="step-title">PC로 이동</div>
+          <div class="step-desc">영상 파일이 있는 PC 앞으로</div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">터미널 열기</div>
+          <div class="step-desc">영상 파일이 있는 폴더에서 터미널(명령 프롬프트) 열기</div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">붙여넣기 → Enter</div>
+          <div class="step-desc">Ctrl+V로 명령어 붙여넣고 Enter</div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">완료!</div>
+          <div class="step-desc">같은 폴더에 잘린 영상 파일 생성됨</div>
         </div>
       </div>
 
