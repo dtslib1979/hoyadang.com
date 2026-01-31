@@ -1,26 +1,45 @@
 {
   "id": "hoyadang.com",
-  "name": "HOYADANG",
-  "tagline": "Performance Protocol for Body",
-  "hq": "dtslib1979/dtslib-branch",
-  "version": "3.0",
+  "name": "好爺堂",
+  "nameEn": "HOYADANG",
+  "tagline": "4 Scenes from Seoul",
+  "hq": "dtslib1979/espiritu-tango",
+  "version": "3.3",
   "status": "active",
   "visibility": "public",
-  "area": "performance-os",
-  "tier": "protocol",
+  "tier": 3,
+  "type": "k-food-studio",
+  "domain": "hoyadang.com",
   "language": "es-AR",
+  "role": "center",
+  "satellites": ["papafly.kr", "pnp", "fbtd", "methods"],
+  "owner": "papafly.kr",
   "theme": {
-    "primary": "#E91E63",
-    "accent": "#FFD54F",
-    "bg": "#0a0008",
-    "text": "#f0e8ec"
+    "primary": "#D4A853",
+    "accent": "#FF6B35",
+    "bg": "#0D0D0D",
+    "text": "#FFFAF5"
   },
-  "nodes": [
+  "products": [
     {
-      "id": "magenta",
-      "name": "Tango Magenta",
-      "type": "offline-studio",
-      "status": "flagship"
+      "id": "scene-01",
+      "name": "K-컵떡볶이 도넛",
+      "tool": "PAN"
+    },
+    {
+      "id": "scene-02",
+      "name": "K-모찌 도넛",
+      "tool": "AIR"
+    },
+    {
+      "id": "scene-03",
+      "name": "K-도넛 버거",
+      "tool": "AIR"
+    },
+    {
+      "id": "scene-04",
+      "name": "K-토스트 바",
+      "tool": "PAN"
     }
   ],
   "subscriptions": [
@@ -31,11 +50,11 @@
       "target": null
     },
     {
-      "feedId": "hq-sdk",
-      "publisher": "hq",
+      "feedId": "espiritu-sdk",
+      "publisher": "espiritu-tango",
       "autoSync": true,
       "target": "assets/js"
     }
   ],
-  "features": ["performance-os", "body-protocol", "5-layer", "scene-making", "audio-layer"]
+  "features": ["k-food-ip", "cinematic-cooking", "youtube-shorts", "80-percent-philosophy"]
 }
