@@ -3,21 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#FFFAF5">
+  <meta name="theme-color" content="#0A0A0A">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <title>好爺堂 — 호야당 베이커리</title>
-  <meta name="description" content="好爺堂 호야당 — 안양 만안구 20년 전통 수제 베이커리. 매일 아침 갓 구운 소금빵, 소보로, 고로케, 샌드위치.">
-  <meta name="keywords" content="好爺堂, 호야당, 안양빵집, 만안구빵집, 소금빵, 소보로, 고로케, 샌드위치, 수제빵, 베이커리">
+  <title>好爺堂 — Artisan Bakery Since 2006</title>
+  <meta name="description" content="好爺堂 호야당 — 20년 전통 수제 베이커리. 손으로 빚는 정성, 매일 새벽 갓 구운 빵.">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="好爺堂 호야당 베이커리">
-  <meta property="og:description" content="안양 만안구 20년 전통 수제 베이커리. 매일 아침 정성을 담아 굽습니다.">
+  <meta property="og:title" content="好爺堂 — Artisan Bakery">
+  <meta property="og:description" content="20년 전통 수제 베이커리. 손으로 빚는 정성.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hoyadang.com/">
-  <meta property="og:site_name" content="好爺堂">
-  <meta property="og:locale" content="ko_KR">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -34,65 +31,64 @@
       "addressLocality": "안양시 만안구",
       "addressRegion": "경기도",
       "addressCountry": "KR"
-    },
-    "servesCuisine": ["Korean", "Bakery"],
-    "openingHours": "Mo-Sa 08:00-20:00",
-    "priceRange": "₩2,000-₩6,000"
+    }
   }
   </script>
 
-  <!-- PWA & Icons -->
+  <!-- PWA -->
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
-  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.svg">
-  <meta name="apple-mobile-web-app-title" content="好爺堂">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+KR:wght@300;400;500;600&family=Noto+Serif+KR:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=Noto+Serif+KR:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      /* Colors - Warm Bakery Palette */
-      --cream: #FFFAF5;
-      --warm-white: #FDF8F3;
-      --beige: #F5E6D3;
-      --wheat: #E8D5B7;
-      --gold: #D4A853;
-      --gold-dark: #B8923A;
-      --brown: #8B7355;
-      --charcoal: #2C2C2C;
-      --carbon: #1A1A1A;
-
-      /* Typography */
-      --f-display: 'Cormorant Garamond', 'Noto Serif KR', serif;
-      --f-body: 'Noto Sans KR', sans-serif;
-      --f-serif: 'Noto Serif KR', serif;
-
-      /* Spacing */
-      --section-padding: clamp(4rem, 10vw, 8rem);
-      --container-width: min(90%, 1200px);
-      --container-narrow: min(90%, 800px);
-    }
-
-    * {
+    *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    :root {
+      --black: #0A0A0A;
+      --white: #FAFAFA;
+      --cream: #F5F0E8;
+      --gold: #C9A962;
+      --gray: #666;
+      --light-gray: #E5E5E5;
+
+      --f-display: 'Playfair Display', 'Noto Serif KR', serif;
+      --f-body: 'Inter', sans-serif;
+      --f-korean: 'Noto Serif KR', serif;
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
     html {
+      font-size: 16px;
       scroll-behavior: smooth;
     }
 
     body {
       font-family: var(--f-body);
-      background: var(--cream);
-      color: var(--charcoal);
-      line-height: 1.7;
-      font-weight: 400;
-      -webkit-font-smoothing: antialiased;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    ::selection {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     img {
@@ -101,9 +97,85 @@
       display: block;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    /* ═══════════════════════════════════════
+       CUSTOM CURSOR
+    ═══════════════════════════════════════ */
+    .cursor {
+      width: 20px;
+      height: 20px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s var(--ease-out-expo),
+                  width 0.3s var(--ease-out-expo),
+                  height 0.3s var(--ease-out-expo),
+                  border-color 0.3s;
+      transform: translate(-50%, -50%);
+    }
+
+    .cursor.hover {
+      width: 60px;
+      height: 60px;
+      border-color: var(--white);
+    }
+
+    .cursor-dot {
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+    }
+
+    @media (max-width: 768px) {
+      .cursor, .cursor-dot { display: none; }
+    }
+
+    /* ═══════════════════════════════════════
+       LOADING SCREEN
+    ═══════════════════════════════════════ */
+    .loader {
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s var(--ease-out-expo), visibility 0.8s;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-text {
+      font-family: var(--f-display);
+      font-size: clamp(3rem, 10vw, 8rem);
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      overflow: hidden;
+    }
+
+    .loader-text span {
+      display: inline-block;
+      animation: slideUp 1s var(--ease-out-expo) forwards;
+      opacity: 0;
+      transform: translateY(100%);
+    }
+
+    .loader-text span:nth-child(1) { animation-delay: 0.1s; }
+    .loader-text span:nth-child(2) { animation-delay: 0.2s; }
+    .loader-text span:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* ═══════════════════════════════════════
@@ -115,422 +187,549 @@
       left: 0;
       right: 0;
       z-index: 100;
-      background: rgba(255, 250, 245, 0.95);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(232, 213, 183, 0.5);
-      transition: transform 0.3s ease;
-    }
-
-    .nav-inner {
-      max-width: var(--container-width);
-      margin: 0 auto;
-      padding: 1rem 1.5rem;
+      padding: 2rem 4rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      mix-blend-mode: difference;
     }
 
     .nav-logo {
-      font-family: var(--f-serif);
-      font-size: 1.5rem;
+      font-family: var(--f-korean);
+      font-size: 1.25rem;
       font-weight: 500;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.1em;
     }
 
     .nav-links {
       display: flex;
-      gap: 2rem;
+      gap: 3rem;
       list-style: none;
     }
 
     .nav-links a {
-      font-size: 0.875rem;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      color: var(--brown);
-      transition: color 0.2s;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      position: relative;
+      padding: 0.5rem 0;
     }
 
-    .nav-links a:hover {
-      color: var(--gold-dark);
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: currentColor;
+      transition: width 0.4s var(--ease-out-expo);
     }
 
-    .nav-mobile-btn {
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-menu-btn {
       display: none;
       background: none;
       border: none;
+      color: inherit;
       cursor: pointer;
-      padding: 0.5rem;
+      padding: 1rem;
     }
 
-    .nav-mobile-btn span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--charcoal);
-      margin: 5px 0;
-      transition: 0.3s;
+    @media (max-width: 768px) {
+      .nav {
+        padding: 1.5rem 1.5rem;
+      }
+      .nav-links {
+        display: none;
+      }
+      .nav-menu-btn {
+        display: block;
+      }
     }
 
     /* ═══════════════════════════════════════
-       HERO SECTION
+       HERO — FULL VIEWPORT IMPACT
     ═══════════════════════════════════════ */
     .hero {
-      min-height: 100vh;
+      height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: calc(var(--section-padding) + 60px) 1.5rem var(--section-padding);
-      background: linear-gradient(180deg, var(--cream) 0%, var(--beige) 100%);
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 4rem;
       position: relative;
       overflow: hidden;
     }
 
-    .hero::before {
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #1a1510 0%, #0a0a0a 100%);
+    }
+
+    .hero-bg::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background:
-        radial-gradient(circle at 20% 80%, rgba(212, 168, 83, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(212, 168, 83, 0.06) 0%, transparent 40%);
-      pointer-events: none;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(201, 169, 98, 0.08) 0%, transparent 50%);
     }
 
     .hero-content {
       position: relative;
       z-index: 1;
+      max-width: 1400px;
     }
 
-    .hero-badge {
-      display: inline-block;
+    .hero-eyebrow {
       font-size: 0.75rem;
+      font-weight: 500;
       letter-spacing: 0.3em;
-      color: var(--gold-dark);
+      text-transform: uppercase;
+      color: var(--gold);
       margin-bottom: 2rem;
-      padding: 0.5rem 1.5rem;
-      border: 1px solid var(--gold);
-      border-radius: 2rem;
+      overflow: hidden;
     }
 
-    .hero-logo {
+    .hero-eyebrow span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(100%);
+      animation: slideUp 1s var(--ease-out-expo) 1.5s forwards;
+    }
+
+    .hero-title {
       font-family: var(--f-display);
-      font-size: clamp(4rem, 15vw, 8rem);
+      font-size: clamp(4rem, 15vw, 12rem);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+
+    .hero-title .line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .hero-title .line span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(100%);
+      animation: slideUp 1.2s var(--ease-out-expo) forwards;
+    }
+
+    .hero-title .line:nth-child(1) span { animation-delay: 1.6s; }
+    .hero-title .line:nth-child(2) span { animation-delay: 1.8s; }
+
+    .hero-title .korean {
+      font-family: var(--f-korean);
+      font-size: 0.4em;
       font-weight: 400;
       letter-spacing: 0.1em;
-      color: var(--carbon);
-      line-height: 1;
-      margin-bottom: 1rem;
+      vertical-align: middle;
+      margin-left: 1rem;
+      color: var(--gold);
     }
 
-    .hero-logo-sub {
-      font-family: var(--f-serif);
-      font-size: clamp(1rem, 3vw, 1.5rem);
-      font-weight: 400;
-      color: var(--brown);
-      letter-spacing: 0.2em;
-      margin-bottom: 2rem;
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
     .hero-tagline {
-      font-family: var(--f-display);
-      font-size: clamp(1.25rem, 3vw, 1.75rem);
-      font-weight: 400;
-      font-style: italic;
-      color: var(--charcoal);
-      margin-bottom: 1rem;
-      opacity: 0.9;
-    }
-
-    .hero-desc {
       font-size: 1rem;
-      color: var(--brown);
+      font-weight: 300;
       max-width: 400px;
-      margin: 0 auto 3rem;
       line-height: 1.8;
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      color: var(--cream);
-      background: var(--charcoal);
-      padding: 1rem 2.5rem;
-      border-radius: 0;
-      transition: all 0.3s ease;
-    }
-
-    .hero-cta:hover {
-      background: var(--gold-dark);
-      transform: translateY(-2px);
+      opacity: 0;
+      animation: fadeIn 1s var(--ease-out-expo) 2.2s forwards;
     }
 
     .hero-scroll {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
-      color: var(--brown);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      animation: float 2s ease-in-out infinite;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeIn 1s var(--ease-out-expo) 2.4s forwards;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(8px); }
+    .hero-scroll span {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(0.5); opacity: 0.5; }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 2rem;
+        justify-content: center;
+      }
+      .hero-title {
+        font-size: clamp(3rem, 12vw, 5rem);
+      }
+      .hero-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+      }
+      .hero-scroll {
+        display: none;
+      }
     }
 
     /* ═══════════════════════════════════════
-       ABOUT SECTION
+       MARQUEE
+    ═══════════════════════════════════════ */
+    .marquee {
+      padding: 2rem 0;
+      background: var(--gold);
+      color: var(--black);
+      overflow: hidden;
+    }
+
+    .marquee-track {
+      display: flex;
+      animation: marquee 30s linear infinite;
+    }
+
+    .marquee-content {
+      display: flex;
+      gap: 4rem;
+      padding-right: 4rem;
+      white-space: nowrap;
+    }
+
+    .marquee-item {
+      font-family: var(--f-display);
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .marquee-item::before {
+      content: '✦';
+      font-size: 0.75rem;
+    }
+
+    @keyframes marquee {
+      to { transform: translateX(-50%); }
+    }
+
+    /* ═══════════════════════════════════════
+       ABOUT — SPLIT LAYOUT
     ═══════════════════════════════════════ */
     .about {
-      padding: var(--section-padding) 1.5rem;
-      background: var(--warm-white);
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--cream);
+      color: var(--black);
     }
 
-    .about-inner {
-      max-width: var(--container-narrow);
-      margin: 0 auto;
-      text-align: center;
+    .about-image {
+      position: relative;
+      overflow: hidden;
     }
 
-    .section-label {
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.5s var(--ease-out-expo);
+    }
+
+    .about:hover .about-image img {
+      transform: scale(1.05);
+    }
+
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem;
+    }
+
+    .about-label {
       font-size: 0.75rem;
+      font-weight: 500;
       letter-spacing: 0.3em;
-      color: var(--gold-dark);
-      margin-bottom: 1rem;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 3rem;
     }
 
-    .section-title {
-      font-family: var(--f-serif);
-      font-size: clamp(1.75rem, 4vw, 2.5rem);
-      font-weight: 500;
-      color: var(--carbon);
+    .about-title {
+      font-family: var(--f-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 400;
+      line-height: 1.2;
       margin-bottom: 2rem;
-      line-height: 1.4;
     }
 
     .about-text {
       font-size: 1rem;
-      color: var(--charcoal);
+      font-weight: 300;
       line-height: 2;
-      margin-bottom: 2rem;
+      color: var(--gray);
+      margin-bottom: 3rem;
+      max-width: 500px;
     }
 
-    .about-features {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-top: 3rem;
+    .about-stats {
+      display: flex;
+      gap: 4rem;
       padding-top: 3rem;
-      border-top: 1px solid var(--wheat);
+      border-top: 1px solid var(--light-gray);
     }
 
-    .feature {
-      text-align: center;
+    .stat {
+      text-align: left;
     }
 
-    .feature-number {
+    .stat-number {
       font-family: var(--f-display);
-      font-size: 2.5rem;
-      color: var(--gold);
+      font-size: 3rem;
+      font-weight: 400;
       line-height: 1;
       margin-bottom: 0.5rem;
     }
 
-    .feature-label {
-      font-size: 0.875rem;
-      color: var(--brown);
-      letter-spacing: 0.05em;
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    @media (max-width: 1024px) {
+      .about {
+        grid-template-columns: 1fr;
+      }
+      .about-image {
+        height: 50vh;
+      }
+      .about-content {
+        padding: 4rem 2rem;
+      }
     }
 
     /* ═══════════════════════════════════════
-       MENU SECTION
+       MENU — HORIZONTAL SCROLL GALLERY
     ═══════════════════════════════════════ */
     .menu {
-      padding: var(--section-padding) 1.5rem;
-      background: var(--cream);
-    }
-
-    .menu-inner {
-      max-width: var(--container-width);
-      margin: 0 auto;
+      padding: 8rem 0;
+      background: var(--black);
     }
 
     .menu-header {
-      text-align: center;
+      padding: 0 4rem;
       margin-bottom: 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
     }
 
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    .menu-title {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 400;
+    }
+
+    .menu-subtitle {
+      font-size: 0.875rem;
+      color: var(--gray);
+      max-width: 300px;
+      text-align: right;
+    }
+
+    .menu-scroll {
+      display: flex;
       gap: 2rem;
+      padding: 0 4rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .menu-scroll::-webkit-scrollbar {
+      display: none;
     }
 
     .menu-item {
-      background: var(--warm-white);
-      border-radius: 8px;
+      flex: 0 0 350px;
+      scroll-snap-align: start;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .menu-item-image {
+      aspect-ratio: 3/4;
+      background: #1a1a1a;
       overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 1.5rem;
+      position: relative;
     }
 
-    .menu-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-    }
-
-    .menu-img {
+    .menu-item-image img {
       width: 100%;
-      aspect-ratio: 4/3;
-      background: var(--beige);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s var(--ease-out-expo);
     }
 
-    .menu-img img {
-      width: 60%;
-      height: auto;
-      object-fit: contain;
-      transition: transform 0.3s ease;
+    .menu-item:hover .menu-item-image img {
+      transform: scale(1.1);
     }
 
-    .menu-item:hover .menu-img img {
-      transform: scale(1.05);
-    }
-
-    .menu-info {
-      padding: 1.5rem;
-      text-align: center;
-    }
-
-    .menu-category {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      color: var(--gold-dark);
-      margin-bottom: 0.5rem;
-    }
-
-    .menu-name {
-      font-family: var(--f-serif);
-      font-size: 1.25rem;
-      font-weight: 500;
-      color: var(--carbon);
-      margin-bottom: 0.5rem;
-    }
-
-    .menu-desc {
+    .menu-item-number {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      font-family: var(--f-display);
       font-size: 0.875rem;
-      color: var(--brown);
-      margin-bottom: 1rem;
-      line-height: 1.6;
-    }
-
-    .menu-price {
-      font-family: var(--f-display);
-      font-size: 1.25rem;
-      color: var(--charcoal);
-    }
-
-    /* ═══════════════════════════════════════
-       SIGNATURE SECTION
-    ═══════════════════════════════════════ */
-    .signature {
-      padding: var(--section-padding) 1.5rem;
-      background: var(--charcoal);
-      color: var(--cream);
-    }
-
-    .signature-inner {
-      max-width: var(--container-width);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    .signature-content {
-      padding-right: 2rem;
-    }
-
-    .signature .section-label {
-      color: var(--gold);
-    }
-
-    .signature .section-title {
-      color: var(--cream);
-    }
-
-    .signature-text {
-      font-size: 1rem;
-      line-height: 2;
-      color: rgba(255, 250, 245, 0.8);
-      margin-bottom: 2rem;
-    }
-
-    .signature-quote {
-      font-family: var(--f-display);
-      font-size: 1.5rem;
       font-style: italic;
       color: var(--gold);
-      padding-left: 1.5rem;
-      border-left: 2px solid var(--gold);
     }
 
-    .signature-image {
-      aspect-ratio: 4/5;
-      background: var(--brown);
-      border-radius: 4px;
-      overflow: hidden;
+    .menu-item-info {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: flex-start;
     }
 
-    .signature-image img {
-      width: 70%;
-      height: auto;
+    .menu-item-name {
+      font-family: var(--f-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .menu-item-desc {
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    .menu-item-price {
+      font-family: var(--f-display);
+      font-size: 1.25rem;
+      color: var(--gold);
+    }
+
+    @media (max-width: 768px) {
+      .menu-header {
+        padding: 0 2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      .menu-subtitle {
+        text-align: left;
+      }
+      .menu-scroll {
+        padding: 0 2rem;
+      }
+      .menu-item {
+        flex: 0 0 280px;
+      }
     }
 
     /* ═══════════════════════════════════════
-       LOCATION SECTION
+       PHILOSOPHY — FULL BLEED TEXT
     ═══════════════════════════════════════ */
-    .location {
-      padding: var(--section-padding) 1.5rem;
-      background: var(--beige);
+    .philosophy {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem;
+      background: var(--cream);
+      color: var(--black);
+      position: relative;
     }
 
-    .location-inner {
-      max-width: var(--container-width);
-      margin: 0 auto;
+    .philosophy-content {
+      max-width: 900px;
+    }
+
+    .philosophy-quote {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 6vw, 5rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.3;
+      margin-bottom: 3rem;
+    }
+
+    .philosophy-quote .highlight {
+      color: var(--gold);
+    }
+
+    .philosophy-author {
+      font-size: 0.875rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    .philosophy-bg-text {
+      position: absolute;
+      font-family: var(--f-korean);
+      font-size: clamp(15rem, 40vw, 40rem);
+      font-weight: 600;
+      color: rgba(0,0,0,0.03);
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════
+       LOCATION — MINIMAL
+    ═══════════════════════════════════════ */
+    .location {
+      padding: 8rem 4rem;
+      background: var(--black);
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 4rem;
-      align-items: start;
     }
 
-    .location-info h3 {
-      font-family: var(--f-serif);
-      font-size: 1.5rem;
-      font-weight: 500;
-      margin-bottom: 2rem;
-      color: var(--carbon);
+    .location-info h2 {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      margin-bottom: 3rem;
     }
 
     .location-detail {
@@ -540,20 +739,20 @@
     .location-label {
       font-size: 0.75rem;
       letter-spacing: 0.2em;
-      color: var(--gold-dark);
-      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
     }
 
     .location-value {
-      font-size: 1rem;
-      color: var(--charcoal);
+      font-size: 1.125rem;
+      font-weight: 300;
       line-height: 1.8;
     }
 
     .location-value a {
-      color: var(--charcoal);
-      border-bottom: 1px solid var(--wheat);
-      transition: border-color 0.2s;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      transition: border-color 0.3s;
     }
 
     .location-value a:hover {
@@ -562,146 +761,107 @@
 
     .location-map {
       aspect-ratio: 4/3;
-      background: var(--wheat);
-      border-radius: 8px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .location-map iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .map-placeholder {
-      width: 100%;
-      height: 100%;
+      background: #111;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: var(--brown);
-      gap: 1rem;
+      position: relative;
+      overflow: hidden;
     }
 
-    .map-placeholder svg {
-      width: 48px;
-      height: 48px;
-      opacity: 0.5;
+    .location-map::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
-    /* ═══════════════════════════════════════
-       CONTACT SECTION
-    ═══════════════════════════════════════ */
-    .contact {
-      padding: var(--section-padding) 1.5rem;
-      background: var(--warm-white);
+    .map-pin {
+      width: 40px;
+      height: 40px;
+      background: var(--gold);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      animation: pinBounce 2s ease-in-out infinite;
     }
 
-    .contact-inner {
-      max-width: var(--container-narrow);
-      margin: 0 auto;
-      text-align: center;
+    @keyframes pinBounce {
+      0%, 100% { transform: rotate(-45deg) translateY(0); }
+      50% { transform: rotate(-45deg) translateY(-10px); }
     }
 
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3rem;
-      margin-top: 3rem;
-    }
-
-    .contact-item {
-      padding: 2rem;
-      background: var(--cream);
-      border-radius: 8px;
-    }
-
-    .contact-icon {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto 1rem;
-      color: var(--gold);
-    }
-
-    .contact-title {
-      font-family: var(--f-serif);
-      font-size: 1.125rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      color: var(--carbon);
-    }
-
-    .contact-text {
-      font-size: 0.9375rem;
-      color: var(--brown);
-      line-height: 1.6;
+    @media (max-width: 768px) {
+      .location {
+        grid-template-columns: 1fr;
+        padding: 4rem 2rem;
+      }
     }
 
     /* ═══════════════════════════════════════
-       FOOTER
+       FOOTER — GRAND
     ═══════════════════════════════════════ */
     .footer {
-      padding: 4rem 1.5rem 2rem;
-      background: var(--carbon);
-      color: var(--cream);
-    }
-
-    .footer-inner {
-      max-width: var(--container-width);
-      margin: 0 auto;
+      padding: 8rem 4rem 4rem;
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
     .footer-main {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 4rem;
-      padding-bottom: 3rem;
-      border-bottom: 1px solid rgba(255, 250, 245, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6rem;
     }
 
     .footer-brand {
-      max-width: 300px;
+      max-width: 400px;
     }
 
     .footer-logo {
-      font-family: var(--f-serif);
-      font-size: 2rem;
+      font-family: var(--f-korean);
+      font-size: 3rem;
       font-weight: 500;
       letter-spacing: 0.1em;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
 
     .footer-desc {
       font-size: 0.875rem;
-      color: rgba(255, 250, 245, 0.6);
+      font-weight: 300;
       line-height: 1.8;
+      color: var(--gray);
     }
 
-    .footer-nav h4 {
+    .footer-links {
+      display: flex;
+      gap: 6rem;
+    }
+
+    .footer-col h4 {
       font-size: 0.75rem;
+      font-weight: 500;
       letter-spacing: 0.2em;
+      text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 1.5rem;
     }
 
-    .footer-nav ul {
+    .footer-col ul {
       list-style: none;
     }
 
-    .footer-nav li {
+    .footer-col li {
       margin-bottom: 0.75rem;
     }
 
-    .footer-nav a {
+    .footer-col a {
       font-size: 0.875rem;
-      color: rgba(255, 250, 245, 0.7);
-      transition: color 0.2s;
+      color: var(--gray);
+      transition: color 0.3s;
     }
 
-    .footer-nav a:hover {
-      color: var(--cream);
+    .footer-col a:hover {
+      color: var(--white);
     }
 
     .footer-bottom {
@@ -709,37 +869,57 @@
       justify-content: space-between;
       align-items: center;
       padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
     .footer-copy {
       font-size: 0.75rem;
-      color: rgba(255, 250, 245, 0.4);
+      color: var(--gray);
     }
 
     .footer-social {
       display: flex;
-      gap: 1rem;
+      gap: 1.5rem;
     }
 
     .footer-social a {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255, 250, 245, 0.1);
-      border-radius: 50%;
-      color: var(--cream);
-      transition: background 0.2s;
+      transition: all 0.3s;
     }
 
     .footer-social a:hover {
       background: var(--gold);
+      border-color: var(--gold);
+      color: var(--black);
     }
 
     .footer-social svg {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .footer {
+        padding: 4rem 2rem 2rem;
+      }
+      .footer-main {
+        flex-direction: column;
+        gap: 3rem;
+      }
+      .footer-links {
+        gap: 3rem;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
     }
 
     /* ═══════════════════════════════════════
@@ -747,537 +927,393 @@
     ═══════════════════════════════════════ */
     .portal {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
-      width: 48px;
-      height: 48px;
-      background: var(--charcoal);
+      bottom: 2rem;
+      right: 2rem;
+      width: 56px;
+      height: 56px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      opacity: 0.1;
-      transition: all 0.3s ease;
+      opacity: 0.3;
+      transition: all 0.4s var(--ease-out-expo);
       z-index: 50;
     }
 
     .portal:hover {
-      opacity: 0.9;
+      opacity: 1;
+      background: var(--gold);
+      border-color: var(--gold);
       transform: scale(1.1);
     }
 
     .portal svg {
-      width: 20px;
-      height: 20px;
-      fill: var(--cream);
+      width: 24px;
+      height: 24px;
+      fill: var(--white);
+      transition: fill 0.3s;
+    }
+
+    .portal:hover svg {
+      fill: var(--black);
     }
 
     /* ═══════════════════════════════════════
-       RESPONSIVE - TABLET
+       SCROLL ANIMATIONS
     ═══════════════════════════════════════ */
-    @media (max-width: 1024px) {
-      .menu-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .signature-inner {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-
-      .signature-content {
-        padding-right: 0;
-        text-align: center;
-      }
-
-      .signature-quote {
-        border-left: none;
-        padding-left: 0;
-        border-top: 2px solid var(--gold);
-        padding-top: 1.5rem;
-      }
-
-      .signature-image {
-        max-width: 400px;
-        margin: 0 auto;
-      }
-
-      .location-inner {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-
-      .footer-main {
-        grid-template-columns: 1fr 1fr;
-        gap: 3rem;
-      }
-
-      .footer-brand {
-        grid-column: 1 / -1;
-        max-width: none;
-        text-align: center;
-      }
+    .reveal {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 1s var(--ease-out-expo);
     }
 
-    /* ═══════════════════════════════════════
-       RESPONSIVE - MOBILE
-    ═══════════════════════════════════════ */
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: var(--cream);
-        flex-direction: column;
-        padding: 1.5rem;
-        gap: 1rem;
-        border-bottom: 1px solid var(--wheat);
-      }
-
-      .nav-links.active {
-        display: flex;
-      }
-
-      .nav-mobile-btn {
-        display: block;
-      }
-
-      .hero {
-        min-height: 90vh;
-      }
-
-      .hero-logo {
-        font-size: clamp(3rem, 12vw, 5rem);
-      }
-
-      .about-features {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-
-      .menu-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-
-      .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-
-      .footer-main {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .footer-brand {
-        max-width: none;
-      }
-
-      .footer-bottom {
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-
-      .portal {
-        bottom: 16px;
-        right: 16px;
-        width: 44px;
-        height: 44px;
-      }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
   </style>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════
-       NAVIGATION
-  ═══════════════════════════════════════ -->
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <h1 class="loader-text">
+      <span>好</span><span>爺</span><span>堂</span>
+    </h1>
+  </div>
+
+  <!-- Navigation -->
   <nav class="nav">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo">好爺堂</a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#about">소개</a></li>
-        <li><a href="#menu">메뉴</a></li>
-        <li><a href="#location">찾아오시는 길</a></li>
-        <li><a href="#contact">연락처</a></li>
-      </ul>
-      <button class="nav-mobile-btn" id="navToggle" aria-label="메뉴 열기">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
+    <a href="#" class="nav-logo">好爺堂</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#location">Visit</a></li>
+    </ul>
+    <button class="nav-menu-btn" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="3" y1="8" x2="21" y2="8"/>
+        <line x1="3" y1="16" x2="21" y2="16"/>
+      </svg>
+    </button>
   </nav>
 
-
-  <!-- ═══════════════════════════════════════
-       HERO
-  ═══════════════════════════════════════ -->
+  <!-- Hero -->
   <section class="hero">
+    <div class="hero-bg"></div>
     <div class="hero-content">
-      <span class="hero-badge">SINCE 2006</span>
-      <h1 class="hero-logo">好爺堂</h1>
-      <p class="hero-logo-sub">호야당 베이커리</p>
-      <p class="hero-tagline">매일 아침, 정성을 담아 굽습니다</p>
-      <p class="hero-desc">
-        20년 전통의 손맛으로 빚어낸 수제 빵.<br>
-        오늘도 갓 구운 빵 향기가 퍼져나갑니다.
-      </p>
-      <a href="#menu" class="hero-cta">메뉴 보기</a>
-    </div>
-    <div class="hero-scroll">
-      <span>SCROLL</span>
-      <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
-        <path d="M8 4V20M8 20L2 14M8 20L14 14" stroke="currentColor" stroke-width="1.5"/>
-      </svg>
+      <p class="hero-eyebrow"><span>Artisan Bakery — Since 2006</span></p>
+      <h1 class="hero-title">
+        <span class="line"><span>好爺堂</span></span>
+        <span class="line"><span>Hoyadang<span class="korean">호야당</span></span></span>
+      </h1>
+      <div class="hero-bottom">
+        <p class="hero-tagline">
+          매일 새벽, 손으로 빚는 정성.<br>
+          20년의 시간이 만든 맛.
+        </p>
+        <div class="hero-scroll">
+          <span>Scroll</span>
+          <div class="scroll-line"></div>
+        </div>
+      </div>
     </div>
   </section>
 
+  <!-- Marquee -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <span class="marquee-item">Salt Bread</span>
+        <span class="marquee-item">Soboro</span>
+        <span class="marquee-item">Croquette</span>
+        <span class="marquee-item">Handmade Burger</span>
+        <span class="marquee-item">Sandwich</span>
+        <span class="marquee-item">Milk Bread</span>
+      </div>
+      <div class="marquee-content">
+        <span class="marquee-item">Salt Bread</span>
+        <span class="marquee-item">Soboro</span>
+        <span class="marquee-item">Croquette</span>
+        <span class="marquee-item">Handmade Burger</span>
+        <span class="marquee-item">Sandwich</span>
+        <span class="marquee-item">Milk Bread</span>
+      </div>
+    </div>
+  </div>
 
-  <!-- ═══════════════════════════════════════
-       ABOUT
-  ═══════════════════════════════════════ -->
+  <!-- About -->
   <section class="about" id="about">
-    <div class="about-inner">
-      <span class="section-label">ABOUT US</span>
-      <h2 class="section-title">손으로 빚는 정성,<br>20년의 시간이 담긴 맛</h2>
-      <p class="about-text">
-        2006년 작은 골목에서 시작한 호야당은<br>
-        매일 새벽 반죽을 치대며 하루를 시작합니다.<br>
+    <div class="about-image">
+      <img src="assets/icons/Chef.png" alt="Artisan Baker">
+    </div>
+    <div class="about-content">
+      <p class="about-label reveal">Our Story</p>
+      <h2 class="about-title reveal reveal-delay-1">손으로 빚는<br>정성의 시간</h2>
+      <p class="about-text reveal reveal-delay-2">
+        2006년, 작은 골목에서 시작한 호야당.<br>
+        매일 새벽 4시, 손으로 반죽을 치대며 하루를 시작합니다.<br>
         기계가 아닌 손으로, 레시피가 아닌 감으로.<br>
         그렇게 20년, 변하지 않는 맛을 지켜왔습니다.
       </p>
-      <div class="about-features">
-        <div class="feature">
-          <p class="feature-number">20</p>
-          <p class="feature-label">년 전통</p>
+      <div class="about-stats reveal reveal-delay-3">
+        <div class="stat">
+          <p class="stat-number">20</p>
+          <p class="stat-label">Years</p>
         </div>
-        <div class="feature">
-          <p class="feature-number">100%</p>
-          <p class="feature-label">수제 반죽</p>
+        <div class="stat">
+          <p class="stat-number">4am</p>
+          <p class="stat-label">Daily Start</p>
         </div>
-        <div class="feature">
-          <p class="feature-number">Daily</p>
-          <p class="feature-label">매일 신선하게</p>
+        <div class="stat">
+          <p class="stat-number">100%</p>
+          <p class="stat-label">Handmade</p>
         </div>
       </div>
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════
-       MENU
-  ═══════════════════════════════════════ -->
+  <!-- Menu -->
   <section class="menu" id="menu">
-    <div class="menu-inner">
-      <div class="menu-header">
-        <span class="section-label">OUR MENU</span>
-        <h2 class="section-title">오늘의 빵</h2>
-      </div>
+    <div class="menu-header">
+      <h2 class="menu-title reveal">Our Breads</h2>
+      <p class="menu-subtitle reveal reveal-delay-1">매일 아침 갓 구운 빵.<br>당일 생산, 당일 판매.</p>
+    </div>
+    <div class="menu-scroll">
+      <article class="menu-item">
+        <div class="menu-item-image">
+          <span class="menu-item-number">01</span>
+          <img src="assets/icons/K-모찌 도넛.png" alt="소금빵">
+        </div>
+        <div class="menu-item-info">
+          <div>
+            <h3 class="menu-item-name">소금빵</h3>
+            <p class="menu-item-desc">Salt Bread</p>
+          </div>
+          <span class="menu-item-price">₩2,500</span>
+        </div>
+      </article>
 
-      <div class="menu-grid">
-        <!-- 소금빵 -->
-        <article class="menu-item">
-          <div class="menu-img">
-            <img src="assets/icons/K-모찌 도넛.png" alt="소금빵">
+      <article class="menu-item">
+        <div class="menu-item-image">
+          <span class="menu-item-number">02</span>
+          <img src="assets/icons/K-컵떡볶이 도넛.png" alt="소보로">
+        </div>
+        <div class="menu-item-info">
+          <div>
+            <h3 class="menu-item-name">소보로</h3>
+            <p class="menu-item-desc">Streusel</p>
           </div>
-          <div class="menu-info">
-            <p class="menu-category">SIGNATURE</p>
-            <h3 class="menu-name">소금빵</h3>
-            <p class="menu-desc">바삭한 겉면과 버터의 풍미</p>
-            <p class="menu-price">₩2,500</p>
-          </div>
-        </article>
+          <span class="menu-item-price">₩2,000</span>
+        </div>
+      </article>
 
-        <!-- 소보로 -->
-        <article class="menu-item">
-          <div class="menu-img">
-            <img src="assets/icons/K-컵떡볶이 도넛.png" alt="소보로">
+      <article class="menu-item">
+        <div class="menu-item-image">
+          <span class="menu-item-number">03</span>
+          <img src="assets/icons/K-도넛 버거.png" alt="고로케">
+        </div>
+        <div class="menu-item-info">
+          <div>
+            <h3 class="menu-item-name">고로케</h3>
+            <p class="menu-item-desc">Croquette</p>
           </div>
-          <div class="menu-info">
-            <p class="menu-category">CLASSIC</p>
-            <h3 class="menu-name">소보로</h3>
-            <p class="menu-desc">고소한 땅콩 크럼블 토핑</p>
-            <p class="menu-price">₩2,000</p>
-          </div>
-        </article>
+          <span class="menu-item-price">₩2,500</span>
+        </div>
+      </article>
 
-        <!-- 고로케 -->
-        <article class="menu-item">
-          <div class="menu-img">
-            <img src="assets/icons/K-도넛 버거.png" alt="고로케">
+      <article class="menu-item">
+        <div class="menu-item-image">
+          <span class="menu-item-number">04</span>
+          <img src="assets/icons/K-도넛 버거.png" alt="수제버거">
+        </div>
+        <div class="menu-item-info">
+          <div>
+            <h3 class="menu-item-name">수제 버거</h3>
+            <p class="menu-item-desc">Handmade Burger</p>
           </div>
-          <div class="menu-info">
-            <p class="menu-category">BEST</p>
-            <h3 class="menu-name">고로케</h3>
-            <p class="menu-desc">바삭한 튀김에 크림 필링</p>
-            <p class="menu-price">₩2,500</p>
-          </div>
-        </article>
+          <span class="menu-item-price">₩5,500</span>
+        </div>
+      </article>
 
-        <!-- 수제버거 -->
-        <article class="menu-item">
-          <div class="menu-img">
-            <img src="assets/icons/K-도넛 버거.png" alt="수제버거">
+      <article class="menu-item">
+        <div class="menu-item-image">
+          <span class="menu-item-number">05</span>
+          <img src="assets/icons/K-토스트 바.png" alt="샌드위치">
+        </div>
+        <div class="menu-item-info">
+          <div>
+            <h3 class="menu-item-name">샌드위치</h3>
+            <p class="menu-item-desc">Sandwich</p>
           </div>
-          <div class="menu-info">
-            <p class="menu-category">BRUNCH</p>
-            <h3 class="menu-name">수제 버거</h3>
-            <p class="menu-desc">직접 만든 번과 신선한 재료</p>
-            <p class="menu-price">₩5,500</p>
-          </div>
-        </article>
+          <span class="menu-item-price">₩4,500</span>
+        </div>
+      </article>
 
-        <!-- 샌드위치 -->
-        <article class="menu-item">
-          <div class="menu-img">
-            <img src="assets/icons/K-토스트 바.png" alt="샌드위치">
+      <article class="menu-item">
+        <div class="menu-item-image">
+          <span class="menu-item-number">06</span>
+          <img src="assets/icons/K-토스트 바.png" alt="우유식빵">
+        </div>
+        <div class="menu-item-info">
+          <div>
+            <h3 class="menu-item-name">우유 식빵</h3>
+            <p class="menu-item-desc">Milk Bread</p>
           </div>
-          <div class="menu-info">
-            <p class="menu-category">BRUNCH</p>
-            <h3 class="menu-name">샌드위치</h3>
-            <p class="menu-desc">갓 구운 빵에 풍성한 속</p>
-            <p class="menu-price">₩4,500</p>
-          </div>
-        </article>
-
-        <!-- 식빵 -->
-        <article class="menu-item">
-          <div class="menu-img">
-            <img src="assets/icons/K-토스트 바.png" alt="우유식빵">
-          </div>
-          <div class="menu-info">
-            <p class="menu-category">DAILY</p>
-            <h3 class="menu-name">우유 식빵</h3>
-            <p class="menu-desc">부드럽고 촉촉한 매일의 빵</p>
-            <p class="menu-price">₩4,000</p>
-          </div>
-        </article>
-      </div>
+          <span class="menu-item-price">₩4,000</span>
+        </div>
+      </article>
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════
-       SIGNATURE
-  ═══════════════════════════════════════ -->
-  <section class="signature">
-    <div class="signature-inner">
-      <div class="signature-content">
-        <span class="section-label">PHILOSOPHY</span>
-        <h2 class="section-title">손으로 빚습니다</h2>
-        <p class="signature-text">
-          기계로 찍어내는 빵이 아닙니다.<br>
-          매일 새벽 4시, 손으로 반죽을 치대고<br>
-          오븐 앞에서 빵이 익어가는 소리를 듣습니다.<br>
-          그 정성이 맛의 차이를 만듭니다.
-        </p>
-        <p class="signature-quote">"좋은 빵은 손에서 나옵니다"</p>
-      </div>
-      <div class="signature-image">
-        <img src="assets/icons/Chef.png" alt="호야당 장인">
-      </div>
+  <!-- Philosophy -->
+  <section class="philosophy">
+    <div class="philosophy-bg-text">好爺堂</div>
+    <div class="philosophy-content reveal">
+      <blockquote class="philosophy-quote">
+        "좋은 빵은 <span class="highlight">손</span>에서 나옵니다.<br>
+        그 손에는 <span class="highlight">20년</span>의<br>
+        시간이 담겨 있습니다."
+      </blockquote>
+      <p class="philosophy-author">— 好爺堂 Master Baker</p>
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════
-       LOCATION
-  ═══════════════════════════════════════ -->
+  <!-- Location -->
   <section class="location" id="location">
-    <div class="location-inner">
-      <div class="location-info">
-        <span class="section-label">LOCATION</span>
-        <h3>찾아오시는 길</h3>
-
-        <div class="location-detail">
-          <p class="location-label">주소</p>
-          <p class="location-value">
-            경기도 안양시 만안구 와룡로 12-1<br>
-            <span style="color: var(--brown); font-size: 0.875rem;">안양역 도보 5분</span>
-          </p>
-        </div>
-
-        <div class="location-detail">
-          <p class="location-label">영업시간</p>
-          <p class="location-value">
-            월 - 토 : 08:00 - 20:00<br>
-            일요일 휴무
-          </p>
-        </div>
-
-        <div class="location-detail">
-          <p class="location-label">연락처</p>
-          <p class="location-value">
-            <a href="tel:+82-70-8886-3300">070-8886-3300</a>
-          </p>
-        </div>
+    <div class="location-info">
+      <h2 class="reveal">Visit Us</h2>
+      <div class="location-detail reveal reveal-delay-1">
+        <p class="location-label">Address</p>
+        <p class="location-value">
+          경기도 안양시 만안구 와룡로 12-1<br>
+          <span style="opacity: 0.5; font-size: 0.875rem;">안양역 도보 5분</span>
+        </p>
       </div>
-
-      <div class="location-map">
-        <div class="map-placeholder">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-          </svg>
-          <p>안양시 만안구 와룡로 12-1</p>
-        </div>
+      <div class="location-detail reveal reveal-delay-2">
+        <p class="location-label">Hours</p>
+        <p class="location-value">
+          월 — 토 : 08:00 — 20:00<br>
+          일요일 휴무
+        </p>
       </div>
+      <div class="location-detail reveal reveal-delay-3">
+        <p class="location-label">Contact</p>
+        <p class="location-value">
+          <a href="tel:+82-70-8886-3300">070-8886-3300</a>
+        </p>
+      </div>
+    </div>
+    <div class="location-map reveal">
+      <div class="map-pin"></div>
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════
-       CONTACT
-  ═══════════════════════════════════════ -->
-  <section class="contact" id="contact">
-    <div class="contact-inner">
-      <span class="section-label">CONTACT</span>
-      <h2 class="section-title">언제든 연락주세요</h2>
-
-      <div class="contact-grid">
-        <div class="contact-item">
-          <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-          </svg>
-          <h3 class="contact-title">전화</h3>
-          <p class="contact-text">070-8886-3300</p>
-        </div>
-
-        <div class="contact-item">
-          <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-          </svg>
-          <h3 class="contact-title">영업시간</h3>
-          <p class="contact-text">월-토 08:00-20:00<br>일요일 휴무</p>
-        </div>
-
-        <div class="contact-item">
-          <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-          </svg>
-          <h3 class="contact-title">위치</h3>
-          <p class="contact-text">안양시 만안구<br>와룡로 12-1</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════
-       FOOTER
-  ═══════════════════════════════════════ -->
+  <!-- Footer -->
   <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-main">
-        <div class="footer-brand">
-          <p class="footer-logo">好爺堂</p>
-          <p class="footer-desc">
-            2006년부터 한결같은 마음으로<br>
-            매일 신선한 빵을 굽습니다.
-          </p>
-        </div>
-
-        <nav class="footer-nav">
-          <h4>MENU</h4>
+    <div class="footer-main">
+      <div class="footer-brand">
+        <p class="footer-logo">好爺堂</p>
+        <p class="footer-desc">
+          2006년부터 한결같은 마음으로 매일 신선한 빵을 굽습니다.
+          손으로 빚는 정성, 20년의 시간.
+        </p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Menu</h4>
           <ul>
-            <li><a href="#about">소개</a></li>
-            <li><a href="#menu">메뉴</a></li>
-            <li><a href="#location">찾아오시는 길</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#menu">Our Breads</a></li>
+            <li><a href="#location">Visit</a></li>
           </ul>
-        </nav>
-
-        <nav class="footer-nav">
-          <h4>INFO</h4>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
           <ul>
             <li><a href="tel:+82-70-8886-3300">070-8886-3300</a></li>
-            <li><a href="#">안양시 만안구 와룡로 12-1</a></li>
+            <li><a href="#">와룡로 12-1</a></li>
           </ul>
-        </nav>
-      </div>
-
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; 2026 好爺堂. All rights reserved.</p>
-        <div class="footer-social">
-          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-            </svg>
-          </a>
         </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 好爺堂. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
       </div>
     </div>
   </footer>
 
-
-  <!-- ═══════════════════════════════════════
-       HIDDEN PORTAL (2층 스튜디오)
-  ═══════════════════════════════════════ -->
-  <a href="studio/" class="portal" aria-label="스튜디오">
+  <!-- Hidden Portal -->
+  <a href="studio/" class="portal" aria-label="Studio">
     <svg viewBox="0 0 24 24">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+      <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1"/>
+      <circle cx="12" cy="12" r="3" fill="currentColor"/>
     </svg>
   </a>
 
-
-  <!-- ═══════════════════════════════════════
-       SCRIPTS
-  ═══════════════════════════════════════ -->
+  <!-- Scripts -->
   <script>
-    // Mobile Navigation Toggle
-    const navToggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
-
-    navToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
+    // Loader
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 2000);
     });
 
-    // Close mobile menu on link click
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
+    // Custom Cursor
+    const cursor = document.getElementById('cursor');
+    const cursorDot = document.getElementById('cursorDot');
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      cursorDot.style.left = e.clientX + 'px';
+      cursorDot.style.top = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('a, button, .menu-item').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // Scroll Reveal
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
       });
-    });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-    // Smooth scroll for anchor links
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-          const navHeight = document.querySelector('.nav').offsetHeight;
-          const targetPosition = target.offsetTop - navHeight;
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-          });
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
-    });
-
-    // Scroll reveal animation
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.menu-item, .contact-item, .feature').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      observer.observe(el);
     });
   </script>
 
