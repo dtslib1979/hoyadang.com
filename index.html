@@ -347,6 +347,8 @@
       text-transform: uppercase;
       position: relative;
       overflow: hidden;
+      height: 1.2em;
+      line-height: 1.2;
     }
 
     .nav-link span {
@@ -363,6 +365,7 @@
     }
 
     .nav-link:hover span { transform: translateY(-100%); }
+    .nav-link:hover::after { top: 0; }
 
     @media (max-width: 768px) {
       .nav { padding: 1.5rem; }
@@ -1706,7 +1709,7 @@
           </div>
           <div class="elevator-floor-info">
             <h3>Office</h3>
-            <p>MSMR Cut · YouTube Kit · Creator Tools</p>
+            <p>DSLR Cut · YouTube Kit · Creator Tools</p>
           </div>
           <div class="elevator-floor-action">
             <button class="elevator-unlock-btn" data-target="3">
