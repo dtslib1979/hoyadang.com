@@ -1,0 +1,248 @@
+name: MSMR Cut Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      youtube_url:
+        description: 'YouTube URL'
+        required: true
+        type: string
+      cuts:
+        description: 'JSON array of cuts [{"in":"00:00:00","out":"00:00:30","name":"clip1"}]'
+        required: true
+        type: string
+      template:
+        description: 'Template name (default, shorts)'
+        required: false
+        default: 'default'
+        type: string
+      request_id:
+        description: 'Request ID for status tracking'
+        required: true
+        type: string
+
+env:
+  MAX_DURATION: 3600  # 1 hour max source
+  MAX_CUTS: 10
+  ARTIFACT_RETENTION: 1  # days
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    outputs:
+      video_id: ${{ steps.parse.outputs.video_id }}
+      valid_cuts: ${{ steps.validate.outputs.cuts }}
+    steps:
+      - name: Parse YouTube URL
+        id: parse
+        run: |
+          URL="${{ inputs.youtube_url }}"
+
+          # Extract video ID from various YouTube URL formats
+          if [[ "$URL" =~ youtu\.be/([a-zA-Z0-9_-]{11}) ]]; then
+            VIDEO_ID="${BASH_REMATCH[1]}"
+          elif [[ "$URL" =~ [?&]v=([a-zA-Z0-9_-]{11}) ]]; then
+            VIDEO_ID="${BASH_REMATCH[1]}"
+          elif [[ "$URL" =~ youtube\.com/shorts/([a-zA-Z0-9_-]{11}) ]]; then
+            VIDEO_ID="${BASH_REMATCH[1]}"
+          else
+            echo "::error::Invalid YouTube URL format"
+            exit 1
+          fi
+
+          echo "video_id=$VIDEO_ID" >> $GITHUB_OUTPUT
+          echo "Parsed video ID: $VIDEO_ID"
+
+      - name: Validate cuts JSON
+        id: validate
+        run: |
+          CUTS='${{ inputs.cuts }}'
+
+          # Validate JSON structure
+          if ! echo "$CUTS" | jq -e 'type == "array"' > /dev/null 2>&1; then
+            echo "::error::Cuts must be a JSON array"
+            exit 1
+          fi
+
+          # Count cuts
+          CUT_COUNT=$(echo "$CUTS" | jq 'length')
+          if [ "$CUT_COUNT" -gt "$MAX_CUTS" ]; then
+            echo "::error::Maximum $MAX_CUTS cuts allowed, got $CUT_COUNT"
+            exit 1
+          fi
+
+          if [ "$CUT_COUNT" -eq 0 ]; then
+            echo "::error::At least one cut required"
+            exit 1
+          fi
+
+          # Validate each cut has required fields
+          VALID=$(echo "$CUTS" | jq '[.[] | select(.in and .out)] | length')
+          if [ "$VALID" -ne "$CUT_COUNT" ]; then
+            echo "::error::Each cut must have 'in' and 'out' timestamps"
+            exit 1
+          fi
+
+          echo "cuts=$CUTS" >> $GITHUB_OUTPUT
+          echo "Validated $CUT_COUNT cuts"
+
+  download:
+    needs: validate
+    runs-on: ubuntu-latest
+    outputs:
+      source_file: ${{ steps.download.outputs.filename }}
+      duration: ${{ steps.probe.outputs.duration }}
+    steps:
+      - name: Install yt-dlp
+        run: |
+          sudo curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp
+          sudo chmod a+rx /usr/local/bin/yt-dlp
+
+      - name: Download video
+        id: download
+        run: |
+          VIDEO_ID="${{ needs.validate.outputs.video_id }}"
+
+          # Download best quality (up to 1080p to stay within limits)
+          yt-dlp \
+            -f "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080][ext=mp4]/best" \
+            --merge-output-format mp4 \
+            -o "source.mp4" \
+            "https://www.youtube.com/watch?v=$VIDEO_ID"
+
+          if [ ! -f "source.mp4" ]; then
+            echo "::error::Failed to download video"
+            exit 1
+          fi
+
+          echo "filename=source.mp4" >> $GITHUB_OUTPUT
+          ls -lh source.mp4
+
+      - name: Probe video duration
+        id: probe
+        run: |
+          DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 source.mp4 | cut -d. -f1)
+
+          if [ "$DURATION" -gt "$MAX_DURATION" ]; then
+            echo "::error::Video duration ${DURATION}s exceeds maximum ${MAX_DURATION}s"
+            exit 1
+          fi
+
+          echo "duration=$DURATION" >> $GITHUB_OUTPUT
+          echo "Video duration: ${DURATION}s"
+
+      - name: Upload source for next job
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-video
+          path: source.mp4
+          retention-days: 1
+
+  cut:
+    needs: [validate, download]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download source video
+        uses: actions/download-artifact@v4
+        with:
+          name: source-video
+
+      - name: Create output directory
+        run: mkdir -p output
+
+      - name: Process cuts (copy-trim, no re-encoding)
+        run: |
+          CUTS='${{ needs.validate.outputs.valid_cuts }}'
+
+          echo "$CUTS" | jq -c '.[]' | while read -r cut; do
+            IN=$(echo "$cut" | jq -r '.in')
+            OUT=$(echo "$cut" | jq -r '.out')
+            NAME=$(echo "$cut" | jq -r '.name // "clip"')
+
+            # Sanitize filename
+            SAFE_NAME=$(echo "$NAME" | sed 's/[^a-zA-Z0-9_-]/_/g')
+            OUTPUT_FILE="output/${SAFE_NAME}.mp4"
+
+            echo "Cutting: $IN -> $OUT -> $OUTPUT_FILE"
+
+            # Copy-trim (no re-encoding, preserves quality)
+            ffmpeg -y \
+              -ss "$IN" \
+              -to "$OUT" \
+              -i source.mp4 \
+              -c copy \
+              -avoid_negative_ts make_zero \
+              "$OUTPUT_FILE"
+
+            if [ ! -f "$OUTPUT_FILE" ]; then
+              echo "::error::Failed to create $OUTPUT_FILE"
+              exit 1
+            fi
+
+            ls -lh "$OUTPUT_FILE"
+          done
+
+      - name: Generate manifest
+        run: |
+          REQUEST_ID="${{ inputs.request_id }}"
+          VIDEO_ID="${{ needs.validate.outputs.video_id }}"
+
+          cat > output/manifest.json << EOF
+          {
+            "request_id": "$REQUEST_ID",
+            "source": {
+              "youtube_id": "$VIDEO_ID",
+              "url": "https://www.youtube.com/watch?v=$VIDEO_ID"
+            },
+            "template": "${{ inputs.template }}",
+            "cuts": ${{ needs.validate.outputs.valid_cuts }},
+            "generated_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "files": $(ls -1 output/*.mp4 | jq -R -s -c 'split("\n") | map(select(length > 0) | split("/")[-1])')
+          }
+          EOF
+
+          cat output/manifest.json
+
+      - name: Upload cut videos
+        uses: actions/upload-artifact@v4
+        with:
+          name: msmr-output-${{ inputs.request_id }}
+          path: output/
+          retention-days: ${{ env.ARTIFACT_RETENTION }}
+
+  notify:
+    needs: [validate, cut]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Create status file
+        run: |
+          REQUEST_ID="${{ inputs.request_id }}"
+
+          if [ "${{ needs.cut.result }}" == "success" ]; then
+            STATUS="completed"
+            MESSAGE="MSMR cut completed successfully"
+          else
+            STATUS="failed"
+            MESSAGE="MSMR cut failed"
+          fi
+
+          cat > status.json << EOF
+          {
+            "request_id": "$REQUEST_ID",
+            "status": "$STATUS",
+            "message": "$MESSAGE",
+            "workflow_run_id": "${{ github.run_id }}",
+            "artifact_name": "msmr-output-$REQUEST_ID",
+            "completed_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          }
+          EOF
+
+          cat status.json
+
+      - name: Upload status
+        uses: actions/upload-artifact@v4
+        with:
+          name: msmr-status-${{ inputs.request_id }}
+          path: status.json
+          retention-days: ${{ env.ARTIFACT_RETENTION }}

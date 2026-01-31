@@ -1,0 +1,49 @@
+{
+  "name": "shorts",
+  "description": "YouTube Shorts 최적화 (9:16)",
+  "version": "1.0.0",
+
+  "source": {
+    "maxDuration": 3600,
+    "maxResolution": "1080p",
+    "allowedFormats": ["mp4", "webm", "mkv"]
+  },
+
+  "output": {
+    "format": "mp4",
+    "codec": "copy",
+    "container": "mp4",
+    "aspectRatio": "9:16",
+    "targetPlatform": "youtube-shorts",
+    "maxDuration": 60,
+    "preserveAudio": true
+  },
+
+  "processing": {
+    "mode": "copy-trim",
+    "reEncode": false,
+    "keyframeAlign": true,
+    "avoidNegativeTs": "make_zero",
+    "notes": "For 9:16 crop, re-encoding would be needed. Copy-trim preserves original aspect."
+  },
+
+  "constraints": {
+    "maxCuts": 10,
+    "maxOutputSize": "500MB",
+    "maxProcessingTime": 360,
+    "maxClipDuration": 60
+  },
+
+  "metadata": {
+    "creator": "MSMR Pipeline",
+    "studio": "好爺堂",
+    "platform": "youtube-shorts",
+    "preserveOriginal": true
+  },
+
+  "recommendations": {
+    "clipDuration": "15-60 seconds",
+    "hooks": "First 3 seconds critical for retention",
+    "captions": "Recommended for accessibility"
+  }
+}

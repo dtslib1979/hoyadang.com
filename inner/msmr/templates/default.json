@@ -1,0 +1,38 @@
+{
+  "name": "default",
+  "description": "원본 비율 유지 (16:9)",
+  "version": "1.0.0",
+
+  "source": {
+    "maxDuration": 3600,
+    "maxResolution": "1080p",
+    "allowedFormats": ["mp4", "webm", "mkv"]
+  },
+
+  "output": {
+    "format": "mp4",
+    "codec": "copy",
+    "container": "mp4",
+    "preserveAspectRatio": true,
+    "preserveAudio": true
+  },
+
+  "processing": {
+    "mode": "copy-trim",
+    "reEncode": false,
+    "keyframeAlign": true,
+    "avoidNegativeTs": "make_zero"
+  },
+
+  "constraints": {
+    "maxCuts": 10,
+    "maxOutputSize": "500MB",
+    "maxProcessingTime": 360
+  },
+
+  "metadata": {
+    "creator": "MSMR Pipeline",
+    "studio": "好爺堂",
+    "preserveOriginal": true
+  }
+}
