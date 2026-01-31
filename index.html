@@ -7,8 +7,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <title>好爺堂 — Artisan Bakery Atelier</title>
-  <meta name="description" content="好爺堂 호야당 — 20년 전통 수제 베이커리 아뜰리에. 1F 매장 · 2F 스튜디오 · 3F 작업실">
+  <title>호야당 — Artisan Bakery Atelier</title>
+  <meta name="description" content="호야당 — 20년 전통 수제 베이커리 아뜰리에. 1F 매장 · 2F 스튜디오 · 3F 작업실">
 
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
@@ -476,16 +476,6 @@
       color: var(--gold-light);
       font-style: italic;
       margin-top: -0.5rem;
-    }
-
-    .hero-title-korean {
-      font-family: var(--f-korean);
-      font-size: 0.35em;
-      font-weight: 400;
-      font-style: normal;
-      vertical-align: middle;
-      margin-left: 1rem;
-      opacity: 0.6;
     }
 
     @keyframes titleReveal {
@@ -964,103 +954,201 @@
     }
 
     /* ═══════════════════════════════════════
-       FLOORS PREVIEW — 2F / 3F TEASER
+       ELEVATOR SYSTEM — FOOTER
     ═══════════════════════════════════════ */
-    .floors-preview {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 80vh;
+    .elevator-section {
+      padding: 6rem 10vw;
+      background: linear-gradient(180deg, var(--black) 0%, var(--soft-black) 100%);
+      border-top: 1px solid rgba(255,255,255,0.05);
     }
 
-    .floor-preview {
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 4rem;
-      transition: flex 0.6s var(--ease-out-expo);
+    .elevator-header {
+      text-align: center;
+      margin-bottom: 5rem;
     }
 
-    .floor-preview:hover {
-      flex: 1.2;
-    }
-
-    .floor-preview-bg {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      transition: transform 1s var(--ease-out-expo);
-    }
-
-    .floor-preview:hover .floor-preview-bg {
-      transform: scale(1.05);
-    }
-
-    .floor-preview-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 100%);
-    }
-
-    .floor-preview-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .floor-preview-num {
-      font-family: var(--f-display);
-      font-size: 6rem;
-      font-weight: 300;
-      font-style: italic;
+    .elevator-eyebrow {
+      font-size: 0.625rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
       color: var(--gold);
-      line-height: 1;
       margin-bottom: 1rem;
     }
 
-    .floor-preview-title {
-      font-family: var(--f-display);
-      font-size: 2rem;
+    .elevator-title {
+      font-family: var(--f-korean);
+      font-size: 3rem;
       font-weight: 400;
       margin-bottom: 0.5rem;
     }
 
-    .floor-preview-desc {
+    .elevator-subtitle {
       font-size: 0.875rem;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 2rem;
+      color: rgba(255,255,255,0.4);
     }
 
-    .floor-preview-cta {
-      display: inline-flex;
+    .elevator-shaft {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .elevator-shaft::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 40px;
+      bottom: 40px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold) 0%, rgba(255,255,255,0.1) 50%, var(--gold) 100%);
+    }
+
+    .elevator-floor {
+      display: grid;
+      grid-template-columns: 50px 1fr auto;
+      gap: 2rem;
       align-items: center;
-      gap: 1rem;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.3);
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
       transition: all 0.3s;
     }
 
-    .floor-preview-cta:hover {
-      border-color: var(--gold);
+    .elevator-floor:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .elevator-floor--current {
+      background: rgba(201, 169, 98, 0.05);
+    }
+
+    .elevator-floor-indicator {
+      position: relative;
+    }
+
+    .elevator-floor-num {
+      font-family: var(--f-display);
+      font-size: 1.5rem;
+      font-style: italic;
       color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--gold);
+      background: var(--black);
+      position: relative;
+      z-index: 1;
     }
 
-    .floor-preview-cta svg {
-      width: 20px;
-      height: 20px;
-      transition: transform 0.3s;
+    .elevator-floor--current .elevator-floor-num {
+      background: var(--gold);
+      color: var(--black);
     }
 
-    .floor-preview-cta:hover svg {
-      transform: translateX(5px);
+    .elevator-floor-info h3 {
+      font-family: var(--f-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 0.25rem;
+    }
+
+    .elevator-floor-info p {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .elevator-floor-action {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .elevator-unlock-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: transparent;
+      border: 1px solid var(--gold);
+      transition: all 0.3s;
+    }
+
+    .elevator-unlock-btn:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    .elevator-unlock-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .elevator-keypad {
+      display: none;
+      gap: 0.5rem;
+    }
+
+    .elevator-keypad.active {
+      display: flex;
+    }
+
+    .elevator-digit {
+      width: 44px;
+      height: 52px;
+      font-family: var(--f-body);
+      font-size: 1.25rem;
+      font-weight: 500;
+      text-align: center;
+      background: var(--black);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white);
+      transition: all 0.2s;
+    }
+
+    .elevator-digit:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: rgba(201, 169, 98, 0.1);
+    }
+
+    .elevator-digit.error {
+      border-color: #FF3B30;
+      animation: shake 0.4s ease;
+    }
+
+    .elevator-digit.success {
+      border-color: #34C759;
+      background: rgba(52, 199, 89, 0.1);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .elevator-current-badge {
+      font-size: 0.6875rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.5rem 1rem;
+      background: rgba(201, 169, 98, 0.15);
+      color: var(--gold);
+      border: 1px solid var(--gold);
     }
 
     @media (max-width: 768px) {
-      .floors-preview { grid-template-columns: 1fr; }
+      .elevator-section { padding: 4rem 2rem; }
+      .elevator-floor { grid-template-columns: 40px 1fr; gap: 1rem; }
+      .elevator-floor-action { grid-column: 2; margin-top: 1rem; }
+      .elevator-shaft::before { left: 19px; }
+      .elevator-floor-num { width: 40px; height: 40px; font-size: 1.25rem; }
     }
 
     /* ═══════════════════════════════════════
@@ -1159,67 +1247,35 @@
     }
 
     /* ═══════════════════════════════════════
-       FOOTER — GRAND
+       FOOTER — INFO
     ═══════════════════════════════════════ */
-    .footer {
-      padding: 8rem 10vw 4rem;
+    .footer-info {
+      padding: 3rem 10vw;
       background: var(--black);
       border-top: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .footer-main {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 4rem;
-      margin-bottom: 6rem;
-    }
-
-    .footer-brand {
-      max-width: 350px;
-    }
-
-    .footer-logo {
-      font-family: var(--f-korean);
-      font-size: 2.5rem;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      margin-bottom: 1.5rem;
-    }
-
-    .footer-desc {
-      font-size: 0.875rem;
-      font-weight: 300;
-      line-height: 1.9;
-      color: rgba(255,255,255,0.5);
-    }
-
-    .footer-col h4 {
-      font-size: 0.625rem;
-      font-weight: 500;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.5rem;
-    }
-
-    .footer-col ul { list-style: none; }
-    .footer-col li { margin-bottom: 0.75rem; }
-
-    .footer-col a {
-      font-size: 0.875rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.6);
-      transition: color 0.3s;
-    }
-
-    .footer-col a:hover { color: var(--white); }
-
-    .footer-bottom {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 3rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-contact {
+      display: flex;
+      gap: 3rem;
+    }
+
+    .footer-contact p {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .footer-contact a {
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.3s;
+    }
+
+    .footer-contact a:hover {
+      color: var(--gold);
+      border-color: var(--gold);
     }
 
     .footer-copy {
@@ -1227,38 +1283,17 @@
       color: rgba(255,255,255,0.3);
     }
 
-    .footer-social {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .footer-social a {
-      width: 44px;
-      height: 44px;
-      border: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-    }
-
-    .footer-social a:hover {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: var(--black);
-    }
-
-    .footer-social svg { width: 18px; height: 18px; }
-
-    @media (max-width: 1024px) {
-      .footer-main { grid-template-columns: 1fr 1fr; }
-      .footer-brand { grid-column: 1 / -1; max-width: none; }
-    }
-
     @media (max-width: 768px) {
-      .footer { padding: 4rem 2rem 2rem; }
-      .footer-main { grid-template-columns: 1fr; }
-      .footer-bottom { flex-direction: column; gap: 1.5rem; }
+      .footer-info {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem;
+        text-align: center;
+      }
+      .footer-contact {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
     }
 
     /* ═══════════════════════════════════════
@@ -1279,6 +1314,87 @@
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
     .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ═══════════════════════════════════════
+       LARGE SCREEN OPTIMIZATION (1440px+)
+    ═══════════════════════════════════════ */
+    @media (min-width: 1440px) {
+      html { font-size: 18px; }
+      .nav { padding: 2.5rem 6rem; }
+      .hero-content { padding: 0 12vw; }
+      .about-content { padding: 10rem 8rem; }
+      .menu { padding: 12rem 0; }
+      .menu-header { padding: 0 12vw; }
+      .menu-gallery { padding: 0 12vw; gap: 4rem; }
+      .menu-card { flex: 0 0 420px; }
+      .location { padding: 12rem 12vw; }
+      .elevator-section { padding: 8rem 12vw; }
+      .elevator-shaft { max-width: 900px; }
+      .footer-info { padding: 4rem 12vw; }
+    }
+
+    @media (min-width: 1920px) {
+      html { font-size: 20px; }
+      .hero-content { max-width: 1600px; margin: 0 auto; padding: 0 8rem; }
+      .about { max-width: 1800px; margin: 0 auto; }
+      .menu-header { max-width: 1600px; margin: 0 auto 5rem; }
+      .elevator-shaft { max-width: 1000px; }
+    }
+
+    /* ═══════════════════════════════════════
+       TABLET OPTIMIZATION (768px - 1024px)
+    ═══════════════════════════════════════ */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .nav { padding: 1.5rem 3rem; }
+      .nav-links { gap: 2rem; }
+      .hero-content { padding: 0 6vw; }
+      .hero-info { gap: 2rem; flex-wrap: wrap; }
+      .about-content { padding: 5rem 4rem; }
+      .about-stats { gap: 2rem; }
+      .menu-header { padding: 0 6vw; flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+      .menu-subtitle { text-align: left; }
+      .menu-gallery { padding: 0 6vw; }
+      .menu-card { flex: 0 0 320px; }
+      .philosophy { padding: 4rem 3rem; }
+      .location { padding: 6rem 6vw; gap: 3rem; }
+      .elevator-section { padding: 5rem 6vw; }
+      .elevator-floor { gap: 1.5rem; }
+      .footer-info { padding: 2.5rem 6vw; }
+    }
+
+    /* ═══════════════════════════════════════
+       MOBILE SMALL (max-width: 480px)
+    ═══════════════════════════════════════ */
+    @media (max-width: 480px) {
+      html { font-size: 14px; }
+      .nav { padding: 1rem; }
+      .nav-logo { font-size: 1.25rem; }
+      .nav-logo-badge { display: none; }
+      .hero-content { padding: 0 1.5rem; }
+      .hero-floor-tag { margin-bottom: 2rem; }
+      .hero-floor-num { font-size: 2rem; }
+      .hero-info { flex-direction: column; gap: 1.5rem; }
+      .about-content { padding: 3rem 1.5rem; }
+      .about-title { font-size: 2rem; }
+      .about-stats { flex-direction: column; gap: 1.5rem; }
+      .stat-value { font-size: 3rem; }
+      .menu { padding: 4rem 0; }
+      .menu-header { padding: 0 1.5rem; margin-bottom: 3rem; }
+      .menu-title { font-size: 2.5rem; }
+      .menu-gallery { padding: 0 1.5rem; gap: 1.5rem; }
+      .menu-card { flex: 0 0 260px; }
+      .philosophy { padding: 3rem 1.5rem; }
+      .philosophy-quote { font-size: 1.5rem; }
+      .location { padding: 4rem 1.5rem; }
+      .location-content h2 { font-size: 2rem; margin-bottom: 2rem; }
+      .elevator-section { padding: 3rem 1.5rem; }
+      .elevator-header { margin-bottom: 3rem; }
+      .elevator-title { font-size: 2rem; }
+      .elevator-floor-info h3 { font-size: 1.25rem; }
+      .elevator-unlock-btn { padding: 0.5rem 1rem; font-size: 0.6875rem; }
+      .elevator-digit { width: 38px; height: 46px; font-size: 1rem; }
+      .footer-info { padding: 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -1298,7 +1414,7 @@
       <div class="preloader-floor">2F STUDIO</div>
       <div class="preloader-floor active">1F SHOP</div>
     </div>
-    <p class="preloader-logo">好爺堂</p>
+    <p class="preloader-logo">호야당</p>
     <p class="preloader-progress">Loading experience...</p>
   </div>
 
@@ -1315,7 +1431,7 @@
   <!-- Navigation -->
   <nav class="nav">
     <a href="#" class="nav-logo">
-      好爺堂
+      호야당
       <span class="nav-logo-badge">Since 2006</span>
     </a>
     <ul class="nav-links">
@@ -1329,7 +1445,7 @@
   <section class="hero" id="floor1">
     <div class="hero-bg">
       <div class="hero-bg-gradient"></div>
-      <div class="hero-parallax-text" id="parallaxText">好爺堂</div>
+      <div class="hero-parallax-text" id="parallaxText">호야당</div>
     </div>
 
     <div class="hero-content">
@@ -1339,8 +1455,8 @@
       </div>
 
       <h1 class="hero-title">
-        <span class="hero-title-line hero-title-main"><span>好爺堂</span></span>
-        <span class="hero-title-line hero-title-sub"><span>Hoyadang<span class="hero-title-korean">호야당</span></span></span>
+        <span class="hero-title-line hero-title-main"><span>호야당</span></span>
+        <span class="hero-title-line hero-title-sub"><span>Artisan Bakery</span></span>
       </h1>
 
       <div class="hero-info">
@@ -1529,7 +1645,7 @@
   <!-- Philosophy -->
   <section class="philosophy">
     <div class="philosophy-bg">
-      <span class="philosophy-bg-char">好</span>
+      <span class="philosophy-bg-char">호</span>
     </div>
     <div class="philosophy-content reveal">
       <blockquote class="philosophy-quote">
@@ -1537,44 +1653,10 @@
         그 손에는 <span class="gold">20년</span>의<br>
         시간이 담겨 있습니다."
       </blockquote>
-      <p class="philosophy-author">— 好爺堂 Master Baker</p>
+      <p class="philosophy-author">— 호야당 Master Baker</p>
     </div>
   </section>
 
-  <!-- 2F & 3F Preview -->
-  <section class="floors-preview">
-    <a href="studio/" class="floor-preview" id="floor2Preview">
-      <div class="floor-preview-bg" style="background-color: #1a1510;"></div>
-      <div class="floor-preview-overlay"></div>
-      <div class="floor-preview-content">
-        <span class="floor-preview-num">2F</span>
-        <h3 class="floor-preview-title">Studio</h3>
-        <p class="floor-preview-desc">4 SCENES FROM SEOUL<br>K-Food Cinematic Experience</p>
-        <span class="floor-preview-cta">
-          Enter Studio
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </span>
-      </div>
-    </a>
-
-    <a href="inner/" class="floor-preview" id="floor3Preview">
-      <div class="floor-preview-bg" style="background-color: #0f0f0f;"></div>
-      <div class="floor-preview-overlay"></div>
-      <div class="floor-preview-content">
-        <span class="floor-preview-num">3F</span>
-        <h3 class="floor-preview-title">Office</h3>
-        <p class="floor-preview-desc">MSMR Cut · YouTube Kit<br>Creator Tools</p>
-        <span class="floor-preview-cta">
-          Enter Office
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </span>
-      </div>
-    </a>
-  </section>
 
   <!-- Location -->
   <section class="location" id="location">
@@ -1606,49 +1688,94 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-main">
-      <div class="footer-brand">
-        <p class="footer-logo">好爺堂</p>
-        <p class="footer-desc">
-          2006년부터 한결같은 마음으로 매일 신선한 빵을 굽습니다.
-          손으로 빚는 정성, 20년의 시간.
-        </p>
+  <!-- Footer — Elevator System -->
+  <footer class="footer" id="elevator">
+    <div class="elevator-section">
+      <div class="elevator-header">
+        <p class="elevator-eyebrow">Building Directory</p>
+        <h2 class="elevator-title">호야당</h2>
+        <p class="elevator-subtitle">3층 건물</p>
       </div>
-      <div class="footer-col">
-        <h4>Floors</h4>
-        <ul>
-          <li><a href="#floor1">1F — Shop</a></li>
-          <li><a href="studio/">2F — Studio</a></li>
-          <li><a href="inner/">3F — Office</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Menu</h4>
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#menu">Our Breads</a></li>
-          <li><a href="#location">Visit</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <ul>
-          <li><a href="tel:+82-70-8886-3300">070-8886-3300</a></li>
-          <li><a href="#">와룡로 12-1</a></li>
-        </ul>
+
+      <div class="elevator-shaft">
+        <!-- 3F -->
+        <div class="elevator-floor" data-floor="3">
+          <div class="elevator-floor-indicator">
+            <span class="elevator-floor-num">3F</span>
+            <div class="elevator-floor-line"></div>
+          </div>
+          <div class="elevator-floor-info">
+            <h3>Office</h3>
+            <p>MSMR Cut · YouTube Kit · Creator Tools</p>
+          </div>
+          <div class="elevator-floor-action">
+            <button class="elevator-unlock-btn" data-target="3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              Unlock
+            </button>
+            <div class="elevator-keypad" data-floor="3">
+              <input type="tel" maxlength="1" inputmode="numeric" class="elevator-digit">
+              <input type="tel" maxlength="1" inputmode="numeric" class="elevator-digit">
+              <input type="tel" maxlength="1" inputmode="numeric" class="elevator-digit">
+              <input type="tel" maxlength="1" inputmode="numeric" class="elevator-digit">
+            </div>
+          </div>
+        </div>
+
+        <!-- 2F -->
+        <div class="elevator-floor" data-floor="2">
+          <div class="elevator-floor-indicator">
+            <span class="elevator-floor-num">2F</span>
+            <div class="elevator-floor-line"></div>
+          </div>
+          <div class="elevator-floor-info">
+            <h3>Studio</h3>
+            <p>4 SCENES FROM SEOUL · K-Food Cinematic</p>
+          </div>
+          <div class="elevator-floor-action">
+            <button class="elevator-unlock-btn" data-target="2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              Unlock
+            </button>
+            <div class="elevator-keypad" data-floor="2">
+              <input type="tel" maxlength="1" inputmode="numeric" class="elevator-digit">
+              <input type="tel" maxlength="1" inputmode="numeric" class="elevator-digit">
+              <input type="tel" maxlength="1" inputmode="numeric" class="elevator-digit">
+              <input type="tel" maxlength="1" inputmode="numeric" class="elevator-digit">
+            </div>
+          </div>
+        </div>
+
+        <!-- 1F (Current) -->
+        <div class="elevator-floor elevator-floor--current" data-floor="1">
+          <div class="elevator-floor-indicator">
+            <span class="elevator-floor-num">1F</span>
+            <div class="elevator-floor-line"></div>
+          </div>
+          <div class="elevator-floor-info">
+            <h3>Shop</h3>
+            <p>Artisan Bakery · Since 2006</p>
+          </div>
+          <div class="elevator-floor-action">
+            <span class="elevator-current-badge">현재 위치</span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2026 好爺堂. All rights reserved.</p>
-      <div class="footer-social">
-        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-          </svg>
-        </a>
+
+    <div class="footer-info">
+      <div class="footer-contact">
+        <p>경기도 안양시 만안구 와룡로 12-1</p>
+        <p><a href="tel:+82-70-8886-3300">070-8886-3300</a></p>
+        <p>월—토 08:00—20:00 · 일요일 휴무</p>
       </div>
+      <p class="footer-copy">© 2026 호야당. All rights reserved.</p>
     </div>
   </footer>
 
@@ -1697,12 +1824,12 @@
     document.addEventListener('mouseup', () => cursorOuter.classList.remove('click'));
 
     // Hover states
-    const hoverElements = document.querySelectorAll('a, button, .menu-card, .floor-preview');
+    const hoverElements = document.querySelectorAll('a, button, .menu-card, .elevator-unlock-btn');
     hoverElements.forEach(el => {
       el.addEventListener('mouseenter', () => {
         cursorOuter.classList.add('hover');
         cursorInner.classList.add('hover');
-        if (el.classList.contains('menu-card') || el.classList.contains('floor-preview')) {
+        if (el.classList.contains('menu-card')) {
           cursorText.classList.add('visible');
         }
       });
@@ -1724,20 +1851,96 @@
 
     // ═══ FLOOR NAVIGATION ═══
     const floorBtns = document.querySelectorAll('.floor-btn');
-    const elevator = document.getElementById('floorElevator');
 
     floorBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const floor = btn.dataset.floor;
         if (floor === '1') {
           document.getElementById('floor1').scrollIntoView({ behavior: 'smooth' });
-        } else if (floor === '2') {
-          window.location.href = 'studio/';
-        } else if (floor === '3') {
-          window.location.href = 'inner/';
+        } else {
+          document.getElementById('elevator').scrollIntoView({ behavior: 'smooth' });
         }
       });
     });
+
+    // ═══ ELEVATOR UNLOCK SYSTEM ═══
+    const UNLOCK_CODE = '1126';
+    const unlockBtns = document.querySelectorAll('.elevator-unlock-btn');
+    const keypads = document.querySelectorAll('.elevator-keypad');
+
+    unlockBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetFloor = btn.dataset.target;
+        const keypad = document.querySelector(`.elevator-keypad[data-floor="${targetFloor}"]`);
+
+        // Hide all keypads first
+        keypads.forEach(kp => kp.classList.remove('active'));
+        unlockBtns.forEach(b => b.style.display = '');
+
+        // Show this keypad
+        keypad.classList.add('active');
+        btn.style.display = 'none';
+
+        // Focus first input
+        const firstInput = keypad.querySelector('.elevator-digit');
+        if (firstInput) firstInput.focus();
+      });
+    });
+
+    keypads.forEach(keypad => {
+      const floor = keypad.dataset.floor;
+      const digits = keypad.querySelectorAll('.elevator-digit');
+      const btn = document.querySelector(`.elevator-unlock-btn[data-target="${floor}"]`);
+
+      digits.forEach((digit, i) => {
+        digit.addEventListener('input', () => {
+          if (digit.value && i < digits.length - 1) {
+            digits[i + 1].focus();
+          }
+          checkElevatorCode(keypad, floor);
+        });
+
+        digit.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !digit.value && i > 0) {
+            digits[i - 1].focus();
+          }
+          if (e.key === 'Escape') {
+            keypad.classList.remove('active');
+            btn.style.display = '';
+            digits.forEach(d => d.value = '');
+          }
+        });
+      });
+    });
+
+    function checkElevatorCode(keypad, floor) {
+      const digits = keypad.querySelectorAll('.elevator-digit');
+      const entered = Array.from(digits).map(d => d.value).join('');
+
+      if (entered.length === 4) {
+        if (entered === UNLOCK_CODE) {
+          // Success
+          digits.forEach(d => d.classList.add('success'));
+          setTimeout(() => {
+            if (floor === '2') {
+              window.location.href = 'studio/main.html';
+            } else if (floor === '3') {
+              window.location.href = 'inner/';
+            }
+          }, 500);
+        } else {
+          // Error
+          digits.forEach(d => {
+            d.classList.add('error');
+            d.value = '';
+          });
+          digits[0].focus();
+          setTimeout(() => {
+            digits.forEach(d => d.classList.remove('error'));
+          }, 400);
+        }
+      }
+    }
 
     // ═══ MENU DRAG SCROLL ═══
     const menuGallery = document.getElementById('menuGallery');
