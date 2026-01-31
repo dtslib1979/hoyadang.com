@@ -233,6 +233,30 @@ Section 6: Portal + Ending
 
 ## 10. Development Log
 
+### 2026-01-31 (v3.5) — YouTube 키트 패키지
+
+| 작업 | 상태 |
+|------|------|
+| YouTube 키트 허브 페이지 (inner/youtube-kit/) | ✓ |
+| DTS Cloud AppStore 연동 | ✓ |
+| 시크릿 오피스 메뉴 추가 | ✓ |
+
+**YouTube 키트 구성:**
+
+| 도구 | 기능 | 출처 |
+|------|------|------|
+| **MSMR Cut** | 영상 자르기 + 배속 | 내장 |
+| **Clip Shorts** | 클립 조합 → 쇼츠 + BGM | 외부 |
+| **Auto Shorts** | 짧은 클립 → 2분 연장 | 외부 |
+| **Image Pack** | 썸네일 자동 규격 | 외부 |
+| **Slim Lens** | 사진 슬림 효과 | 외부 |
+| **Audio Studio** | BGM 자르기 & 루프 | 외부 |
+
+**추천 워크플로우:**
+```
+MSMR Cut (자르기) → Clip Shorts (조합+BGM) → Image Pack (썸네일) → 업로드
+```
+
 ### 2026-01-31 (v3.4) — MSMR v3.1 배속 기능
 
 | 작업 | 상태 |
