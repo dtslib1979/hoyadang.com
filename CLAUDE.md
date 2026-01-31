@@ -280,7 +280,9 @@ Section 6: Portal + Ending
 inner/msmr/
 ├── index.html     # UI (Cloud/Local 탭)
 ├── app.js         # 프론트엔드 로직
-├── manual.html    # 사용설명서
+├── guide.html     # 완전 가이드 (원스톱)
+├── manual.html    # 상세 사용설명서
+├── why.html       # 철학/배경
 ├── templates/
 │   ├── default.json
 │   └── shorts.json
@@ -290,6 +292,34 @@ inner/msmr/
 
 .github/workflows/
 └── msmr-cut.yml   # GitHub Actions 워크플로우
+```
+
+**언제 쓰면 좋나:**
+
+| 상황 | MSMR 가치 |
+|------|----------|
+| 식당 메이킹필름만 | 낮음 (어차피 PC 앞) |
+| **출사/여행/일상 촬영** | **높음** |
+
+**출사/여행 시나리오:**
+```
+밖에서 촬영
+    ↓
+촬영 직후 "여기 좋았다" 기억날 때
+→ 핸드폰으로 MSMR 컷 포인트 입력
+    ↓
+명령어 미리 생성
+    ↓
+집 와서 붙여넣기만
+```
+
+**Telegram 원격 실행 (선택):**
+```
+밖에서 컷 입력 → Telegram 전송
+    ↓
+집 PC가 미리 처리 (1GB = 수 분)
+    ↓
+집 도착하면 이미 완료
 ```
 
 #### 왜 MSMR을 만들었나
