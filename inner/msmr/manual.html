@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0D0D0D">
+  <title>MSMR 사용설명서 — 好爺堂</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0D0D0D;
+      --card: #1A1A1A;
+      --gold: #D4A853;
+      --cream: #FFFAF5;
+      --muted: rgba(255,250,245,0.6);
+      --border: rgba(212,168,83,0.2);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--cream);
+      line-height: 1.8;
+      padding: 20px;
+      padding-bottom: 100px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .back:hover { color: var(--gold); }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 32px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(76,175,80,0.2);
+      color: #4CAF50;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 32px;
+    }
+
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title .num {
+      width: 28px;
+      height: 28px;
+      background: var(--gold);
+      color: var(--bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    p {
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .highlight {
+      background: rgba(212,168,83,0.15);
+      padding: 16px;
+      border-radius: 10px;
+      border-left: 3px solid var(--gold);
+      margin: 16px 0;
+    }
+
+    .highlight strong {
+      color: var(--gold);
+    }
+
+    .steps {
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      padding-left: 36px;
+      margin-bottom: 20px;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 24px;
+      height: 24px;
+      background: var(--gold);
+      color: var(--bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .step-title {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .step-desc {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .example {
+      background: rgba(0,0,0,0.3);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 13px;
+      margin: 12px 0;
+      overflow-x: auto;
+    }
+
+    .warning {
+      background: rgba(243,156,18,0.15);
+      border: 1px solid rgba(243,156,18,0.3);
+      padding: 16px;
+      border-radius: 10px;
+      margin: 16px 0;
+    }
+
+    .warning-title {
+      color: #F39C12;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .warning p {
+      font-size: 14px;
+      color: rgba(255,250,245,0.8);
+      margin: 0;
+    }
+
+    .free-badge {
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 24px 0;
+    }
+
+    .free-badge .big {
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .free-badge .small {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .cta {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--gold), #B8962E);
+      color: var(--bg);
+      text-align: center;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      border-radius: 12px;
+      margin-top: 32px;
+    }
+
+    .faq {
+      margin-top: 16px;
+    }
+
+    .faq-item {
+      margin-bottom: 16px;
+    }
+
+    .faq-q {
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+
+    .faq-a {
+      color: var(--muted);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="./" class="back">← MSMR Cut으로 돌아가기</a>
+
+    <h1>MSMR 사용설명서</h1>
+    <p class="subtitle">유튜브 영상에서 원하는 부분만 잘라내기</p>
+
+    <div class="badge">무료 서비스</div>
+
+    <!-- ═══ 이게 뭐야? ═══ -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="num">?</span>
+        이게 뭐야?
+      </h2>
+      <p>유튜브 영상에서 <strong>원하는 구간만 잘라서</strong> 다운로드하는 도구입니다.</p>
+
+      <div class="highlight">
+        <strong>핵심:</strong> 화질 손실 없이 원본 그대로 자릅니다.<br>
+        (재인코딩 안 함 = 빠르고 깨끗함)
+      </div>
+
+      <p>예를 들어:</p>
+      <ul style="margin-left: 20px; color: var(--muted);">
+        <li>1시간짜리 영상에서 3분만 필요할 때</li>
+        <li>쇼츠용으로 15초씩 여러 개 자를 때</li>
+        <li>하이라이트만 모아서 편집할 때</li>
+      </ul>
+    </div>
+
+    <!-- ═══ 얼마야? ═══ -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="num">₩</span>
+        얼마야?
+      </h2>
+
+      <div class="free-badge">
+        <div class="big">완전 무료</div>
+        <div class="small">hoyadang.com은 공개 저장소라서 무제한 무료</div>
+      </div>
+
+      <table>
+        <tr>
+          <th>항목</th>
+          <th>비용</th>
+        </tr>
+        <tr>
+          <td>영상 다운로드</td>
+          <td>무료</td>
+        </tr>
+        <tr>
+          <td>영상 자르기</td>
+          <td>무료</td>
+        </tr>
+        <tr>
+          <td>월 사용 제한</td>
+          <td>없음</td>
+        </tr>
+      </table>
+
+      <p style="font-size: 13px; color: var(--muted);">
+        * GitHub Actions 무료 정책 기준 (2026년 1월)
+      </p>
+    </div>
+
+    <!-- ═══ 어떻게 써? ═══ -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="num">▶</span>
+        어떻게 써?
+      </h2>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-title">유튜브 링크 복사</div>
+          <div class="step-desc">
+            자르고 싶은 유튜브 영상의 주소를 복사해요.
+          </div>
+          <div class="example">https://youtube.com/watch?v=abc123</div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">MSMR Cut 열기</div>
+          <div class="step-desc">
+            시크릿 오피스 → L0 — MSMR Cut 클릭
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">링크 붙여넣기</div>
+          <div class="step-desc">
+            "YouTube URL" 칸에 복사한 주소 붙여넣기
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">자를 구간 입력</div>
+          <div class="step-desc">
+            시작 시간과 끝나는 시간을 입력해요.
+          </div>
+          <div class="example">
+            시작: 00:01:30 (1분 30초)<br>
+            종료: 00:02:00 (2분 00초)
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">"+ 컷 추가" 버튼</div>
+          <div class="step-desc">
+            구간이 목록에 추가됩니다. 최대 10개까지 추가 가능.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">"파이프라인 실행" 버튼</div>
+          <div class="step-desc">
+            클릭하면 서버에서 자동으로 처리 시작!
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-title">다운로드</div>
+          <div class="step-desc">
+            처리 완료되면 GitHub에서 다운로드 링크 제공.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ 시간 쓰는 법 ═══ -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="num">⏱</span>
+        시간 쓰는 법
+      </h2>
+
+      <p>시간은 두 가지 형식으로 쓸 수 있어요:</p>
+
+      <table>
+        <tr>
+          <th>형식</th>
+          <th>예시</th>
+          <th>의미</th>
+        </tr>
+        <tr>
+          <td>MM:SS</td>
+          <td>01:30</td>
+          <td>1분 30초</td>
+        </tr>
+        <tr>
+          <td>HH:MM:SS</td>
+          <td>01:23:45</td>
+          <td>1시간 23분 45초</td>
+        </tr>
+      </table>
+
+      <div class="highlight">
+        <strong>팁:</strong> 유튜브에서 영상 재생하면서 시간 확인하세요.<br>
+        영상 아래 타임라인에 현재 시간이 표시됩니다.
+      </div>
+    </div>
+
+    <!-- ═══ 템플릿 ═══ -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="num">📐</span>
+        템플릿 선택
+      </h2>
+
+      <table>
+        <tr>
+          <th>템플릿</th>
+          <th>용도</th>
+        </tr>
+        <tr>
+          <td><strong>Default</strong></td>
+          <td>일반 영상 (16:9 가로)</td>
+        </tr>
+        <tr>
+          <td><strong>Shorts</strong></td>
+          <td>쇼츠용 (9:16 세로)*</td>
+        </tr>
+      </table>
+
+      <p style="font-size: 13px; color: var(--muted);">
+        * Shorts는 현재 원본 비율 유지. 세로 크롭은 별도 편집 필요.
+      </p>
+    </div>
+
+    <!-- ═══ 제한사항 ═══ -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="num">⚠</span>
+        제한사항
+      </h2>
+
+      <table>
+        <tr>
+          <th>항목</th>
+          <th>제한</th>
+        </tr>
+        <tr>
+          <td>한 번에 자르기</td>
+          <td>최대 10개 구간</td>
+        </tr>
+        <tr>
+          <td>원본 영상 길이</td>
+          <td>최대 1시간</td>
+        </tr>
+        <tr>
+          <td>파일 보관</td>
+          <td>24시간 후 자동 삭제</td>
+        </tr>
+        <tr>
+          <td>처리 시간</td>
+          <td>보통 2-5분</td>
+        </tr>
+      </table>
+
+      <div class="warning">
+        <div class="warning-title">중요!</div>
+        <p>완료 후 24시간 안에 다운로드하세요. 그 후에는 파일이 사라집니다.</p>
+      </div>
+    </div>
+
+    <!-- ═══ 첫 사용 시 ═══ -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="num">🔑</span>
+        처음 사용할 때
+      </h2>
+
+      <p>처음 "파이프라인 실행"을 누르면 <strong>GitHub 토큰</strong>을 물어봅니다.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-title">GitHub 접속</div>
+          <div class="step-desc">github.com에 로그인</div>
+        </div>
+        <div class="step">
+          <div class="step-title">Settings → Developer settings</div>
+          <div class="step-desc">오른쪽 위 프로필 → Settings 클릭</div>
+        </div>
+        <div class="step">
+          <div class="step-title">Personal access tokens → Tokens (classic)</div>
+          <div class="step-desc">왼쪽 메뉴 맨 아래</div>
+        </div>
+        <div class="step">
+          <div class="step-title">Generate new token (classic)</div>
+          <div class="step-desc">새 토큰 만들기</div>
+        </div>
+        <div class="step">
+          <div class="step-title">권한 선택: workflow 체크</div>
+          <div class="step-desc">"workflow" 항목에 체크하고 생성</div>
+        </div>
+        <div class="step">
+          <div class="step-title">토큰 복사 후 MSMR에 붙여넣기</div>
+          <div class="step-desc">한 번만 입력하면 저장됩니다</div>
+        </div>
+      </div>
+
+      <div class="highlight">
+        <strong>토큰은 한 번만 입력하면 됩니다.</strong><br>
+        브라우저에 저장되어 다음부터는 자동으로 사용됩니다.
+      </div>
+    </div>
+
+    <!-- ═══ FAQ ═══ -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="num">❓</span>
+        자주 묻는 질문
+      </h2>
+
+      <div class="faq">
+        <div class="faq-item">
+          <div class="faq-q">Q. 다운로드한 영상 화질이 안 좋아요</div>
+          <div class="faq-a">A. 원본 유튜브 영상 화질 그대로입니다. MSMR은 화질을 낮추지 않습니다.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">Q. 처리가 너무 오래 걸려요</div>
+          <div class="faq-a">A. 보통 2-5분입니다. 10분 넘으면 새로고침 후 다시 시도하세요.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">Q. "토큰이 만료되었습니다" 오류</div>
+          <div class="faq-a">A. GitHub에서 새 토큰을 발급받아 다시 입력하세요.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">Q. 자른 영상은 어디에 저장되나요?</div>
+          <div class="faq-a">A. GitHub Actions 서버에 24시간 보관됩니다. 링크 클릭해서 다운로드하세요.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">Q. 쇼츠용 세로 영상으로 만들고 싶어요</div>
+          <div class="faq-a">A. 현재는 원본 비율 유지만 지원합니다. 세로 크롭은 CapCut 같은 앱에서 하세요.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">Q. 저작권 문제 없나요?</div>
+          <div class="faq-a">A. 본인 영상만 사용하세요. 남의 영상 무단 사용은 저작권 위반입니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CTA ═══ -->
+    <a href="./" class="cta">MSMR Cut 사용하기 →</a>
+
+    <p style="text-align: center; margin-top: 32px; font-size: 12px; color: var(--muted);">
+      好爺堂 Studio OS · MSMR v1.0
+    </p>
+  </div>
+</body>
+</html>
