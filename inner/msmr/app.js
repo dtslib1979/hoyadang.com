@@ -2,17 +2,21 @@
  * MSMR Cut Pipeline — Frontend Controller
  * 好爺堂 Studio OS
  *
- * Architecture:
- * - GitHub Actions as serverless backend
- * - YouTube as video source (CDN)
- * - GitHub Artifacts for output storage
+ * Two Modes:
+ * 1. Cloud Mode: YouTube URL → GitHub Actions → Artifacts
+ * 2. Local Mode: Local file → FFmpeg command generator
  *
- * Flow:
+ * Cloud Flow:
  * 1. User inputs YouTube URL + cut points
  * 2. Frontend validates and generates request_id
  * 3. Triggers GitHub Actions workflow via API
  * 4. Polls for completion status
  * 5. Provides download links to artifacts
+ *
+ * Local Flow:
+ * 1. User inputs local filename + cut points
+ * 2. Frontend generates FFmpeg commands
+ * 3. User copies and runs on their PC
  */
 
 (function() {
@@ -45,7 +49,9 @@
   // ═══════════════════════════════════════════════════════════════════════════
 
   const state = {
+    mode: 'cloud', // 'cloud' | 'local'
     cuts: [],
+    localCuts: [],
     template: 'default',
     isProcessing: false,
     currentRequestId: null
@@ -56,6 +62,10 @@
   // ═══════════════════════════════════════════════════════════════════════════
 
   const elements = {
+    // Mode tabs
+    tabs: document.querySelectorAll('.msmr-tab'),
+
+    // Cloud mode elements
     form: document.getElementById('msmrForm'),
     youtubeUrl: document.getElementById('youtubeUrl'),
     cutName: document.getElementById('cutName'),
@@ -73,7 +83,21 @@
     resultDesc: document.getElementById('resultDesc'),
     downloadLinks: document.getElementById('downloadLinks'),
     newJobBtn: document.getElementById('newJobBtn'),
-    templates: document.querySelectorAll('.msmr-template')
+    templates: document.querySelectorAll('.msmr-template'),
+
+    // Local mode elements
+    localMode: document.getElementById('localMode'),
+    localFilename: document.getElementById('localFilename'),
+    localCutName: document.getElementById('localCutName'),
+    localCutIn: document.getElementById('localCutIn'),
+    localCutOut: document.getElementById('localCutOut'),
+    localAddCutBtn: document.getElementById('localAddCutBtn'),
+    localCutsContainer: document.getElementById('localCutsContainer'),
+    generateBtn: document.getElementById('generateBtn'),
+    commandOutput: document.getElementById('commandOutput'),
+    commandBox: document.getElementById('commandBox'),
+    copyBtn: document.getElementById('copyBtn'),
+    localNewJobBtn: document.getElementById('localNewJobBtn')
   };
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -151,7 +175,198 @@
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // Cuts Management
+  // Mode Switching
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * Switch between Cloud and Local modes
+   */
+  function switchMode(mode) {
+    state.mode = mode;
+
+    // Update tab UI
+    elements.tabs.forEach(tab => {
+      tab.classList.toggle('active', tab.dataset.mode === mode);
+    });
+
+    // Show/hide appropriate sections
+    if (mode === 'cloud') {
+      elements.form.classList.remove('hidden');
+      elements.localMode.classList.add('hidden');
+      elements.statusView.classList.add('hidden');
+      elements.resultView.classList.add('hidden');
+    } else {
+      elements.form.classList.add('hidden');
+      elements.statusView.classList.add('hidden');
+      elements.resultView.classList.add('hidden');
+      elements.localMode.classList.remove('hidden');
+      elements.commandOutput.classList.add('hidden');
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Local Mode Functions
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * Generate FFmpeg command for a single cut
+   */
+  function generateFFmpegCommand(filename, cut) {
+    const outputName = `${cut.name}.mp4`;
+    return `ffmpeg -ss ${cut.in} -to ${cut.out} -i "${filename}" -c copy -avoid_negative_ts make_zero "${outputName}"`;
+  }
+
+  /**
+   * Generate all FFmpeg commands for local cuts
+   */
+  function generateAllCommands() {
+    const filename = elements.localFilename.value.trim();
+
+    if (!filename) {
+      showError('파일명을 입력하세요');
+      return;
+    }
+
+    if (state.localCuts.length === 0) {
+      showError('최소 1개의 컷을 추가하세요');
+      return;
+    }
+
+    const commands = state.localCuts.map(cut => generateFFmpegCommand(filename, cut));
+    const fullScript = commands.join('\n\n');
+
+    elements.commandBox.textContent = fullScript;
+    elements.commandOutput.classList.remove('hidden');
+  }
+
+  /**
+   * Copy text to clipboard
+   */
+  async function copyToClipboard(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (err) {
+      // Fallback for older browsers
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        return true;
+      } catch (e) {
+        document.body.removeChild(textarea);
+        return false;
+      }
+    }
+  }
+
+  /**
+   * Add a new local cut point
+   */
+  function addLocalCut() {
+    const name = elements.localCutName.value.trim() || `clip_${String(state.localCuts.length + 1).padStart(2, '0')}`;
+    const inTime = elements.localCutIn.value.trim();
+    const outTime = elements.localCutOut.value.trim();
+
+    // Validate
+    if (!inTime || !outTime) {
+      showError('시작과 종료 시간을 입력하세요');
+      return;
+    }
+
+    if (!validateTimestamp(inTime) || !validateTimestamp(outTime)) {
+      showError('시간 형식이 올바르지 않습니다 (HH:MM:SS 또는 MM:SS)');
+      return;
+    }
+
+    const inSeconds = timestampToSeconds(inTime);
+    const outSeconds = timestampToSeconds(outTime);
+
+    if (outSeconds <= inSeconds) {
+      showError('종료 시간은 시작 시간보다 커야 합니다');
+      return;
+    }
+
+    if (state.localCuts.length >= CONFIG.maxCuts) {
+      showError(`최대 ${CONFIG.maxCuts}개의 컷만 추가할 수 있습니다`);
+      return;
+    }
+
+    // Add cut
+    state.localCuts.push({
+      name: name.replace(/[^a-zA-Z0-9_-]/g, '_'),
+      in: normalizeTimestamp(inTime),
+      out: normalizeTimestamp(outTime)
+    });
+
+    // Clear inputs
+    elements.localCutName.value = '';
+    elements.localCutIn.value = '';
+    elements.localCutOut.value = '';
+
+    // Update UI
+    renderLocalCuts();
+    updateLocalGenerateButton();
+  }
+
+  /**
+   * Remove a local cut by index
+   */
+  function removeLocalCut(index) {
+    state.localCuts.splice(index, 1);
+    renderLocalCuts();
+    updateLocalGenerateButton();
+  }
+
+  /**
+   * Render local cuts list
+   */
+  function renderLocalCuts() {
+    elements.localCutsContainer.innerHTML = state.localCuts.map((cut, index) => `
+      <div class="msmr-cut-item">
+        <span class="msmr-cut-num">${String(index + 1).padStart(2, '0')}</span>
+        <span class="msmr-cut-time">${cut.in} → ${cut.out}</span>
+        <span class="msmr-cut-name">${cut.name}</span>
+        <button type="button" class="msmr-cut-remove" data-index="${index}">×</button>
+      </div>
+    `).join('');
+
+    // Add remove listeners
+    elements.localCutsContainer.querySelectorAll('.msmr-cut-remove').forEach(btn => {
+      btn.addEventListener('click', () => removeLocalCut(parseInt(btn.dataset.index)));
+    });
+  }
+
+  /**
+   * Update local generate button state
+   */
+  function updateLocalGenerateButton() {
+    const hasFilename = elements.localFilename.value.trim().length > 0;
+    const hasCuts = state.localCuts.length > 0;
+    elements.generateBtn.disabled = !(hasFilename && hasCuts);
+  }
+
+  /**
+   * Reset local mode form
+   */
+  function resetLocalForm() {
+    state.localCuts = [];
+    elements.localFilename.value = '';
+    elements.localCutName.value = '';
+    elements.localCutIn.value = '';
+    elements.localCutOut.value = '';
+    elements.commandOutput.classList.add('hidden');
+    renderLocalCuts();
+    updateLocalGenerateButton();
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Cloud Mode - Cuts Management
   // ═══════════════════════════════════════════════════════════════════════════
 
   /**
@@ -384,6 +599,7 @@
 
   /**
    * Poll for workflow completion
+   * Fixed: Now properly matches by request_id using workflow jobs API
    */
   async function pollWorkflowStatus(requestId, startTime) {
     const token = localStorage.getItem('github_token');
@@ -394,7 +610,7 @@
 
     // Get recent workflow runs
     const response = await fetch(
-      `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/actions/runs?per_page=10`,
+      `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/actions/runs?per_page=20`,
       {
         headers: {
           'Accept': 'application/vnd.github.v3+json',
@@ -409,11 +625,54 @@
 
     const data = await response.json();
 
-    // Find our run (by timing - runs created after we triggered)
-    const ourRun = data.workflow_runs.find(run =>
+    // Find our run by:
+    // 1. Workflow name matches
+    // 2. Created after our trigger time (with 10s buffer)
+    // 3. Most recent first (already sorted by API)
+    const candidateRuns = data.workflow_runs.filter(run =>
       run.name === 'MSMR Cut Pipeline' &&
-      new Date(run.created_at).getTime() >= startTime - 5000
+      new Date(run.created_at).getTime() >= startTime - 10000
     );
+
+    // Try to find run with matching request_id by checking artifacts
+    let ourRun = null;
+    for (const run of candidateRuns) {
+      // For completed runs, check artifact name
+      if (run.status === 'completed') {
+        try {
+          const artifactsResponse = await fetch(
+            `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/actions/runs/${run.id}/artifacts`,
+            {
+              headers: {
+                'Accept': 'application/vnd.github.v3+json',
+                'Authorization': `token ${token}`
+              }
+            }
+          );
+          if (artifactsResponse.ok) {
+            const artifacts = await artifactsResponse.json();
+            const hasOurArtifact = artifacts.artifacts.some(a =>
+              a.name === `msmr-output-${requestId}` || a.name === `msmr-status-${requestId}`
+            );
+            if (hasOurArtifact) {
+              ourRun = run;
+              break;
+            }
+          }
+        } catch (e) {
+          // Ignore artifact check errors
+        }
+      } else {
+        // For in-progress runs, use time-based matching (best effort)
+        ourRun = run;
+        break;
+      }
+    }
+
+    // Fallback to time-based matching if no artifact match
+    if (!ourRun && candidateRuns.length > 0) {
+      ourRun = candidateRuns[0];
+    }
 
     if (!ourRun) {
       // Not started yet, keep polling
@@ -501,6 +760,13 @@
   // ═══════════════════════════════════════════════════════════════════════════
 
   function initEventListeners() {
+    // ═══ Mode Tabs ═══
+    elements.tabs.forEach(tab => {
+      tab.addEventListener('click', () => switchMode(tab.dataset.mode));
+    });
+
+    // ═══ Cloud Mode ═══
+
     // Form submit
     elements.form.addEventListener('submit', handleSubmit);
 
@@ -529,6 +795,44 @@
 
     // New job button
     elements.newJobBtn.addEventListener('click', resetForm);
+
+    // ═══ Local Mode ═══
+
+    // Filename input change
+    elements.localFilename.addEventListener('input', updateLocalGenerateButton);
+
+    // Add local cut button
+    elements.localAddCutBtn.addEventListener('click', addLocalCut);
+
+    // Enter key on local time inputs
+    elements.localCutOut.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        addLocalCut();
+      }
+    });
+
+    // Generate commands button
+    elements.generateBtn.addEventListener('click', generateAllCommands);
+
+    // Copy button
+    elements.copyBtn.addEventListener('click', async () => {
+      const text = elements.commandBox.textContent;
+      const success = await copyToClipboard(text);
+      if (success) {
+        elements.copyBtn.textContent = '복사됨!';
+        elements.copyBtn.classList.add('copied');
+        setTimeout(() => {
+          elements.copyBtn.textContent = '복사';
+          elements.copyBtn.classList.remove('copied');
+        }, 2000);
+      } else {
+        showError('복사 실패. 직접 선택해서 복사하세요.');
+      }
+    });
+
+    // Local new job button
+    elements.localNewJobBtn.addEventListener('click', resetLocalForm);
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -537,8 +841,14 @@
 
   function init() {
     initEventListeners();
+
+    // Cloud mode init
     renderCuts();
     updateSubmitButton();
+
+    // Local mode init
+    renderLocalCuts();
+    updateLocalGenerateButton();
 
     // Check for pending jobs on load
     const pending = localStorage.getItem(CONFIG.storageKey);

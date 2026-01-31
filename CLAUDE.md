@@ -233,6 +233,38 @@ Section 6: Portal + Ending
 
 ## 10. Development Log
 
+### 2026-01-31 (v3.2) — MSMR Cut 시스템
+
+| 작업 | 상태 |
+|------|------|
+| MSMR Cloud 모드 (YouTube → GitHub Actions) | ✓ |
+| MSMR Local 모드 (FFmpeg 명령어 생성기) | ✓ |
+| 사용설명서 (아저씨용) | ✓ |
+| inner/ 시크릿 오피스 L0 메뉴 추가 | ✓ |
+
+#### MSMR Cut 시스템
+
+| 모드 | 용도 | 특징 |
+|------|------|------|
+| **Cloud** | YouTube 영상 자르기 | GitHub Actions 백엔드, 토큰 필요 |
+| **Local** | PC 로컬 파일 자르기 | 파일 제한 없음, FFmpeg 명령어 생성 |
+
+**경로:** `hoyadang.com/inner/` → 비밀번호 1126 → L0 — MSMR Cut
+
+**파일 구조:**
+```
+inner/msmr/
+├── index.html     # UI (Cloud/Local 탭)
+├── app.js         # 프론트엔드 로직
+├── manual.html    # 사용설명서
+└── templates/
+    ├── default.json
+    └── shorts.json
+
+.github/workflows/
+└── msmr-cut.yml   # GitHub Actions 워크플로우
+```
+
 ### 2026-01-28 (v3.1)
 
 | 작업 | 상태 |
@@ -295,7 +327,7 @@ Section 6: Portal + Ending
 
 ### 다음 단계
 - [ ] 레시피 상세 페이지 (recetas/*)
-- [ ] inner/ 스튜디오 페이지
+- [x] inner/ 스튜디오 페이지 (MSMR Cut 구현됨)
 - [ ] papafly.kr 완성
 - [ ] 추가 메이킹 필름 제작
 
