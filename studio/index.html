@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1A1A1A">
+  <title>스튜디오 — 好爺堂</title>
+  <meta name="description" content="호야당 스튜디오. 4 SCENES FROM SEOUL.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../design/hoyadang.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .puerta-secreta {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--s-md);
+    }
+    .clave-input {
+      display: flex;
+      gap: var(--s-sm);
+      justify-content: center;
+      margin-top: var(--s-lg);
+    }
+    .clave-digito {
+      width: 48px;
+      height: 56px;
+      font-family: var(--f-code);
+      font-size: var(--t-xl);
+      text-align: center;
+      background: var(--masa);
+      border: 1px solid var(--trigo);
+      color: var(--carbon);
+      border-radius: 4px;
+    }
+    .clave-digito:focus {
+      outline: none;
+      border-color: var(--dorado);
+      box-shadow: 0 0 0 2px rgba(212, 168, 83, 0.2);
+    }
+    .clave-digito.error {
+      border-color: var(--tomate);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ Gate ═══ -->
+  <div class="puerta-secreta" data-gate-code="2006" id="gate">
+    <div style="text-align: center;">
+      <p class="susurro">FLOOR 2</p>
+      <h1 class="monumento monumento--hanzi mt-sm" style="font-size: 2.5rem;">스튜디오</h1>
+      <p class="susurro mt-md">비밀번호를 입력하세요</p>
+      <p class="ko mt-xs" style="font-size: 0.75rem;">4 SCENES FROM SEOUL</p>
+
+      <div class="clave-input" role="group" aria-label="비밀번호 입력">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="1번째 숫자">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="2번째 숫자">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="3번째 숫자">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="4번째 숫자">
+      </div>
+
+      <a href="../" class="puerta mt-xl" style="opacity: 0.6; display: inline-block;">← 1층으로</a>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+      const BEAT = 1000;
+      const gate = document.getElementById('gate');
+      const code = gate.getAttribute('data-gate-code');
+      const inputs = gate.querySelectorAll('.clave-digito');
+
+      if (sessionStorage.getItem('hoyadang_studio') === 'true') {
+        window.location.href = 'main.html';
+      } else {
+        inputs[0].focus();
+      }
+
+      inputs.forEach((input, i) => {
+        input.addEventListener('input', () => {
+          if (input.value && i < inputs.length - 1) inputs[i + 1].focus();
+          checkCode();
+        });
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !input.value && i > 0) inputs[i - 1].focus();
+        });
+      });
+
+      function checkCode() {
+        const entered = Array.from(inputs).map(i => i.value).join('');
+        if (entered.length === 4) {
+          if (entered === code) {
+            sessionStorage.setItem('hoyadang_studio', 'true');
+            gate.style.transition = `opacity ${BEAT}ms ease-out`;
+            gate.style.opacity = '0';
+            setTimeout(() => {
+              window.location.href = 'main.html';
+            }, BEAT);
+          } else {
+            inputs.forEach(i => { i.value = ''; i.classList.add('error'); });
+            inputs[0].focus();
+            setTimeout(() => inputs.forEach(i => { i.classList.remove('error'); }), BEAT);
+          }
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

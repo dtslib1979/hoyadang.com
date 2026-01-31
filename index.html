@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -7,38 +7,23 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-  <title>好爺堂 — Tu cocina. Sabor coreano.</title>
-  <meta name="description" content="好爺堂 (호야당) — Recetas coreanas para tu cocina. Con las manos. 손으로. K-Food tutorials con sartén, airfryer y microondas.">
-  <meta name="keywords" content="好爺堂, 호야당, hoyadang, K-food, croqueta coreana, 고로케, recetas coreanas, korean recipes, airfryer recipes">
-
-  <!-- Bilingual SEO -->
-  <meta name="description" lang="ko" content="好爺堂 호야당 — 당신의 주방에서 한국의 맛을. 손으로 전하는 K-Food 레시피. 팬, 에어프라이어, 전자레인지로 80% 재현.">
+  <title>好爺堂 — 호야당 베이커리</title>
+  <meta name="description" content="好爺堂 호야당 — 안양 만안구 빵집. 20년 전통 수제 고로케와 도넛. 매일 아침 갓 구운 빵.">
+  <meta name="keywords" content="好爺堂, 호야당, 안양빵집, 만안구빵집, 고로케, 도넛, 베이커리">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="好爺堂 — Con las manos. 손으로.">
-  <meta property="og:description" content="Recetas coreanas para tu cocina. K-Food que podés hacer en casa.">
+  <meta property="og:title" content="好爺堂 호야당 베이커리">
+  <meta property="og:description" content="안양 만안구 20년 전통 빵집. 수제 고로케와 도넛.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hoyadang.com/">
   <meta property="og:site_name" content="好爺堂">
-  <meta property="og:locale" content="es_ES">
-  <meta property="og:locale:alternate" content="ko_KR">
-  <meta property="og:image" content="https://img.youtube.com/vi/kBe0qb_Stz4/maxresdefault.jpg">
-  <meta property="og:image:width" content="1280">
-  <meta property="og:image:height" content="720">
-  <meta property="og:image:alt" content="K-컵떡볶이 도넛 — 好爺堂 Seoul Street Food">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="好爺堂 — Con las manos. 손으로.">
-  <meta name="twitter:description" content="Recetas coreanas para tu cocina. K-Food que podés hacer en casa.">
-  <meta name="twitter:image" content="https://img.youtube.com/vi/kBe0qb_Stz4/maxresdefault.jpg">
-  <meta name="twitter:image:alt" content="K-컵떡볶이 도넛 — 好爺堂 Seoul Street Food">
+  <meta property="og:locale" content="ko_KR">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Restaurant",
+    "@type": "Bakery",
     "name": "好爺堂",
     "alternateName": "호야당",
     "url": "https://hoyadang.com/",
@@ -52,7 +37,7 @@
     },
     "servesCuisine": ["Korean", "Bakery", "Croquette"],
     "openingHours": "Mo-Sa 08:00-20:00",
-    "priceRange": "₩4,500-₩15,000"
+    "priceRange": "₩2,000-₩5,000"
   }
   </script>
 
@@ -61,681 +46,293 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.svg">
   <meta name="apple-mobile-web-app-title" content="好爺堂">
-  <meta name="application-name" content="好爺堂">
-  <meta name="msapplication-TileColor" content="#D4A853">
-
-  <!-- Preload -->
-  <link rel="preload" href="design/hoyadang.css" as="style">
-  <link rel="preload" href="design/entrada.js" as="script">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Noto+Sans+KR:wght@400;500&family=Noto+Serif+KR:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Design System -->
-  <link rel="stylesheet" href="design/hoyadang.css">
+  <style>
+    :root {
+      --harina: #FFFAF5;
+      --masa: #F5E6D3;
+      --dorado: #D4A853;
+      --carbon: #1A1A1A;
+      --trigo: #E8D5B7;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--harina);
+      color: var(--carbon);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .header {
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--trigo);
+    }
+
+    .logo {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 2.5rem;
+      font-weight: 500;
+      color: var(--carbon);
+      letter-spacing: 0.1em;
+    }
+
+    .logo-sub {
+      font-size: 0.875rem;
+      color: #666;
+      margin-top: 0.25rem;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 4rem 1.5rem;
+      text-align: center;
+      background: var(--masa);
+    }
+
+    .hero-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.75rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: #555;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .hero-since {
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--dorado);
+      letter-spacing: 0.2em;
+    }
+
+    /* Menu Section */
+    .menu {
+      padding: 3rem 1.5rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.25rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--carbon);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .menu-item {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .menu-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+
+    .menu-name {
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .menu-price {
+      font-size: 0.875rem;
+      color: var(--dorado);
+    }
+
+    /* Info Section */
+    .info {
+      padding: 3rem 1.5rem;
+      background: var(--masa);
+    }
+
+    .info-content {
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .info-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .info-label {
+      font-size: 0.75rem;
+      color: #888;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-value {
+      font-size: 1rem;
+    }
+
+    .info-value a {
+      color: var(--carbon);
+      text-decoration: none;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-top: 1px solid var(--trigo);
+    }
+
+    .footer-logo {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: #888;
+    }
+
+    /* Hidden Portal */
+    .portal {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      background: var(--carbon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0.15;
+      transition: opacity 0.3s;
+      text-decoration: none;
+    }
+
+    .portal:hover {
+      opacity: 0.8;
+    }
+
+    .portal svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--harina);
+    }
+
+    @media (min-width: 600px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+      .menu-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  </style>
 </head>
-<body class="con-reproductor">
+<body>
 
-  <!-- ═══ FILM FRAME — PC Desktop Experience ═══ -->
-  <!-- 과거-현재-미래: 가운데만 선명, 좌우는 필름 스트립 -->
-  <div class="film-bar-top" aria-hidden="true">
-    <span class="kodak-mark">KODAK 5247</span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="frame-counter">▶ 001</span>
-  </div>
+  <!-- Header -->
+  <header class="header">
+    <h1 class="logo">好爺堂</h1>
+    <p class="logo-sub">호야당 베이커리</p>
+  </header>
 
-  <div class="film-side-left" aria-hidden="true">
-    <span class="film-label-side">EXPOSED — 과거</span>
-  </div>
-
-  <div class="film-side-right" aria-hidden="true">
-    <span class="film-label-side">UNEXPOSED — 미래</span>
-  </div>
-
-  <div class="film-bar-bottom" aria-hidden="true">
-    <span class="kodak-mark">好爺堂</span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-    <span class="sprocket-hole"></span>
-  </div>
-
-
-  <!-- ═══ INTRO — Shutter Opening ═══ -->
-  <div class="intro" id="intro" role="presentation" aria-hidden="true">
-    <video class="intro-video" autoplay muted loop playsinline preload="auto"
-      poster="https://images.pexels.com/photos/10009356/pexels-photo-10009356.jpeg?auto=compress&cs=tinysrgb&w=800">
-      <source src="https://videos.pexels.com/video-files/3209831/3209831-sd_640_360_25fps.mp4" type="video/mp4">
-    </video>
-
-    <div class="intro-contenido">
-      <h1 class="intro-titulo">Con las manos.</h1>
-      <p class="intro-subtitulo">손으로.</p>
-    </div>
-
-    <button class="intro-skip" aria-label="건너뛰기">건너뛰기</button>
-  </div>
-
-
-  <!-- ═══ Steam — 김/증기 ═══ -->
-  <div class="steam-container" id="steamContainer" aria-hidden="true">
-    <canvas id="steamCanvas"></canvas>
-  </div>
-
-
-  <!-- ═══ Floor Indicator ═══ -->
-  <nav class="piso-indicator" aria-label="Navigation">
-    <div class="piso-dot active" data-paso="1"></div>
-    <div class="piso-dot" data-paso="2"></div>
-    <div class="piso-dot" data-paso="3"></div>
-    <div class="piso-dot" data-paso="4"></div>
-    <div class="piso-dot" data-paso="5"></div>
-  </nav>
-
-
-  <!-- ═══ Vignette ═══ -->
-  <div class="vignette" aria-hidden="true"></div>
-
-
-  <!-- ═══ Film Date Stamp ═══ -->
-  <div class="film-date" aria-hidden="true">'26 01 27</div>
-
-
-  <!-- ═══ I. Monumento — Hero ═══ -->
-  <section class="espacio-centro" aria-label="Entrada">
-    <p class="susurro latido">COOKING PROTOCOL FOR <span class="dorado">HANDS</span></p>
-
-    <h1 class="monumento monumento--hanzi mt-lg">好爺堂</h1>
-
-    <p class="voz mt-xl">
-      No enseñamos <span class="dorado">recetas</span>.<br>
-      Editamos el lenguaje de las <span class="dorado">manos</span>.
+  <!-- Hero -->
+  <section class="hero">
+    <h2 class="hero-title">매일 아침, 갓 구운 빵</h2>
+    <p class="hero-desc">
+      20년 노하우로 만드는 수제 고로케와 도넛.<br>
+      정성을 담아 손으로 빚습니다.
     </p>
-    <span lang="ko" class="ko mt-sm">레시피를 가르치지 않습니다. 손의 언어를 편집합니다.</span>
-
-    <div class="linea"></div>
-
-    <a href="#pasos" class="puerta puerta--principal" aria-label="Entrar">
-      Entrá.
-    </a>
+    <p class="hero-since">SINCE 2006</p>
   </section>
 
-
-  <!-- ═══ II. Los 5 Pasos ═══ -->
-  <section class="espacio" id="pasos" aria-label="5 Pasos">
-
-    <!-- PASO 1: Preparar -->
-    <article class="paso paso--preparar revelar" aria-label="Paso 1: Preparar">
-      <div class="paso-header">
-        <span class="paso-numero">1</span>
-        <h2 class="paso-titulo">Preparar</h2>
-        <span class="paso-subtitulo">준비</span>
+  <!-- Menu -->
+  <section class="menu">
+    <h3 class="section-title">인기 메뉴</h3>
+    <div class="menu-grid">
+      <div class="menu-item">
+        <img src="assets/icons/K-컵떡볶이 도넛.png" alt="고로케">
+        <p class="menu-name">고로케</p>
+        <p class="menu-price">₩2,500</p>
       </div>
-
-      <p class="voz">
-        Los ingredientes esperan. Las manos se lavan.<br>
-        Todo empieza con la preparación.
-      </p>
-      <span class="ko">재료가 기다립니다. 손을 씻습니다. 모든 것은 준비에서 시작됩니다.</span>
-    </article>
-  </section>
-
-
-  <!-- ═══ Film Strip — K-Food Showcase ═══ -->
-  <section class="film-strip revelar" aria-label="K-Food Showcase">
-    <!-- Frame 1: K-도넛 버거 -->
-    <div class="film-frame-item">
-      <span class="film-number">01</span>
-      <img class="film-imagen"
-           src="assets/icons/K-도넛 버거.png"
-           alt="K-도넛 버거"
-           loading="lazy">
-      <span class="film-label">K-DONUT BURGER</span>
-    </div>
-
-    <!-- Frame 2: K-모찌 도넛 -->
-    <div class="film-frame-item">
-      <span class="film-number">02</span>
-      <img class="film-imagen"
-           src="assets/icons/K-모찌 도넛.png"
-           alt="K-모찌 도넛"
-           loading="lazy">
-      <span class="film-label">K-MOCHI DONUT</span>
-    </div>
-
-    <!-- Frame 3: K-컵떡볶이 도넛 -->
-    <div class="film-frame-item">
-      <span class="film-number">03</span>
-      <img class="film-imagen"
-           src="assets/icons/K-컵떡볶이 도넛.png"
-           alt="K-컵떡볶이 도넛"
-           loading="lazy">
-      <span class="film-label">K-CUP TTEOKBOKKI</span>
-    </div>
-
-    <!-- Frame 4: K-토스트 바 -->
-    <div class="film-frame-item">
-      <span class="film-number">04</span>
-      <img class="film-imagen"
-           src="assets/icons/K-토스트 바.png"
-           alt="K-토스트 바"
-           loading="lazy">
-      <span class="film-label">K-TOAST BAR</span>
-    </div>
-  </section>
-
-
-  <!-- ═══ PASO 2: Formar ═══ -->
-  <section class="paso paso--formar revelar" aria-label="Paso 2: Formar">
-    <div class="paso-header">
-      <span class="paso-numero">2</span>
-      <h2 class="paso-titulo">Formar</h2>
-      <span class="paso-subtitulo">빚기</span>
-    </div>
-
-    <p class="voz">
-      Las manos dan forma. La masa obedece.<br>
-      Cada croqueta es única.
-    </p>
-    <span class="ko">손이 모양을 만듭니다. 반죽이 따릅니다. 모든 고로케는 유일합니다.</span>
-
-    <div class="herramientas mt-xl">
-      <div class="herramienta">
-        <div class="herramienta-icono">
-          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="22" cy="24" r="14" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="36" y1="24" x2="46" y2="24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="22" cy="24" r="8" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
-          </svg>
-        </div>
-        <div class="herramienta-info">
-          <h3 class="herramienta-nombre">Sartén</h3>
-          <p class="herramienta-desc">프라이팬 — El clásico. Todo empieza aquí.</p>
-        </div>
+      <div class="menu-item">
+        <img src="assets/icons/K-모찌 도넛.png" alt="모찌 도넛">
+        <p class="menu-name">모찌 도넛</p>
+        <p class="menu-price">₩3,000</p>
       </div>
-
-      <div class="herramienta">
-        <div class="herramienta-icono">
-          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M24 12 C30 16, 30 20, 24 24 C18 28, 18 32, 24 36" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="24" cy="24" r="3" fill="currentColor" opacity="0.4"/>
-          </svg>
-        </div>
-        <div class="herramienta-info">
-          <h3 class="herramienta-nombre">Airfryer</h3>
-          <p class="herramienta-desc">에어프라이어 — Crujiente sin aceite.</p>
-        </div>
+      <div class="menu-item">
+        <img src="assets/icons/K-도넛 버거.png" alt="도넛 버거">
+        <p class="menu-name">도넛 버거</p>
+        <p class="menu-price">₩4,500</p>
       </div>
-
-      <div class="herramienta">
-        <div class="herramienta-icono">
-          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="8" y="12" width="32" height="24" rx="2" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M18 20 Q21 24, 18 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M24 18 Q28 24, 24 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M30 20 Q33 24, 30 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="herramienta-info">
-          <h3 class="herramienta-nombre">Microondas</h3>
-          <p class="herramienta-desc">전자레인지 — Rápido y eficiente.</p>
-        </div>
+      <div class="menu-item">
+        <img src="assets/icons/K-토스트 바.png" alt="토스트 바">
+        <p class="menu-name">토스트 바</p>
+        <p class="menu-price">₩3,500</p>
       </div>
     </div>
   </section>
 
-
-  <!-- ═══ PASO 3: Cocinar ═══ -->
-  <section class="paso paso--cocinar revelar" aria-label="Paso 3: Cocinar">
-    <div class="paso-header">
-      <span class="paso-numero" style="color: var(--dorado);">3</span>
-      <h2 class="paso-titulo">Cocinar</h2>
-      <span class="paso-subtitulo">요리</span>
+  <!-- Info -->
+  <section class="info">
+    <div class="info-content">
+      <div class="info-item">
+        <p class="info-label">영업시간</p>
+        <p class="info-value">월-토 08:00 - 20:00<br>일요일 휴무</p>
+      </div>
+      <div class="info-item">
+        <p class="info-label">위치</p>
+        <p class="info-value">경기도 안양시 만안구 와룡로 12-1</p>
+      </div>
+      <div class="info-item">
+        <p class="info-label">연락처</p>
+        <p class="info-value"><a href="tel:+82-70-8886-3300">070-8886-3300</a></p>
+      </div>
     </div>
-
-    <p class="voz">
-      El fuego transforma. El aceite canta.<br>
-      Las manos observan el momento justo.
-    </p>
-    <span class="ko">불이 변화시킵니다. 기름이 노래합니다. 손은 정확한 순간을 지켜봅니다.</span>
-
-    <p class="susurro mt-xl" style="color: var(--dorado);">80% REPRODUCCIÓN</p>
-    <p class="voz mt-sm">
-      Con herramientas simples,<br>
-      lográs el 80% del sabor original.
-    </p>
-    <span class="ko">간단한 도구로 원래 맛의 80%를 재현합니다.</span>
   </section>
 
-
-  <!-- ═══ PASO 4: 4 SCENES FROM SEOUL ═══ -->
-  <section class="film-archive revelar" id="scenes" aria-label="4 Scenes from Seoul">
-
-    <!-- Cinematic Header -->
-    <div class="film-archive-header">
-      <div class="kodak-band kodak-band--top"></div>
-      <div class="kodak-logo">
-        <span class="kodak-k">K</span>
-        <div class="kodak-stripes">
-          <span></span><span></span><span></span>
-        </div>
-      </div>
-      <div class="film-archive-title">
-        <p class="film-stock">K-DONUT CINEMATIC LINE</p>
-        <h2 class="archive-titulo">4 SCENES FROM SEOUL</h2>
-        <p class="archive-subtitulo">서울의 네 장면</p>
-      </div>
-      <div class="film-counter">
-        <span class="counter-label">SCENES</span>
-        <span class="counter-num">04</span>
-      </div>
-    </div>
-
-    <!-- Cinematic Intro -->
-    <div class="film-archive-intro">
-      <p class="voz">
-        Recetas, no. <span class="dorado">Películas</span>.<br>
-        Esto no es un menú. Es un tráiler de Seúl.
-      </p>
-      <span class="ko">레시피가 아닙니다. 서울을 경험하는 영화입니다.</span>
-    </div>
-
-    <!-- Film Strip Container -->
-    <div class="film-strip-archive">
-
-      <!-- Sprocket holes - left -->
-      <div class="sprocket-column sprocket-column--left">
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-      </div>
-
-      <!-- Scene Cards -->
-      <div class="film-frames">
-
-        <!-- SCENE 01: K-컵떡볶이 도넛 -->
-        <article class="film-frame-card" data-frame="01" data-video-id="kBe0qb_Stz4">
-          <div class="frame-number">SCENE 01</div>
-          <div class="frame-window scene-video">
-            <iframe
-              class="scene-iframe"
-              src="https://www.youtube.com/embed/kBe0qb_Stz4?modestbranding=1&rel=0&showinfo=0&controls=0&loop=1&playlist=kBe0qb_Stz4&mute=1&playsinline=1&iv_load_policy=3&fs=0&disablekb=1&start=3"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              loading="lazy">
-            </iframe>
-          </div>
-          <div class="frame-data">
-            <h3 class="frame-title">K-컵떡볶이 도넛</h3>
-            <p class="frame-tagline">불 · 매움 · 야시장</p>
-            <p class="frame-vibe">서울의 밤, 포장마차 연기</p>
-            <div class="frame-meta">
-              <span class="frame-tool frame-tool--pan">PAN</span>
-              <span class="frame-recreate">RECREATE</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- SCENE 02: K-모찌 도넛 -->
-        <article class="film-frame-card" data-frame="02" data-video-id="tu7uUR4beSo">
-          <div class="frame-number">SCENE 02</div>
-          <div class="frame-window scene-video">
-            <iframe
-              class="scene-iframe"
-              src="https://www.youtube.com/embed/tu7uUR4beSo?modestbranding=1&rel=0&showinfo=0&controls=0&loop=1&playlist=tu7uUR4beSo&mute=1&playsinline=1&iv_load_policy=3&fs=0&disablekb=1&start=3"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              loading="lazy">
-            </iframe>
-          </div>
-          <div class="frame-data">
-            <h3 class="frame-title">K-모찌 도넛</h3>
-            <p class="frame-tagline">쫀득 · 폭발 · 터지는 속</p>
-            <p class="frame-vibe">한 입에 터지는 쾌감</p>
-            <div class="frame-meta">
-              <span class="frame-tool frame-tool--air">AIR</span>
-              <span class="frame-recreate">RECREATE</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- SCENE 03: K-도넛 버거 -->
-        <article class="film-frame-card" data-frame="03" data-video-id="tJMnHI-Gz3U">
-          <div class="frame-number">SCENE 03</div>
-          <div class="frame-window scene-video">
-            <iframe
-              class="scene-iframe"
-              src="https://www.youtube.com/embed/tJMnHI-Gz3U?modestbranding=1&rel=0&showinfo=0&controls=0&loop=1&playlist=tJMnHI-Gz3U&mute=1&playsinline=1&iv_load_policy=3&fs=0&disablekb=1&start=3"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              loading="lazy">
-            </iframe>
-          </div>
-          <div class="frame-data">
-            <h3 class="frame-title">K-도넛 버거</h3>
-            <p class="frame-tagline">단짠 · 과잉 · 파인애플</p>
-            <p class="frame-vibe">과잉의 미학, 그게 K다</p>
-            <div class="frame-meta">
-              <span class="frame-tool frame-tool--air">AIR</span>
-              <span class="frame-recreate">RECREATE</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- SCENE 04: K-토스트 바 -->
-        <article class="film-frame-card" data-frame="04" data-video-id="HrEcbp-b_7s">
-          <div class="frame-number">SCENE 04</div>
-          <div class="frame-window scene-video">
-            <iframe
-              class="scene-iframe"
-              src="https://www.youtube.com/embed/HrEcbp-b_7s?modestbranding=1&rel=0&showinfo=0&controls=0&loop=1&playlist=HrEcbp-b_7s&mute=1&playsinline=1&iv_load_policy=3&fs=0&disablekb=1&start=3"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              loading="lazy">
-            </iframe>
-          </div>
-          <div class="frame-data">
-            <h3 class="frame-title">K-토스트 바</h3>
-            <p class="frame-tagline">철판 · 연기 · 손맛</p>
-            <p class="frame-vibe">길거리 퍼포먼스</p>
-            <div class="frame-meta">
-              <span class="frame-tool frame-tool--pan">PAN</span>
-              <span class="frame-recreate">RECREATE</span>
-            </div>
-          </div>
-        </article>
-
-      </div>
-
-      <!-- Sprocket holes - right -->
-      <div class="sprocket-column sprocket-column--right">
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-      </div>
-
-    </div>
-
-    <!-- THE SHORTCUT — Microwave -->
-    <div class="shortcut-section">
-      <div class="shortcut-icon">
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="8" y="12" width="32" height="24" rx="2" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M18 20 Q21 24, 18 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M24 18 Q28 24, 24 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M30 20 Q33 24, 30 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <p class="shortcut-title">THE SHORTCUT</p>
-      <p class="shortcut-subtitle">전자레인지 3분 리히트</p>
-      <p class="shortcut-desc">바쁜 당신을 위한 되살리기</p>
-    </div>
-
-    <!-- Film Archive Footer -->
-    <div class="film-archive-footer">
-      <div class="kodak-band kodak-band--bottom"></div>
-      <p class="film-note">K-DONUT CINEMATIC LINE · 好爺堂</p>
-    </div>
-
-  </section>
-
-
-  <!-- ═══ PASO 5: El Estudio ═══ -->
-  <section class="paso paso--estudio revelar" id="estudio" aria-label="El Estudio">
-    <div class="paso-header">
-      <span class="paso-numero">5</span>
-      <h2 class="paso-titulo">El Estudio</h2>
-      <span class="paso-subtitulo">스튜디오</span>
-    </div>
-
-    <!-- Polaroid — papafly.kr 연결 -->
-    <a href="https://papafly.kr" target="_blank" rel="noopener" class="estudio-polaroid-link">
-      <div class="estudio-polaroid">
-        <img src="assets/icons/Chef.png" alt="好爺堂 Chef" loading="lazy">
-        <p class="polaroid-text">好爺堂 · Since 2006</p>
-      </div>
-    </a>
-
-    <p class="voz mt-xl" style="text-align: center;">
-      Un fotógrafo que cocina.<br>
-      Un cocinero que fotografía.
-    </p>
-    <span class="ko" style="text-align: center; display: block;">요리하는 사진작가. 사진 찍는 요리사.</span>
-    <p class="susurro mt-md" style="text-align: center; opacity: 0.5;">→ papafly.kr</p>
-  </section>
-
-
-  <!-- ═══ Ending ═══ -->
-  <section class="ending revelar" aria-label="Ending">
-    <img class="ending-mano"
-         src="assets/icons/Chef.png"
-         alt="好爺堂 Chef"
-         loading="lazy">
-
-    <p class="ending-firma">Con las manos.</p>
-    <p class="ending-firma-ko">손으로.</p>
-
-    <div class="linea mt-lg"></div>
-
-    <p class="susurro mt-lg">好爺堂</p>
-  </section>
-
-
-  <!-- ═══ Portal — 손도장 ═══ -->
-  <section class="espacio-centro revelar" aria-label="Portal" id="portal">
-    <p class="susurro">PARA LOS QUE QUIEREN MÁS</p>
-    <p class="ko" style="margin-top: 8px;">더 알고 싶은 분들을 위해</p>
-
-    <a href="inner/" class="huella-link mt-lg" aria-label="스튜디오 입장">
-      <svg class="huella-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <!-- Abstract: Concentric arcs suggesting touch/ripple -->
-        <circle class="huella-ring huella-ring--1" cx="50" cy="50" r="45" />
-        <circle class="huella-ring huella-ring--2" cx="50" cy="50" r="35" />
-        <circle class="huella-ring huella-ring--3" cx="50" cy="50" r="25" />
-        <circle class="huella-ring huella-ring--4" cx="50" cy="50" r="15" />
-        <!-- Center point -->
-        <circle class="huella-core" cx="50" cy="50" r="4" />
-        <!-- Vertical line suggesting entry -->
-        <line class="huella-entry" x1="50" y1="58" x2="50" y2="75" />
-      </svg>
-      <span class="huella-label">스튜디오 입장</span>
-    </a>
-  </section>
-
-
-  <!-- ═══ Footer ═══ -->
-  <footer class="pie">
-    <p class="pie-logo">好爺堂</p>
-    <p class="pie-direccion">
-      경기도 안양시 만안구 와룡로 12-1<br>
-      Anyang, Gyeonggi-do, South Korea
-    </p>
-    <p class="pie-copy">© 2026 好爺堂. All rights reserved.</p>
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-logo">好爺堂</p>
+    <p class="footer-copy">&copy; 2026 好爺堂. All rights reserved.</p>
   </footer>
 
-
-  <!-- ═══ Audio Player ═══ -->
-  <div class="reproductor" role="region" aria-label="Audio Player">
-    <button class="reproductor-btn" id="audioBtn" aria-label="Play/Pause">
-      <svg id="audioIcon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 5v14l11-7z"/>
-      </svg>
-    </button>
-    <div class="reproductor-info">
-      <span class="reproductor-titulo">Feels So Good</span> — Chuck Mangione
-    </div>
-  </div>
-
-
-  <!-- YouTube Player (Hidden) -->
-  <div id="ytPlayer" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;"></div>
-
-
-  <!-- Scripts -->
-  <script src="design/entrada.js"></script>
-
-  <!-- YouTube Audio — espiritu-tango 방식 그대로 -->
-  <script>
-  (function() {
-    'use strict';
-    var VIDEO_ID = 'ZOtxTyJmxVI';
-    var playBtn = document.getElementById('audioBtn');
-    var playIcon = document.getElementById('audioIcon');
-    var player;
-    var started = false;
-
-    var tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(tag);
-
-    window.onYouTubeIframeAPIReady = function() {
-      player = new YT.Player('ytPlayer', {
-        videoId: VIDEO_ID,
-        playerVars: {
-          loop: 1,
-          playlist: VIDEO_ID,
-          controls: 0,
-          disablekb: 1,
-          fs: 0,
-          modestbranding: 1,
-          playsinline: 1,
-          rel: 0
-        },
-        events: {
-          onStateChange: function(e) {
-            if (e.data === YT.PlayerState.PLAYING) {
-              playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-            } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
-              playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
-            }
-          }
-        }
-      });
-    };
-
-    function startAudio() {
-      if (started || !player) return;
-      started = true;
-      player.setVolume(80);
-      player.unMute();
-      player.playVideo();
-    }
-
-    // Double tap to play
-    var tapCount = 0;
-    var tapTimer;
-    document.addEventListener('touchend', function() {
-      tapCount++;
-      if (tapCount === 1) {
-        tapTimer = setTimeout(function() { tapCount = 0; }, 400);
-      } else if (tapCount === 2) {
-        clearTimeout(tapTimer);
-        tapCount = 0;
-        startAudio();
-      }
-    }, { passive: true });
-
-    // Play button click
-    if (playBtn) {
-      playBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (!player) return;
-        if (!started) { startAudio(); return; }
-        var state = player.getPlayerState();
-        if (state === YT.PlayerState.PLAYING) {
-          player.pauseVideo();
-        } else {
-          player.playVideo();
-        }
-      });
-    }
-  })();
-  </script>
-
-  <!-- Film Archive Script -->
-  <script>
-  (function() {
-    'use strict';
-
-    var filmCards = document.querySelectorAll('.film-frame-card');
-    var currentlyPlaying = null;
-
-    filmCards.forEach(function(card) {
-      var video = card.querySelector('.frame-video');
-      var playBtn = card.querySelector('.frame-play-btn');
-
-      if (!video || !playBtn) return;
-
-      // Click to play/pause
-      card.addEventListener('click', function() {
-        if (currentlyPlaying && currentlyPlaying !== video) {
-          currentlyPlaying.pause();
-          currentlyPlaying.closest('.film-frame-card').classList.remove('playing');
-        }
-
-        if (video.paused) {
-          video.play();
-          card.classList.add('playing');
-          currentlyPlaying = video;
-        } else {
-          video.pause();
-          card.classList.remove('playing');
-          currentlyPlaying = null;
-        }
-      });
-
-      // Hover preview
-      card.addEventListener('mouseenter', function() {
-        if (video.paused && !card.classList.contains('playing')) {
-          video.currentTime = 0;
-          video.play().catch(function() {});
-        }
-      });
-
-      card.addEventListener('mouseleave', function() {
-        if (!card.classList.contains('playing')) {
-          video.pause();
-          video.currentTime = 0;
-        }
-      });
-    });
-
-    // Horizontal scroll with mouse wheel
-    var filmStrip = document.querySelector('.film-strip-archive');
-    if (filmStrip) {
-      filmStrip.addEventListener('wheel', function(e) {
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-          e.preventDefault();
-          filmStrip.scrollLeft += e.deltaY;
-        }
-      }, { passive: false });
-    }
-
-    console.log('Film Archive initialized');
-  })();
-  </script>
+  <!-- Hidden Portal to Studio (Floor 2) -->
+  <a href="studio/" class="portal" aria-label="스튜디오">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+    </svg>
+  </a>
 
 </body>
 </html>
