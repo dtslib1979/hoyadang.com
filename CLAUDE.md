@@ -233,6 +233,16 @@ Section 6: Portal + Ending
 
 ## 10. Development Log
 
+### 2026-01-31 (v3.4) — MSMR v3.1 배속 기능
+
+| 작업 | 상태 |
+|------|------|
+| 0.5x~2.0x 배속 옵션 추가 | ✓ |
+| 1.0x = -c copy (빠름, 무손실) | ✓ |
+| 배속 ≠ 1.0x = 리인코딩 (setpts+atempo) | ✓ |
+| 리인코딩 경고 UI | ✓ |
+| 매뉴얼 배속 섹션 추가 | ✓ |
+
 ### 2026-01-31 (v3.3) — MSMR v3.0 Remote 모드
 
 | 작업 | 상태 |
@@ -250,13 +260,18 @@ Section 6: Portal + Ending
 | 사용설명서 (아저씨용) | ✓ |
 | inner/ 시크릿 오피스 L0 메뉴 추가 | ✓ |
 
-#### MSMR Cut 시스템 v3.0
+#### MSMR Cut 시스템 v3.1
 
 | 모드 | 용도 | 특징 |
 |------|------|------|
 | **Cloud** | YouTube 영상 자르기 | GitHub Actions 백엔드, 토큰 필요 |
-| **Local** | PC 로컬 파일 자르기 | 파일 제한 없음, FFmpeg 명령어 생성 |
+| **Local** | PC 로컬 파일 자르기 | 파일 제한 없음, FFmpeg 명령어 생성, 배속 지원 |
 | **Remote** | 핸드폰→PC 원격 실행 | Telegram Bot, 24시간 자동화 |
+
+**배속 기능 (v3.1):**
+- 0.5x~2.0x 배속 선택
+- 1.0x = `-c copy` (무손실, 빠름)
+- 그 외 = 리인코딩 (setpts + atempo 필터, 느림)
 
 **경로:** `hoyadang.com/inner/` → 비밀번호 1126 → L0 — MSMR Cut
 
