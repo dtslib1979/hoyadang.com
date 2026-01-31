@@ -1,0 +1,70 @@
+{
+  "test_id": "test-001",
+  "test_name": "K-컵떡볶이 도넛 하이라이트 추출",
+  "created_at": "2026-01-31",
+  "status": "simulated",
+
+  "source": {
+    "platform": "youtube",
+    "video_id": "kBe0qb_Stz4",
+    "url": "https://www.youtube.com/watch?v=kBe0qb_Stz4",
+    "title": "K-컵떡볶이 도넛 메이킹",
+    "duration": "00:01:00"
+  },
+
+  "cuts": [
+    {
+      "name": "intro_hook",
+      "in": "00:00:00",
+      "out": "00:00:05",
+      "description": "오프닝 훅 - 완성된 도넛 클로즈업"
+    },
+    {
+      "name": "dough_prep",
+      "in": "00:00:10",
+      "out": "00:00:20",
+      "description": "반죽 준비 과정"
+    },
+    {
+      "name": "filling",
+      "in": "00:00:25",
+      "out": "00:00:35",
+      "description": "떡볶이 필링 넣기"
+    },
+    {
+      "name": "frying",
+      "in": "00:00:40",
+      "out": "00:00:50",
+      "description": "튀기는 장면 (PAN)"
+    },
+    {
+      "name": "final_shot",
+      "in": "00:00:55",
+      "out": "00:01:00",
+      "description": "완성 샷"
+    }
+  ],
+
+  "template": "shorts",
+
+  "expected_output": {
+    "files": [
+      "intro_hook.mp4",
+      "dough_prep.mp4",
+      "filling.mp4",
+      "frying.mp4",
+      "final_shot.mp4"
+    ],
+    "total_clips": 5
+  },
+
+  "local_mode_commands": [
+    "ffmpeg -ss 00:00:00 -to 00:00:05 -i \"kBe0qb_Stz4.mp4\" -c copy -avoid_negative_ts make_zero \"intro_hook.mp4\"",
+    "ffmpeg -ss 00:00:10 -to 00:00:20 -i \"kBe0qb_Stz4.mp4\" -c copy -avoid_negative_ts make_zero \"dough_prep.mp4\"",
+    "ffmpeg -ss 00:00:25 -to 00:00:35 -i \"kBe0qb_Stz4.mp4\" -c copy -avoid_negative_ts make_zero \"filling.mp4\"",
+    "ffmpeg -ss 00:00:40 -to 00:00:50 -i \"kBe0qb_Stz4.mp4\" -c copy -avoid_negative_ts make_zero \"frying.mp4\"",
+    "ffmpeg -ss 00:00:55 -to 00:01:00 -i \"kBe0qb_Stz4.mp4\" -c copy -avoid_negative_ts make_zero \"final_shot.mp4\""
+  ],
+
+  "notes": "MSMR 시스템 목 테스트용 샘플. 실제 GitHub Actions 실행은 토큰 필요."
+}
